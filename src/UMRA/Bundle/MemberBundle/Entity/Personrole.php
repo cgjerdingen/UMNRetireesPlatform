@@ -29,7 +29,7 @@ class Personrole
      *   @ORM\JoinColumn(name="RoleID", referencedColumnName="id")
      * })
      */
-    private $roleid;
+    private $role;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
@@ -39,14 +39,14 @@ class Personrole
      *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
      * })
      */
-    private $personid;
+    private $person;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -54,48 +54,48 @@ class Personrole
     }
 
     /**
-     * Set roleid
+     * Set role
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Role $roleid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Role $role
      * @return Personrole
      */
-    public function setRoleid(\UMRA\Bundle\MemberBundle\Entity\Role $roleid = null)
+    public function setRole(\UMRA\Bundle\MemberBundle\Entity\Role $role = null)
     {
-        $this->roleid = $roleid;
+        $this->role = $role;
 
         return $this;
     }
 
     /**
-     * Get roleid
+     * Get role
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Role 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Role
      */
-    public function getRoleid()
+    public function getRole()
     {
-        return $this->roleid;
+        return $this->role;
     }
 
     /**
-     * Set personid
+     * Set person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $personid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
      * @return Personrole
      */
-    public function setPersonid(\UMRA\Bundle\MemberBundle\Entity\Person $personid = null)
+    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
     {
-        $this->personid = $personid;
+        $this->person = $person;
 
         return $this;
     }
 
     /**
-     * Get personid
+     * Get person
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
      */
-    public function getPersonid()
+    public function getPerson()
     {
-        return $this->personid;
+        return $this->person;
     }
 }
