@@ -26,11 +26,11 @@ class ResidenceType extends AbstractType
             ->add('country')
             ->add('since')
             ->add('forseason')
-            ->add('householdid', 'entity', array(
+            ->add('household', 'entity', array(
             'class' => 'UMRAMemberBundle:Household', 'property' => 'Postalname',))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

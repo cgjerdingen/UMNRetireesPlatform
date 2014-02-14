@@ -17,13 +17,13 @@ class EmailType extends AbstractType
         $builder
             ->add('prisec')
             ->add('email')
-            ->add('personid', 'entity', array(
+            ->add('person', 'entity', array(
             'class' => 'UMRAMemberBundle:Person', 'property' => 'Fullname',))
-            ->add('householdid', 'entity', array(
+            ->add('household', 'entity', array(
             'class' => 'UMRAMemberBundle:Household', 'property' => 'Postalname',))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

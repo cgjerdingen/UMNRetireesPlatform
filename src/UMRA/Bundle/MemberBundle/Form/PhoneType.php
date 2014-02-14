@@ -17,13 +17,13 @@ class PhoneType extends AbstractType
         $builder
             ->add('phnumber')
             ->add('phtype')
-            ->add('resid', 'entity', array(
+            ->add('residence', 'entity', array(
             'class' => 'UMRAMemberBundle:Residence', 'property' => 'Address1',))
-            ->add('personid', 'entity', array(
+            ->add('person', 'entity', array(
             'class' => 'UMRAMemberBundle:Person', 'property' => 'Fullname',))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -33,12 +33,11 @@ class PersonType extends AbstractType
             ->add('activenow')
             ->add('postalnews')
             ->add('weburl')
-            ->add('householdid', 'entity', array(
+            ->add('household', 'entity', array(
 			'class' => 'UMRAMemberBundle:Household', 'property' => 'Postalname',))
         ;
-		//->add('householdid')
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
