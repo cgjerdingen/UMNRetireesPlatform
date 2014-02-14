@@ -106,7 +106,7 @@ class Residence
      *   @ORM\JoinColumn(name="HouseholdID", referencedColumnName="id")
      * })
      */
-    private $householdid;
+    private $household;
 
 
 
@@ -126,7 +126,7 @@ class Residence
     /**
      * Get prisec
      *
-     * @return integer 
+     * @return integer
      */
     public function getPrisec()
     {
@@ -149,7 +149,7 @@ class Residence
     /**
      * Get address1
      *
-     * @return string 
+     * @return string
      */
     public function getAddress1()
     {
@@ -172,7 +172,7 @@ class Residence
     /**
      * Get address2
      *
-     * @return string 
+     * @return string
      */
     public function getAddress2()
     {
@@ -195,7 +195,7 @@ class Residence
     /**
      * Get address3
      *
-     * @return string 
+     * @return string
      */
     public function getAddress3()
     {
@@ -218,7 +218,7 @@ class Residence
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -241,7 +241,7 @@ class Residence
     /**
      * Get state
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -264,7 +264,7 @@ class Residence
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -287,7 +287,7 @@ class Residence
     /**
      * Get legdistrict
      *
-     * @return string 
+     * @return string
      */
     public function getLegdistrict()
     {
@@ -310,7 +310,7 @@ class Residence
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -333,7 +333,7 @@ class Residence
     /**
      * Get since
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSince()
     {
@@ -356,7 +356,7 @@ class Residence
     /**
      * Get forseason
      *
-     * @return string 
+     * @return string
      */
     public function getForseason()
     {
@@ -366,7 +366,7 @@ class Residence
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -374,25 +374,25 @@ class Residence
     }
 
     /**
-     * Set householdid
+     * Set household
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Household $householdid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Household $household
      * @return Residence
      */
-    public function setHouseholdid(\UMRA\Bundle\MemberBundle\Entity\Household $householdid = null)
+    public function setHousehold(\UMRA\Bundle\MemberBundle\Entity\Household $household = null)
     {
-        $this->householdid = $householdid;
+        $this->household = $household;
 
         return $this;
     }
 
     /**
-     * Get householdid
+     * Get household
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Household 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Household
      */
-    public function getHouseholdid()
+    public function getHousehold()
     {
-        return $this->householdid;
+        return $this->household;
     }
 }
