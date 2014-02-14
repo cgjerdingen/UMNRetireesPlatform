@@ -29,7 +29,7 @@ class Persontrans
      *   @ORM\JoinColumn(name="TransID", referencedColumnName="id")
      * })
      */
-    private $transid;
+    private $trans;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
@@ -39,14 +39,14 @@ class Persontrans
      *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
      * })
      */
-    private $personid;
+    private $person;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -54,48 +54,48 @@ class Persontrans
     }
 
     /**
-     * Set transid
+     * Set trans
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Trans $transid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Trans $trans
      * @return Persontrans
      */
-    public function setTransid(\UMRA\Bundle\MemberBundle\Entity\Trans $transid = null)
+    public function setTrans(\UMRA\Bundle\MemberBundle\Entity\Trans $trans = null)
     {
-        $this->transid = $transid;
+        $this->trans = $trans;
 
         return $this;
     }
 
     /**
-     * Get transid
+     * Get trans
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Trans 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Trans
      */
-    public function getTransid()
+    public function getTrans()
     {
-        return $this->transid;
+        return $this->trans;
     }
 
     /**
-     * Set personid
+     * Set person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $personid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
      * @return Persontrans
      */
-    public function setPersonid(\UMRA\Bundle\MemberBundle\Entity\Person $personid = null)
+    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
     {
-        $this->personid = $personid;
+        $this->person = $person;
 
         return $this;
     }
 
     /**
-     * Get personid
+     * Get person
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
      */
-    public function getPersonid()
+    public function getPerson()
     {
-        return $this->personid;
+        return $this->person;
     }
 }
