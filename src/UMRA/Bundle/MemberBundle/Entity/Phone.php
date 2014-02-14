@@ -43,7 +43,7 @@ class Phone
      *   @ORM\JoinColumn(name="ResID", referencedColumnName="id")
      * })
      */
-    private $resid;
+    private $residence;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
@@ -53,7 +53,7 @@ class Phone
      *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
      * })
      */
-    private $personid;
+    private $person;
 
 
 
@@ -73,7 +73,7 @@ class Phone
     /**
      * Get phnumber
      *
-     * @return string 
+     * @return string
      */
     public function getPhnumber()
     {
@@ -96,7 +96,7 @@ class Phone
     /**
      * Get phtype
      *
-     * @return string 
+     * @return string
      */
     public function getPhtype()
     {
@@ -106,7 +106,7 @@ class Phone
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -114,48 +114,48 @@ class Phone
     }
 
     /**
-     * Set resid
+     * Set residence
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Residence $resid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Residence $residence
      * @return Phone
      */
-    public function setResid(\UMRA\Bundle\MemberBundle\Entity\Residence $resid = null)
+    public function setResidence(\UMRA\Bundle\MemberBundle\Entity\Residence $residence = null)
     {
-        $this->resid = $resid;
+        $this->residence = $residence;
 
         return $this;
     }
 
     /**
-     * Get resid
+     * Get residence
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Residence 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Residence
      */
-    public function getResid()
+    public function getResidence()
     {
-        return $this->resid;
+        return $this->residence;
     }
 
     /**
-     * Set personid
+     * Set person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $personid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
      * @return Phone
      */
-    public function setPersonid(\UMRA\Bundle\MemberBundle\Entity\Person $personid = null)
+    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
     {
-        $this->personid = $personid;
+        $this->person = $person;
 
         return $this;
     }
 
     /**
-     * Get personid
+     * Get person
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
      */
-    public function getPersonid()
+    public function getPerson()
     {
-        return $this->personid;
+        return $this->person;
     }
 }
