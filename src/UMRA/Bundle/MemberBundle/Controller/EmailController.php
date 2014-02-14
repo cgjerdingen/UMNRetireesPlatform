@@ -33,7 +33,7 @@ class EmailController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('UMRAMemberBundle:Email')->findBy(
-			array('personid' => $personId)
+			array('person' => $personId)
 		);
 
 
@@ -62,14 +62,12 @@ class EmailController extends Controller
         $entity = new Email();
         $form = $this->createCreateForm($entity, $personId);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPersonid()->getId())));
-            // return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $personId)));
-            // return $this->redirect($this->generateUrl('UMRA_Email_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPerson()->getId())));
         }
 
         return array(
@@ -165,7 +163,7 @@ class EmailController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'personId' => $entity->getPersonid()->getId(),
+            'personId' => $entity->getPerson()->getId(),
         );
     }
 
@@ -243,7 +241,7 @@ class EmailController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPersonid()->getId())));
+        return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPerson()->getId())));
     }
 
     /**

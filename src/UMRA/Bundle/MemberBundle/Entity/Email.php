@@ -43,7 +43,7 @@ class Email
      *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
      * })
      */
-    private $personid;
+    private $person;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Household
@@ -53,7 +53,7 @@ class Email
      *   @ORM\JoinColumn(name="HouseholdID", referencedColumnName="id")
      * })
      */
-    private $householdid;
+    private $household;
 
 
 
@@ -73,7 +73,7 @@ class Email
     /**
      * Get prisec
      *
-     * @return string 
+     * @return string
      */
     public function getPrisec()
     {
@@ -96,7 +96,7 @@ class Email
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -106,7 +106,7 @@ class Email
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -114,48 +114,48 @@ class Email
     }
 
     /**
-     * Set personid
+     * Set person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $personid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
      * @return Email
      */
-    public function setPersonid(\UMRA\Bundle\MemberBundle\Entity\Person $personid = null)
+    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
     {
-        $this->personid = $personid;
+        $this->person = $person;
 
         return $this;
     }
 
     /**
-     * Get personid
+     * Get person
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
      */
-    public function getPersonid()
+    public function getPerson()
     {
-        return $this->personid;
+        return $this->person;
     }
 
     /**
-     * Set householdid
+     * Set household
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Household $householdid
+     * @param \UMRA\Bundle\MemberBundle\Entity\Household $household
      * @return Email
      */
-    public function setHouseholdid(\UMRA\Bundle\MemberBundle\Entity\Household $householdid = null)
+    public function setHousehold(\UMRA\Bundle\MemberBundle\Entity\Household $household = null)
     {
-        $this->householdid = $householdid;
+        $this->household = $household;
 
         return $this;
     }
 
     /**
-     * Get householdid
+     * Get household
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Household 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Household
      */
-    public function getHouseholdid()
+    public function getHousehold()
     {
-        return $this->householdid;
+        return $this->household;
     }
 }
