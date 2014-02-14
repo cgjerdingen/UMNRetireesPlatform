@@ -1,0 +1,45 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Household list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Postalname</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('UMRA_Household_show', { 'id': entity.id }) }}">{{ entity.lastname }}</a></td>
+                <td>{{ entity.firstname }}</td>
+                <td>{{ entity.postalname }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('UMRA_Household_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('UMRA_Household_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('UMRA_Household_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

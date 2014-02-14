@@ -1,0 +1,53 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Trans list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Trandate</th>
+                <th>Trantype</th>
+                <th>Amount</th>
+                <th>Pmtmethod</th>
+                <th>Servicechg</th>
+                <th>Doneby</th>
+                <th>Notes</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('UMRA_Trans_show', { 'id': entity.id }) }}">{{ entity.trandate|date('Y-m-d H:i:s') }}</a></td>
+                <td>{{ entity.trantype }}</td>
+                <td>{{ entity.amount }}</td>
+                <td>{{ entity.pmtmethod }}</td>
+                <td>{{ entity.servicechg }}</td>
+                <td>{{ entity.doneby }}</td>
+                <td>{{ entity.notes }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('UMRA_Trans_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('UMRA_Trans_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('UMRA_Trans_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Masterlist" table="masterlist">
+    <id name="first" type="string" column="first" length="52"/>
+    <id name="last" type="string" column="Last" length="50"/>
+    <field name="cplsgl" type="integer" column="CplSgl" nullable="true"/>
+    <field name="splast" type="string" column="spLast" length="50" nullable="true"/>
+    <field name="spmember" type="string" column="spmember" length="50" nullable="true"/>
+    <field name="spnonmb" type="string" column="spnonmb" length="53" nullable="true"/>
+    <field name="labelname" type="string" column="labelname" length="68" nullable="true"/>
+    <field name="address" type="string" column="address" length="73" nullable="true"/>
+    <field name="city" type="string" column="city" length="50" nullable="true"/>
+    <field name="state" type="string" column="state" length="50" nullable="true"/>
+    <field name="zip" type="string" column="Zip" length="50" nullable="true"/>
+    <field name="newdistrict" type="string" column="NewDistrict" length="50" nullable="true"/>
+    <field name="telephone" type="string" column="telephone" length="50" nullable="true"/>
+    <field name="telephone2" type="string" column="Telephone2" length="50" nullable="true"/>
+    <field name="dept" type="string" column="dept" length="113" nullable="true"/>
+    <field name="emptype" type="string" column="Emptype" length="10" nullable="true"/>
+    <field name="email" type="string" column="email" length="61" nullable="true"/>
+    <field name="secondemail" type="string" column="Secondemail" length="57" nullable="true"/>
+    <field name="datejoined" type="datetime" column="Datejoined" nullable="true"/>
+    <field name="newsletter" type="string" column="Newsletter" length="50" nullable="true"/>
+    <field name="parkingcoupons" type="string" column="Parkingcoupons" length="50" nullable="true"/>
+    <field name="lunchprepay1314" type="integer" column="Lunchprepay1314" nullable="true"/>
+    <field name="dues1314" type="integer" column="Dues1314" nullable="true"/>
+    <field name="dtrcvd1314" type="datetime" column="DtRcvd1314" nullable="true"/>
+    <field name="deposit1314" type="datetime" column="Deposit1314" nullable="true"/>
+    <field name="sendcard1314" type="datetime" column="Sendcard1314" nullable="true"/>
+    <field name="comments1314" type="string" column="Comments1314" length="187" nullable="true"/>
+    <field name="twocards" type="string" column="TwoCards" length="50" nullable="true"/>
+    <field name="dues1112" type="string" column="Dues1112" length="50" nullable="true"/>
+    <field name="deposit1112" type="string" column="Deposit1112" length="52" nullable="true"/>
+    <field name="sendcard1112" type="datetime" column="Sendcard1112" nullable="true"/>
+    <field name="dtrcvd1112" type="datetime" column="DtRcvd1112" nullable="true"/>
+    <field name="comments1112" type="string" column="Comments1112" length="182" nullable="true"/>
+    <field name="umrarole" type="integer" column="UMRArole" nullable="true"/>
+    <field name="dues1213" type="integer" column="Dues1213" nullable="true"/>
+    <field name="lunchprepay" type="integer" column="Lunchprepay" nullable="true"/>
+    <field name="deposit1213" type="datetime" column="Deposit1213" nullable="true"/>
+    <field name="sendcard1213" type="datetime" column="Sendcard1213" nullable="true"/>
+    <field name="dtrcvd1213" type="datetime" column="DtRcvd1213" nullable="true"/>
+    <field name="comments1213" type="string" column="Comments1213" length="140" nullable="true"/>
+    <field name="usealtaddress" type="string" column="UseAltAddress" length="54" nullable="true"/>
+    <field name="altaddress" type="string" column="AltAddress" length="62" nullable="true"/>
+    <field name="altcity" type="string" column="AltCity" length="50" nullable="true"/>
+    <field name="altstate" type="string" column="AltState" length="50" nullable="true"/>
+    <field name="altzip" type="string" column="AltZIP" length="50" nullable="true"/>
+    <field name="altphone" type="string" column="AltPhone" length="50" nullable="true"/>
+    <field name="yrjoin" type="integer" column="Yrjoin" nullable="true"/>
+  </entity>
+</doctrine-mapping>

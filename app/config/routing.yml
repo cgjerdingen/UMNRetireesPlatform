@@ -1,0 +1,4 @@
+umra_member:
+    resource: "@UMRAMemberBundle/Resources/config/routing.yml"
+    prefix:   /
+

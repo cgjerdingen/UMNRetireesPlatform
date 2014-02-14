@@ -1,0 +1,168 @@
+UMRA_Email_show:
+    pattern:  /UMRA/Emailshow/{id}
+    defaults: { _controller: UMRAMemberBundle:Email:show }
+UMRA_Email_edit:
+    pattern:  /UMRA/Emailedit/{id}
+    defaults: { _controller: UMRAMemberBundle:Email:edit }
+UMRA_Email_update:
+    pattern:  /UMRA/Emailupdate/{id}
+    defaults: { _controller: UMRAMemberBundle:Email:update }
+UMRA_Email_new:
+    pattern:  /UMRA/Emailnew/{personId}
+    defaults: { _controller: UMRAMemberBundle:Email:new }
+UMRA_Email_create:
+    pattern: /UMRA/Emailcreate/{personId}
+    defaults: { _controller: UMRAMemberBundle:Email:create }
+UMRA_Email_delete:
+    pattern: /UMRA/Emaildelete/{id}
+    defaults: { _controller: UMRAMemberBundle:Email:delete }
+UMRA_Email:
+    pattern:  /UMRA/Email/{personId}
+    defaults: { _controller: UMRAMemberBundle:Email:index }
+UMRA_Household:
+    pattern:  /UMRA/Household
+    defaults: { _controller: UMRAMemberBundle:Household:index }
+UMRA_Household_show:
+    pattern:  /UMRA/Household/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Household:show }
+UMRA_Household_edit:
+    pattern:  /UMRA/Household/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Household:edit }
+UMRA_Household_update:
+    pattern:  /UMRA/Household/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Household:update }
+UMRA_Household_new:
+    pattern:  /UMRA/Household/new
+    defaults: { _controller: UMRAMemberBundle:Household:new }
+UMRA_Household_create:
+    pattern: /UMRA/Household/create
+    defaults: { _controller: UMRAMemberBundle:Household:create }
+UMRA_Household_delete:
+    pattern: /UMRA/Household/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Household:delete }
+UMRA_Person:
+    pattern:  /UMRA/Person
+    defaults: { _controller: UMRAMemberBundle:Person:index }
+UMRA_Person_show:
+    pattern:  /UMRA/Person/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Person:show }
+UMRA_Person_edit:
+    pattern:  /UMRA/Person/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Person:edit }
+UMRA_Person_update:
+    pattern:  /UMRA/Person/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Person:update }
+UMRA_Person_new:
+    pattern:  /UMRA/Person/new
+    defaults: { _controller: UMRAMemberBundle:Person:new }
+UMRA_Person_create:
+    pattern: /UMRA/Person/create
+    defaults: { _controller: UMRAMemberBundle:Person:create }
+UMRA_Person_delete:
+    pattern: /UMRA/Person/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Person:delete }
+UMRA_Phone:
+    pattern:  /UMRA/Phone/
+    defaults: { _controller: UMRAMemberBundle:Phone:index }
+UMRA_Phone_show:
+    pattern:  /UMRA/Phone/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Phone:show }
+UMRA_Phone_edit:
+    pattern:  /UMRA/Phone/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Phone:edit }
+UMRA_Phone_update:
+    pattern:  /UMRA/Phone/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Phone:update }
+UMRA_Phone_new:
+    pattern:  /UMRA/Phone/new
+    defaults: { _controller: UMRAMemberBundle:Phone:new }
+UMRA_Phone_create:
+    pattern: /UMRA/Phone/create
+    defaults: { _controller: UMRAMemberBundle:Phone:create }
+UMRA_Phone_delete:
+    pattern: /UMRA/Phone/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Phone:delete }
+UMRA_Photo:
+    pattern:  /UMRA/Photo/
+    defaults: { _controller: UMRAMemberBundle:Photo:index }
+UMRA_Photo_show:
+    pattern:  /UMRA/Photo/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Photo:show }
+UMRA_Photo_edit:
+    pattern:  /UMRA/Photo/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Photo:edit }
+UMRA_Photo_update:
+    pattern:  /UMRA/Photo/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Photo:update }
+UMRA_Photo_new:
+    pattern:  /UMRA/Photo/new
+    defaults: { _controller: UMRAMemberBundle:Photo:new }
+UMRA_Photo_create:
+    pattern: /UMRA/Photo/create
+    defaults: { _controller: UMRAMemberBundle:Photo:create }
+UMRA_Photo_delete:
+    pattern: /UMRA/Photo/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Photo:delete }
+UMRA_Residence:
+    pattern:  /UMRA/Residence/
+    defaults: { _controller: UMRAMemberBundle:Residence:index }
+UMRA_Residence_show:
+    pattern:  /UMRA/Residence/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Residence:show }
+UMRA_Residence_edit:
+    pattern:  /UMRA/Residence/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Residence:edit }
+UMRA_Residence_update:
+    pattern:  /UMRA/Residence/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Residence:update }
+UMRA_Residence_new:
+    pattern:  /UMRA/Residence/new
+    defaults: { _controller: UMRAMemberBundle:Residence:new }
+UMRA_Residence_create:
+    pattern: /UMRA/Residence/create
+    defaults: { _controller: UMRAMemberBundle:Residence:create }
+UMRA_Residence_delete:
+    pattern: /UMRA/Residence/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Residence:delete }
+UMRA_Role:
+    pattern:  /UMRA/Role/
+    defaults: { _controller: UMRAMemberBundle:Role:index }
+UMRA_Role_show:
+    pattern:  /UMRA/Role/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Role:show }
+UMRA_Role_edit:
+    pattern:  /UMRA/Role/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Role:edit }
+UMRA_Role_update:
+    pattern:  /UMRA/Role/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Role:update }
+UMRA_Role_new:
+    pattern:  /UMRA/Role/new
+    defaults: { _controller: UMRAMemberBundle:Role:new }
+UMRA_Role_create:
+    pattern: /UMRA/Role/create
+    defaults: { _controller: UMRAMemberBundle:Role:create }
+UMRA_Role_delete:
+    pattern: /UMRA/Role/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Role:delete }
+UMRA_Trans:
+    pattern:  /UMRA/Trans/
+    defaults: { _controller: UMRAMemberBundle:Trans:index }
+UMRA_Trans_show:
+    pattern:  /UMRA/Trans/show/{id}
+    defaults: { _controller: UMRAMemberBundle:Trans:show }
+UMRA_Trans_edit:
+    pattern:  /UMRA/Trans/edit/{id}
+    defaults: { _controller: UMRAMemberBundle:Trans:edit }
+UMRA_Trans_update:
+    pattern:  /UMRA/Trans/update/{id}
+    defaults: { _controller: UMRAMemberBundle:Trans:update }
+UMRA_Trans_new:
+    pattern:  /UMRA/Trans/new
+    defaults: { _controller: UMRAMemberBundle:Trans:new }
+UMRA_Trans_create:
+    pattern: /UMRA/Trans/create
+    defaults: { _controller: UMRAMemberBundle:Trans:create }
+UMRA_Trans_delete:
+    pattern: /UMRA/Trans/delete/{id}
+    defaults: { _controller: UMRAMemberBundle:Trans:delete }

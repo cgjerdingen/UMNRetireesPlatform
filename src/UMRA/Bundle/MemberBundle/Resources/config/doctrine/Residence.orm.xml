@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Residence" table="residence">
+    <indexes>
+      <index name="HouseholdID" columns="HouseholdID"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="prisec" type="integer" column="PriSec" nullable="false"/>
+    <field name="address1" type="string" column="Address1" length="20" nullable="true"/>
+    <field name="address2" type="string" column="Address2" length="20" nullable="true"/>
+    <field name="address3" type="string" column="Address3" length="20" nullable="true"/>
+    <field name="city" type="string" column="City" length="20" nullable="true"/>
+    <field name="state" type="string" column="State" length="20" nullable="true"/>
+    <field name="zip" type="string" column="Zip" length="20" nullable="true"/>
+    <field name="legdistrict" type="string" column="Legdistrict" length="20" nullable="true"/>
+    <field name="country" type="string" column="Country" length="20" nullable="true"/>
+    <field name="since" type="date" column="Since" nullable="true"/>
+    <field name="forseason" type="string" column="Forseason" length="20" nullable="true"/>
+    <many-to-one field="householdid" target-entity="Household">
+      <join-columns>
+        <join-column name="HouseholdID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

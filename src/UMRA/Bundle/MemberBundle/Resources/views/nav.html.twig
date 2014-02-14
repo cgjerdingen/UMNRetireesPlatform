@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<header class="navbar navbar-masthead navbar-inverse navbar-static-top">
+    
+</header>
+
+<div id="container" class="container-fluid">
+  <div id="page-content-container" class="row-fluid page-content-container">
+    <div class="span3 row-fluid" style="float: left;">
+      <aside id="sidebar">
+        <nav class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">Manage Member Records</li>
+            <li><a href="{{ path('UMRA_Household') }}"><i class="icon-home"></i> Households</a></li>
+            <li><a href="{{ path('UMRA_Person') }}"><i class="icon-calendar"></i> People</a></li>
+            <li><a href="{{ path('UMRA_Residence') }}"><i class="icon-home"></i> Residence</a></li>
+            <li><a href="{{ path('UMRA_Phone') }}"><i class="icon-home"></i> Phone</a></li>
+            <li><a href="{{ path('UMRA_Trans') }}"><i class="icon-home"></i> Transactions</a></li>
+            <li><a href="{{ path('UMRA_Photo') }}"><i class="icon-home"></i> Photo</a></li>
+            <li><a href="{{ path('UMRA_Email', {'personId': 2}) }}"><i class="icon-home"></i> Email</a></li>
+            <li class="nav-header">UMRA</li>
+            <li><a href="{{ path('UMRA_Role') }}"><i class="icon-home"></i> Role</a></li>
+            <li><a href=""><i class="icon-off"></i> Logout</a></li>
+          </ul>
+        </nav><!--/.well -->
+        {% block sidebar %}{% endblock %}
+      </aside><!--/span3-->
+    </div>
+    <section id="modulecontent" class="span9" style="float: left;">
+    {% block modulecontent %}
+        <div class="row-fluid">
+        </div>
+    {% endblock %}
+    </section><!--/span9-->
+  </div><!--/row-->
+  <hr>
+</div><!--/.fluid-container-->
+{% endblock %}

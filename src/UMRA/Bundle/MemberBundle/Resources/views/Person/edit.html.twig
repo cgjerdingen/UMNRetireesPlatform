@@ -1,0 +1,16 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Person edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('UMRA_Person') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

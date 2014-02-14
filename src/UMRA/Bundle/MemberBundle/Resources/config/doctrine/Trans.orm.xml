@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Trans" table="trans">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="trandate" type="date" column="Trandate" nullable="false"/>
+    <field name="trantype" type="string" column="Trantype" length="20" nullable="false"/>
+    <field name="amount" type="decimal" column="Amount" precision="10" scale="0" nullable="false"/>
+    <field name="pmtmethod" type="string" column="Pmtmethod" length="20" nullable="false"/>
+    <field name="servicechg" type="decimal" column="Servicechg" precision="10" scale="0" nullable="true"/>
+    <field name="doneby" type="string" column="Doneby" length="20" nullable="false"/>
+    <field name="notes" type="string" column="Notes" length="20" nullable="true"/>
+  </entity>
+</doctrine-mapping>

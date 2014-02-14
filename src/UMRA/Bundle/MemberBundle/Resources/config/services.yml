@@ -1,0 +1,7 @@
+parameters:
+#    umra_member.example.class: UMRA\Bundle\MemberBundle\Example
+
+services:
+#    umra_member.example:
+#        class: %umra_member.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

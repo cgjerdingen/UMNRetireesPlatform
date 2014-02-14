@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Person list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Fullname</th>
+                <th>Mailname</th>
+                <th>Labelname</th>
+                <th>Ssofullname</th>
+                <th>Membersince</th>
+                <th>Utopunit</th>
+                <th>Udeptequiv</th>
+                <th>Uempltype</th>
+                <th>Utitle</th>
+                <th>Ustartdate</th>
+                <th>Uretiredate</th>
+                <th>Joindate</th>
+                <th>Deceaseddate</th>
+                <th>Mailnewsletter</th>
+                <th>Webpage</th>
+                <th>Comment</th>
+                <th>Partnerpersonid</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('member_person_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.lastName }}</td>
+                <td>{{ entity.firstName }}</td>
+                <td>{{ entity.fullName }}</td>
+                <td>{{ entity.mailName }}</td>
+                <td>{{ entity.labelName }}</td>
+                <td>{{ entity.sSOFullName }}</td>
+                <td>{% if entity.memberSince %}{{ entity.memberSince|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.utopUnit }}</td>
+                <td>{{ entity.uDeptEquiv }}</td>
+                <td>{{ entity.uEmplType }}</td>
+                <td>{{ entity.uTitle }}</td>
+                <td>{% if entity.uStartDate %}{{ entity.uStartDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.uRetireDate %}{{ entity.uRetireDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.joinDate %}{{ entity.joinDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.deceasedDate %}{{ entity.deceasedDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.mailNewsLetter }}</td>
+                <td>{{ entity.webPage }}</td>
+                <td>{{ entity.comment }}</td>
+                <td>{{ entity.partnerPersonID }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('member_person_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('member_person_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('member_person_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

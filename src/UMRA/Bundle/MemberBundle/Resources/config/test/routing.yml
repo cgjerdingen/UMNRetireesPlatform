@@ -1,0 +1,24 @@
+umra_member_homepage:
+    pattern:  /member
+    defaults: { _controller: UMRAMemberBundle:Default:show }
+umra_member_joinpage:
+    pattern:  /member/join
+    defaults: { _controller: UMRAMemberBundle:Default:index }
+umra_person_homepage:
+    pattern:  /member/person
+    defaults: { _controller: UMRAMemberBundle:Person:index }
+member_person:
+    pattern:  /member/person
+    defaults: { _controller: UMRAMemberBundle:Person:index }
+member_person_show:
+    pattern:  /member/person/show
+    defaults: { _controller: UMRAMemberBundle:Person:show }
+member_person_edit:
+    pattern:  /member/person/edit
+    defaults: { _controller: UMRAMemberBundle:Person:edit }
+member_person_new:
+    pattern:  /member/person/new
+    defaults: { _controller: UMRAMemberBundle:Person:new }
+member_person_create:
+    pattern: /memeber/person/create
+    defaults: { _controller: UMRAMemberBundle:Person:create }

@@ -1,0 +1,44 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Photo</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Datetaken</th>
+                <td>{{ entity.datetaken|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dateadded</th>
+                <td>{{ entity.dateadded|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Caption</th>
+                <td>{{ entity.caption }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ entity.content }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('UMRA_Photo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('UMRA_Photo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

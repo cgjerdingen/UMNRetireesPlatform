@@ -11,3 +11,9 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+#Leave out ACME Stuff
+src/ACME/*
+
+#Backup Editor Files
+*~

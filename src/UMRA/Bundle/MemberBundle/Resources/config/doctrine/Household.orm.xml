@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Household" table="household">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="lastname" type="string" column="Lastname" length="20" nullable="false"/>
+    <field name="firstname" type="string" column="Firstname" length="20" nullable="false"/>
+    <field name="postalname" type="string" column="Postalname" length="50" nullable="true"/>
+  </entity>
+</doctrine-mapping>

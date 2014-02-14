@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Phone" table="phone">
+    <indexes>
+      <index name="PersonID" columns="PersonID"/>
+      <index name="ResID" columns="ResID"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="phnumber" type="string" column="Phnumber" length="20" nullable="false"/>
+    <field name="phtype" type="string" column="Phtype" length="20" nullable="false"/>
+    <many-to-one field="resid" target-entity="Residence">
+      <join-columns>
+        <join-column name="ResID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="personid" target-entity="Person">
+      <join-columns>
+        <join-column name="PersonID" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

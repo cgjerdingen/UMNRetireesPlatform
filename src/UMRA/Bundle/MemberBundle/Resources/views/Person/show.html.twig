@@ -1,0 +1,100 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Person</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ entity.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ entity.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Nickname</th>
+                <td>{{ entity.nickname }}</td>
+            </tr>
+            <tr>
+                <th>Fullname</th>
+                <td>{{ entity.fullname }}</td>
+            </tr>
+            <tr>
+                <th>Postalname</th>
+                <td>{{ entity.postalname }}</td>
+            </tr>
+            <tr>
+                <th>Nametagname</th>
+                <td>{{ entity.nametagname }}</td>
+            </tr>
+            <tr>
+                <th>Membersince</th>
+                <td>{{ entity.membersince|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Utopunit</th>
+                <td>{{ entity.utopunit }}</td>
+            </tr>
+            <tr>
+                <th>Udeptequiv</th>
+                <td>{{ entity.udeptequiv }}</td>
+            </tr>
+            <tr>
+                <th>Uempltype</th>
+                <td>{{ entity.uempltype }}</td>
+            </tr>
+            <tr>
+                <th>Utitle</th>
+                <td>{{ entity.utitle }}</td>
+            </tr>
+            <tr>
+                <th>Ustartdate</th>
+                <td>{{ entity.ustartdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Uretiredate</th>
+                <td>{{ entity.uretiredate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Joindate</th>
+                <td>{{ entity.joindate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Deceasedate</th>
+                <td>{{ entity.deceasedate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Activenow</th>
+                <td>{{ entity.activenow }}</td>
+            </tr>
+            <tr>
+                <th>Postalnews</th>
+                <td>{{ entity.postalnews }}</td>
+            </tr>
+            <tr>
+                <th>Weburl</th>
+                <td>{{ entity.weburl }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('UMRA_Person') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

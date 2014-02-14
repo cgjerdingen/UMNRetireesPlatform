@@ -1,0 +1,61 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Residence list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Prisec</th>
+                <th>Address1</th>
+                <th>Address2</th>
+                <th>Address3</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Legdistrict</th>
+                <th>Country</th>
+                <th>Since</th>
+                <th>Forseason</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('UMRA_Residence_show', { 'id': entity.id }) }}">{{ entity.prisec }}</a></td>
+                <td>{{ entity.address1 }}</td>
+                <td>{{ entity.address2 }}</td>
+                <td>{{ entity.address3 }}</td>
+                <td>{{ entity.city }}</td>
+                <td>{{ entity.state }}</td>
+                <td>{{ entity.zip }}</td>
+                <td>{{ entity.legdistrict }}</td>
+                <td>{{ entity.country }}</td>
+                <td>{% if entity.since %}{{ entity.since|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.forseason }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('UMRA_Residence_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('UMRA_Residence_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('UMRA_Residence_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

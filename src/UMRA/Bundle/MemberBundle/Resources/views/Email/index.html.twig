@@ -1,0 +1,64 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+
+    <h2>EMails for Person</h2>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Lastname</th>
+                <th>Firstname</th>
+            </tr>
+            <tr>
+                <td>{{ person_entity.lastname }}</td>
+                <td>{{ person_entity.firstname }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Email list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Prisec</th>
+                <th>Email</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('UMRA_Email_show', { 'id': entity.id }) }}">{{ entity.prisec }}</a></td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('UMRA_Email_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('UMRA_Email_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('UMRA_Email_new', {'personId' : personId }) }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+
+    
+    
+
+
+    {% endblock %}

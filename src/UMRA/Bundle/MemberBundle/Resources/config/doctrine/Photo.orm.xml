@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UMRA\Bundle\MemberBundle\Entity\Photo" table="photo">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datetaken" type="date" column="Datetaken" nullable="true"/>
+    <field name="dateadded" type="date" column="Dateadded" nullable="false"/>
+    <field name="caption" type="string" column="Caption" length="20" nullable="true"/>
+    <field name="content" type="blob" column="Content" nullable="true"/>
+  </entity>
+</doctrine-mapping>

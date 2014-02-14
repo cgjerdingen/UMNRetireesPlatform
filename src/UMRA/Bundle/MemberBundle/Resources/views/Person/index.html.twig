@@ -1,0 +1,57 @@
+{% extends 'UMRAMemberBundle::nav.html.twig' %}
+
+{% block modulecontent -%}
+    <h1>Person list</h1>
+
+    <table class="records_list" class="table table-hover table-condensed table-sortable">
+        <thead>
+            <tr>
+                <th>Last</th>
+                <th>First</th>
+                <th>Nick</th>
+                <th>Membersince</th>
+                <th>Utopunit</th>
+                <th>Udeptequiv</th>
+                <th>Uempltype</th>
+                <th>Utitle</th>
+                <th>Activenow</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('UMRA_Person_show', { 'id': entity.id }) }}">{{ entity.lastname }}</a></td>
+                <td>{{ entity.firstname }}</td>
+                <td>{{ entity.nickname }}</td>
+                <td>{% if entity.membersince %}{{ entity.membersince|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.utopunit }}</td>
+                <td>{{ entity.udeptequiv }}</td>
+                <td>{{ entity.uempltype }}</td>
+                <td>{{ entity.utitle }}</td>
+                <td>{{ entity.activenow }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('UMRA_Person_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('UMRA_Person_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
