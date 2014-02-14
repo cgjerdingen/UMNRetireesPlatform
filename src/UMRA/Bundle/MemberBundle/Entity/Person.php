@@ -155,7 +155,7 @@ class Person
      *   @ORM\JoinColumn(name="HouseholdID", referencedColumnName="id")
      * })
      */
-    private $householdid;
+    private $household;
 
 
 
@@ -175,7 +175,7 @@ class Person
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -198,7 +198,7 @@ class Person
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -221,7 +221,7 @@ class Person
     /**
      * Get nickname
      *
-     * @return string 
+     * @return string
      */
     public function getNickname()
     {
@@ -244,7 +244,7 @@ class Person
     /**
      * Get fullname
      *
-     * @return string 
+     * @return string
      */
     public function getFullname()
     {
@@ -267,7 +267,7 @@ class Person
     /**
      * Get postalname
      *
-     * @return string 
+     * @return string
      */
     public function getPostalname()
     {
@@ -290,7 +290,7 @@ class Person
     /**
      * Get nametagname
      *
-     * @return string 
+     * @return string
      */
     public function getNametagname()
     {
@@ -313,7 +313,7 @@ class Person
     /**
      * Get membersince
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getMembersince()
     {
@@ -336,7 +336,7 @@ class Person
     /**
      * Get utopunit
      *
-     * @return string 
+     * @return string
      */
     public function getUtopunit()
     {
@@ -359,7 +359,7 @@ class Person
     /**
      * Get udeptequiv
      *
-     * @return string 
+     * @return string
      */
     public function getUdeptequiv()
     {
@@ -382,7 +382,7 @@ class Person
     /**
      * Get uempltype
      *
-     * @return string 
+     * @return string
      */
     public function getUempltype()
     {
@@ -405,7 +405,7 @@ class Person
     /**
      * Get utitle
      *
-     * @return string 
+     * @return string
      */
     public function getUtitle()
     {
@@ -428,7 +428,7 @@ class Person
     /**
      * Get ustartdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUstartdate()
     {
@@ -451,7 +451,7 @@ class Person
     /**
      * Get uretiredate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUretiredate()
     {
@@ -474,7 +474,7 @@ class Person
     /**
      * Get joindate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getJoindate()
     {
@@ -497,7 +497,7 @@ class Person
     /**
      * Get deceasedate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeceasedate()
     {
@@ -520,7 +520,7 @@ class Person
     /**
      * Get activenow
      *
-     * @return string 
+     * @return string
      */
     public function getActivenow()
     {
@@ -543,7 +543,7 @@ class Person
     /**
      * Get postalnews
      *
-     * @return string 
+     * @return string
      */
     public function getPostalnews()
     {
@@ -566,7 +566,7 @@ class Person
     /**
      * Get weburl
      *
-     * @return string 
+     * @return string
      */
     public function getWeburl()
     {
@@ -576,7 +576,7 @@ class Person
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -584,25 +584,25 @@ class Person
     }
 
     /**
-     * Set householdid
+     * Set household
      *
      * @param \UMRA\Bundle\MemberBundle\Entity\Household $householdid
      * @return Person
      */
-    public function setHouseholdid(\UMRA\Bundle\MemberBundle\Entity\Household $householdid = null)
+    public function setHousehold(\UMRA\Bundle\MemberBundle\Entity\Household $household = null)
     {
-        $this->householdid = $householdid;
+        $this->household = $household;
 
         return $this;
     }
 
     /**
-     * Get householdid
+     * Get household
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Household 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Household
      */
-    public function getHouseholdid()
+    public function getHousehold()
     {
-        return $this->householdid;
+        return $this->household;
     }
 }
