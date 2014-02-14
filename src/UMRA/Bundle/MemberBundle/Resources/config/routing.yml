@@ -1,5 +1,5 @@
 UMRA_Email_show:
-    pattern:  /UMRA/Email/{id}/show
+    pattern:  /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:show }
     methods: [GET]
 UMRA_Email_edit:
@@ -7,7 +7,7 @@ UMRA_Email_edit:
     defaults: { _controller: UMRAMemberBundle:Email:edit }
     methods: [GET]
 UMRA_Email_update:
-    pattern:  /UMRA/Email/{id}/update
+    pattern:  /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:update }
     methods: [PUT]
 UMRA_Email_new:
@@ -15,11 +15,11 @@ UMRA_Email_new:
     defaults: { _controller: UMRAMemberBundle:Email:new }
     methods: [GET]
 UMRA_Email_create:
-    pattern: /UMRA/Person/{personId}/Email/create
+    pattern: /UMRA/Person/{personId}/Email
     defaults: { _controller: UMRAMemberBundle:Email:create }
     methods: [POST]
 UMRA_Email_delete:
-    pattern: /UMRA/Email/{id}/delete
+    pattern: /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:delete }
     methods: [DELETE]
 UMRA_Email:
@@ -31,7 +31,7 @@ UMRA_Household:
     defaults: { _controller: UMRAMemberBundle:Household:index }
     methods: [GET]
 UMRA_Household_show:
-    pattern:  /UMRA/Household/{id}/show
+    pattern:  /UMRA/Household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:show }
     methods: [GET]
 UMRA_Household_edit:
@@ -39,7 +39,7 @@ UMRA_Household_edit:
     defaults: { _controller: UMRAMemberBundle:Household:edit }
     methods: [GET]
 UMRA_Household_update:
-    pattern:  /UMRA/Household/{id}/update
+    pattern:  /UMRA/Household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:update }
     methods: [PUT]
 UMRA_Household_new:
@@ -47,11 +47,11 @@ UMRA_Household_new:
     defaults: { _controller: UMRAMemberBundle:Household:new }
     methods: [GET]
 UMRA_Household_create:
-    pattern: /UMRA/Household/create
+    pattern: /UMRA/Household
     defaults: { _controller: UMRAMemberBundle:Household:create }
     methods: [POST]
 UMRA_Household_delete:
-    pattern: /UMRA/Household/{id}/delete
+    pattern: /UMRA/Household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:delete }
     methods: [DELETE]
 UMRA_Person:
@@ -59,7 +59,7 @@ UMRA_Person:
     defaults: { _controller: UMRAMemberBundle:Person:index }
     methods: [GET]
 UMRA_Person_show:
-    pattern:  /UMRA/Person/{id}/show
+    pattern:  /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:show }
     methods: [GET]
 UMRA_Person_edit:
@@ -67,7 +67,7 @@ UMRA_Person_edit:
     defaults: { _controller: UMRAMemberBundle:Person:edit }
     methods: [GET]
 UMRA_Person_update:
-    pattern:  /UMRA/Person/{id}/update
+    pattern:  /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:update }
     methods: [PUT]
 UMRA_Person_new:
@@ -75,11 +75,11 @@ UMRA_Person_new:
     defaults: { _controller: UMRAMemberBundle:Person:new }
     methods: [GET]
 UMRA_Person_create:
-    pattern: /UMRA/Person/create
+    pattern: /UMRA/Person
     defaults: { _controller: UMRAMemberBundle:Person:create }
     methods: [POST]
 UMRA_Person_delete:
-    pattern: /UMRA/Person/{id}/delete
+    pattern: /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:delete }
     methods: [DELETE]
 UMRA_Phone:
@@ -87,7 +87,7 @@ UMRA_Phone:
     defaults: { _controller: UMRAMemberBundle:Phone:index }
     methods: [GET]
 UMRA_Phone_show:
-    pattern:  /UMRA/Phone/{id}/show
+    pattern:  /UMRA/Phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:show }
     methods: [GET]
 UMRA_Phone_edit:
@@ -95,7 +95,7 @@ UMRA_Phone_edit:
     defaults: { _controller: UMRAMemberBundle:Phone:edit }
     methods: [GET]
 UMRA_Phone_update:
-    pattern:  /UMRA/Phone/{id}/update
+    pattern:  /UMRA/Phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:update }
     methods: [PUT]
 UMRA_Phone_new:
@@ -103,11 +103,11 @@ UMRA_Phone_new:
     defaults: { _controller: UMRAMemberBundle:Phone:new }
     methods: [GET]
 UMRA_Phone_create:
-    pattern: /UMRA/Phone/create
+    pattern: /UMRA/Phone
     defaults: { _controller: UMRAMemberBundle:Phone:create }
     methods: [POST]
 UMRA_Phone_delete:
-    pattern: /UMRA/Phone/{id}/delete
+    pattern: /UMRA/Phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:delete }
     methods: [DELETE]
 UMRA_Photo:
@@ -115,7 +115,7 @@ UMRA_Photo:
     defaults: { _controller: UMRAMemberBundle:Photo:index }
     methods: [GET]
 UMRA_Photo_show:
-    pattern:  /UMRA/Photo/{id}/show
+    pattern:  /UMRA/Photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:show }
     methods: [GET]
 UMRA_Photo_edit:
@@ -123,7 +123,7 @@ UMRA_Photo_edit:
     defaults: { _controller: UMRAMemberBundle:Photo:edit }
     methods: [GET]
 UMRA_Photo_update:
-    pattern:  /UMRA/Photo/{id}/update
+    pattern:  /UMRA/Photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:update }
     methods: [PUT]
 UMRA_Photo_new:
@@ -131,11 +131,11 @@ UMRA_Photo_new:
     defaults: { _controller: UMRAMemberBundle:Photo:new }
     methods: [GET]
 UMRA_Photo_create:
-    pattern: /UMRA/Photo/create
+    pattern: /UMRA/Photo
     defaults: { _controller: UMRAMemberBundle:Photo:create }
     methods: [POST]
 UMRA_Photo_delete:
-    pattern: /UMRA/Photo/{id}/delete
+    pattern: /UMRA/Photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:delete }
     methods: [DELETE]
 UMRA_Residence:
@@ -143,7 +143,7 @@ UMRA_Residence:
     defaults: { _controller: UMRAMemberBundle:Residence:index }
     methods: [GET]
 UMRA_Residence_show:
-    pattern:  /UMRA/Residence/{id}/show
+    pattern:  /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:show }
     methods: [GET]
 UMRA_Residence_edit:
@@ -151,7 +151,7 @@ UMRA_Residence_edit:
     defaults: { _controller: UMRAMemberBundle:Residence:edit }
     methods: [GET]
 UMRA_Residence_update:
-    pattern:  /UMRA/Residence/{id}/update
+    pattern:  /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:update }
     methods: [PUT]
 UMRA_Residence_new:
@@ -159,11 +159,11 @@ UMRA_Residence_new:
     defaults: { _controller: UMRAMemberBundle:Residence:new }
     methods: [GET]
 UMRA_Residence_create:
-    pattern: /UMRA/Residence/create
+    pattern: /UMRA/Residence
     defaults: { _controller: UMRAMemberBundle:Residence:create }
     methods: [POST]
 UMRA_Residence_delete:
-    pattern: /UMRA/Residence/{id}/delete
+    pattern: /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:delete }
     methods: [DELETE]
 UMRA_Role:
@@ -171,7 +171,7 @@ UMRA_Role:
     defaults: { _controller: UMRAMemberBundle:Role:index }
     methods: [GET]
 UMRA_Role_show:
-    pattern:  /UMRA/Role/{id}/show
+    pattern:  /UMRA/Role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:show }
     methods: [GET]
 UMRA_Role_edit:
@@ -179,7 +179,7 @@ UMRA_Role_edit:
     defaults: { _controller: UMRAMemberBundle:Role:edit }
     methods: [GET]
 UMRA_Role_update:
-    pattern:  /UMRA/Role/{id}/update
+    pattern:  /UMRA/Role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:update }
     methods: [PUT]
 UMRA_Role_new:
@@ -187,11 +187,11 @@ UMRA_Role_new:
     defaults: { _controller: UMRAMemberBundle:Role:new }
     methods: [GET]
 UMRA_Role_create:
-    pattern: /UMRA/Role/create
+    pattern: /UMRA/Role
     defaults: { _controller: UMRAMemberBundle:Role:create }
     methods: [POST]
 UMRA_Role_delete:
-    pattern: /UMRA/Role/{id}/delete
+    pattern: /UMRA/Role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:delete }
     methods: [DELETE]
 UMRA_Trans:
@@ -199,7 +199,7 @@ UMRA_Trans:
     defaults: { _controller: UMRAMemberBundle:Trans:index }
     methods: [GET]
 UMRA_Trans_show:
-    pattern:  /UMRA/Trans/{id}/show
+    pattern:  /UMRA/Trans/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:show }
     methods: [GET]
 UMRA_Trans_edit:
@@ -207,7 +207,7 @@ UMRA_Trans_edit:
     defaults: { _controller: UMRAMemberBundle:Trans:edit }
     methods: [GET]
 UMRA_Trans_update:
-    pattern:  /UMRA/Trans/{id}/update
+    pattern:  /UMRA/Trans/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:update }
     methods: [PUT]
 UMRA_Trans_new:
@@ -215,10 +215,10 @@ UMRA_Trans_new:
     defaults: { _controller: UMRAMemberBundle:Trans:new }
     methods: [GET]
 UMRA_Trans_create:
-    pattern: /UMRA/Trans/create
+    pattern: /UMRA/Trans
     defaults: { _controller: UMRAMemberBundle:Trans:create }
     methods: [POST]
 UMRA_Trans_delete:
-    pattern: /UMRA/Trans/{id}/delete
+    pattern: /UMRA/Trans/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:delete }
     methods: [DELETE]
