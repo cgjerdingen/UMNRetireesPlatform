@@ -3,14 +3,18 @@
 {% block modulecontent -%}
     <h1>Household edit</h1>
 
-    {{ form(edit_form) }}
+    <div class="col-xs-4">
+        {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Household') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <hr />
+
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
 {% endblock %}

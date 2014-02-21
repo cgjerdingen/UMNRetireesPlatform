@@ -1,40 +1,42 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Household</h1>
+    <div class="page-header">
+        <h2>Household of {{ entity.postalname }}</h2>
+    </div>
 
-    <table class="record_properties">
+    <table class="table">
         <tbody>
             <tr>
-                <th>Lastname</th>
+                <th>Last Name</th>
                 <td>{{ entity.lastname }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>First Name</th>
                 <td>{{ entity.firstname }}</td>
             </tr>
             <tr>
-                <th>Postalname</th>
+                <th>Postal Name</th>
                 <td>{{ entity.postalname }}</td>
             </tr>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <td>{{ entity.id }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Household') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('UMRA_Household_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('UMRA_Household_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

@@ -1,15 +1,17 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Household creation</h1>
+    <div class="page-header">
+        <h1>Create a New Household</h1>
+    </div>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Household') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
 {% endblock %}

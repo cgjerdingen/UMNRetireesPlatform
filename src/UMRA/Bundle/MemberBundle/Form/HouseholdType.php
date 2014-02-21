@@ -15,12 +15,21 @@ class HouseholdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname')
-            ->add('firstname')
-            ->add('postalname')
+            ->add('lastname', 'text', array(
+                'label' => 'Last Name',
+                'attr' => array('class' => 'form-control'),
+            ))
+            ->add('firstname', 'text', array(
+                'label' => 'First Name',
+                'attr' => array('class' => 'form-control'),
+            ))
+            ->add('postalname', 'text', array(
+                'label' => 'Postal Name',
+                'attr' => array('class' => 'form-control'),
+            ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
