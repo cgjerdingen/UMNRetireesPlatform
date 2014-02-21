@@ -150,14 +150,23 @@ class Person
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Household
      *
-     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Household")
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Household", inversedBy="persons")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="HouseholdID", referencedColumnName="id")
      * })
      */
     private $household;
 
+    /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     *
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $emails;
 
+    public function __construct() {
+        $this->emails = new ArrayCollection();
+    }
 
     /**
      * Set lastname

@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Household
@@ -34,6 +35,20 @@ class Household
     private $postalname;
 
     /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Residence
+     *
+     * @ORM\OneToMany(targetEntity="Residence", mappedBy="household", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $residences;
+
+    /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     *
+     * @ORM\OneToMany(targetEntity="Person", mappedBy="household", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $persons;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -42,7 +57,9 @@ class Household
      */
     private $id;
 
-
+    public function __construct() {
+        $this->residences = new ArrayCollection();
+    }
 
     /**
      * Set lastname
@@ -60,7 +77,7 @@ class Household
     /**
      * Get lastname
      *
-     * @return string 
+     * @return string
      */
     public function getLastname()
     {
@@ -83,7 +100,7 @@ class Household
     /**
      * Get firstname
      *
-     * @return string 
+     * @return string
      */
     public function getFirstname()
     {
@@ -106,7 +123,7 @@ class Household
     /**
      * Get postalname
      *
-     * @return string 
+     * @return string
      */
     public function getPostalname()
     {
@@ -114,9 +131,75 @@ class Household
     }
 
     /**
+     * Add residence
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Household $residence
+     * @return Residence
+     */
+    public function addResidence(\UMRA\Bundle\MemberBundle\Entity\Household $residence)
+    {
+        $this->residences[] = $residences;
+
+        return $this;
+    }
+
+    /**
+     * Remove residence
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Household $residences
+     */
+    public function removeResidence(\UMRA\Bundle\MemberBundle\Entity\Household $residence)
+    {
+        $this->residences->removeElement($residence);
+    }
+
+    /**
+     * Get residences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResidences()
+    {
+        return $this->residences;
+    }
+
+    /**
+     * Add person
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
+     * @return Residence
+     */
+    public function addPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person)
+    {
+        $this->persons[] = $persons;
+
+        return $this;
+    }
+
+    /**
+     * Remove person
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $persons
+     */
+    public function removePerson(\UMRA\Bundle\MemberBundle\Entity\Person $person)
+    {
+        $this->persons->removeElement($person);
+    }
+
+    /**
+     * Get persons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersons()
+    {
+        return $this->persons;
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {

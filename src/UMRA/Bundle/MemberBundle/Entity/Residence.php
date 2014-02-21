@@ -101,7 +101,7 @@ class Residence
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Household
      *
-     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Household")
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Household", inversedBy="residences")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="HouseholdID", referencedColumnName="id")
      * })
