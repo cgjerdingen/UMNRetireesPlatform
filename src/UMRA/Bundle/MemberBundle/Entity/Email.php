@@ -38,7 +38,7 @@ class Email
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
-     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person")
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person", inversedBy="emails")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
      * })
