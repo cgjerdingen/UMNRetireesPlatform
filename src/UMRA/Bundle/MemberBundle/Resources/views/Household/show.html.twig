@@ -67,7 +67,7 @@
     </div>
 
     <div class="panel panel-primary">
-        <header class="panel-heading">Members</header>
+        <header class="panel-heading"><span class="glyphicon glyphicon-user"></span> Members</header>
         <table class="table">
             <thead>
                 <th>Full Name</th>
@@ -80,7 +80,7 @@
                     <td><a href="{{ url('UMRA_Person_show', { id: person.id }) }}">{{ person.fullname }}</a></td>
                     <td>{{ person.membersince | date("m/d/Y") }}</td>
                     <td>
-                        <ul>
+                        <ul class="list-unstyled">
                             {% for email in person.emails %}
                                 <li>{{ email.email }}</li>
                             {% endfor %}
@@ -92,7 +92,7 @@
             </tbody>
         </table>
         <footer class="panel-footer">
-            <a class="btn btn-primary" href="{{ path('UMRA_Person_new') }}"><span class="glyphicon glyphicon-plus"></span> Add Another Person</a>
+            <a class="btn btn-primary" href="{{ path('UMRA_Person_new') }}"><span class="glyphicon glyphicon-plus"></span> Add a Person</a>
         </footer>
     </div>
 
