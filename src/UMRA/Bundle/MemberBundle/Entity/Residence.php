@@ -57,7 +57,7 @@ class Residence
     /**
      * @var string
      *
-     * @ORM\Column(name="Zip", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Zip", type="string", length=6, nullable=true)
      */
     private $zip;
 
