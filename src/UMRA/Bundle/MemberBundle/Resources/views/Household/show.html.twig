@@ -2,7 +2,7 @@
 
 {% block modulecontent -%}
     <div class="page-header">
-        <h2>Household of {{ entity.postalname }}</h2>
+        <h2>Household of {{ entity.firstname }} {{ entity.lastname }}</h2>
     </div>
 
     <table class="table">
@@ -25,6 +25,37 @@
             </tr>
         </tbody>
     </table>
+
+
+    <div class="panel panel-primary">
+        <header class="panel-heading">Members</header>
+        <table class="table">
+            <thead>
+                <th>Full Name</th>
+                <th>Member Since</th>
+                <th>Email Addresses</th>
+            </thead>
+            <tbody>
+                {% for person in entity.persons %}
+                <tr>
+                    <td><a href="{{ url('UMRA_Person_show', { id: person.id }) }}">{{ person.fullname }}</a></td>
+                    <td>{{ person.membersince | date("m/d/Y") }}</td>
+                    <td>
+                        <ul>
+                            {% for email in person.emails %}
+                                <li>{{ email.email }}</li>
+                            {% endfor %}
+                            <li><a href="{{ path('UMRA_Email_new', { 'personId': person.id }) }}"><small><span class="glyphicon glyphicon-plus"></span> Add</a></small></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <footer class="panel-footer">
+            <a class="btn btn-primary" href="{{ path('UMRA_Person_new') }}"><span class="glyphicon glyphicon-plus"></span> Add Another Person</a>
+        </footer>
+    </div>
 
     <ul class="list-inline">
         <li>
