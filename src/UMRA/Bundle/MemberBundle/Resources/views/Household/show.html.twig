@@ -45,7 +45,7 @@
                     <td>{{ residence.state }}</td>
                     <td>{{ residence.zip }}</td>
                     <td>{{ residence.country }}</td>
-                    <td>{% if residence.since %}{{ residence.since|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if residence.since %}{{ residence.since|date('m/d/Y') }}{% endif %}</td>
                     <td>{{ residence.forseason }}</td>
                     <td>
                     <ul class="list-inline">
