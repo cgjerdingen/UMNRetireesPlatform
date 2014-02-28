@@ -13,11 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Residence
 {
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\Column(name="PriSec", type="integer", nullable=false)
+     * @ORM\Column(name="PriSec", type="boolean", nullable=false)
      */
-    private $prisec;
+    private $primary;
 
     /**
      * @var string
@@ -113,24 +113,24 @@ class Residence
     /**
      * Set prisec
      *
-     * @param integer $prisec
+     * @param boolean $primary
      * @return Residence
      */
-    public function setPrisec($prisec)
+    public function setPrimary($primary)
     {
-        $this->prisec = $prisec;
+        $this->primary = $primary;
 
         return $this;
     }
 
     /**
-     * Get prisec
+     * Is primary?
      *
-     * @return integer
+     * @return boolean
      */
-    public function getPrisec()
+    public function isPrimary()
     {
-        return $this->prisec;
+        return $this->primary;
     }
 
     /**

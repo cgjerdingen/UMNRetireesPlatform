@@ -6,7 +6,7 @@
     <table class="records_list">
         <thead>
             <tr>
-                <th>Prisec</th>
+                <th>Primary</th>
                 <th>Address1</th>
                 <th>Address2</th>
                 <th>Address3</th>
@@ -24,7 +24,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('UMRA_Residence_show', { 'id': entity.id }) }}">{{ entity.prisec }}</a></td>
+                <td><a href="{{ path('UMRA_Residence_show', { 'id': entity.id }) }}">{{ entity.primary }}</a></td>
                 <td>{{ entity.address1 }}</td>
                 <td>{{ entity.address2 }}</td>
                 <td>{{ entity.address3 }}</td>
