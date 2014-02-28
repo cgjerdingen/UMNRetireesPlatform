@@ -1,100 +1,96 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Person</h1>
+    <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
 
-    <table class="record_properties">
+    <table class="table table-hover table-striped">
         <tbody>
             <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstname }}</td>
+                <th>Full Name</th>
+                <td>{{ entity.fullname }}</td>
             </tr>
             <tr>
                 <th>Nickname</th>
                 <td>{{ entity.nickname }}</td>
             </tr>
             <tr>
-                <th>Fullname</th>
-                <td>{{ entity.fullname }}</td>
-            </tr>
-            <tr>
-                <th>Postalname</th>
-                <td>{{ entity.postalname }}</td>
-            </tr>
-            <tr>
-                <th>Nametagname</th>
+                <th>Name Tag Name</th>
                 <td>{{ entity.nametagname }}</td>
             </tr>
             <tr>
-                <th>Membersince</th>
+                <th>Postal Name</th>
+                <td>{{ entity.postalname }}</td>
+            </tr>
+            <tr>
+                <th>Member Since</th>
                 <td>{{ entity.membersince|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Utopunit</th>
+                <th>University Unit</th>
                 <td>{{ entity.utopunit }}</td>
             </tr>
             <tr>
-                <th>Udeptequiv</th>
+                <th>University Department</th>
                 <td>{{ entity.udeptequiv }}</td>
             </tr>
             <tr>
-                <th>Uempltype</th>
+                <th>Employment Type</th>
                 <td>{{ entity.uempltype }}</td>
             </tr>
             <tr>
-                <th>Utitle</th>
+                <th>University Title</th>
                 <td>{{ entity.utitle }}</td>
             </tr>
             <tr>
-                <th>Ustartdate</th>
+                <th>University Start Date</th>
                 <td>{{ entity.ustartdate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Uretiredate</th>
+                <th>University Retire Date</th>
                 <td>{{ entity.uretiredate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Joindate</th>
+                <th>Join Date</th>
                 <td>{{ entity.joindate|date('Y-m-d H:i:s') }}</td>
             </tr>
+            {% if entity.deceasedate %}
             <tr>
-                <th>Deceasedate</th>
+                <th>Date Deceased</th>
                 <td>{{ entity.deceasedate|date('Y-m-d H:i:s') }}</td>
             </tr>
+            {% endif %}
             <tr>
-                <th>Activenow</th>
-                <td>{{ entity.activenow }}</td>
+                <th>Active?</th>
+                <td>
+                    {% if entity.activenow %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Postalnews</th>
                 <td>{{ entity.postalnews }}</td>
             </tr>
             <tr>
-                <th>Weburl</th>
+                <th>Web URL</th>
                 <td>{{ entity.weburl }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Household_show', { id: entity.household.id }) }}">
-            Back to household
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Household_show', { id: entity.household.id }) }}">
+                Back to household
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

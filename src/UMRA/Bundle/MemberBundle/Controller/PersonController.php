@@ -225,7 +225,7 @@ class PersonController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('UMRA_Person_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger')))
             ->getForm()
         ;
     }
