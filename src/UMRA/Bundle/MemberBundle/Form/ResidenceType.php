@@ -15,7 +15,7 @@ class ResidenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('primary')
+            ->add('primary', 'checkbox', array('required' => false))
             ->add('address1')
             ->add('address2')
             ->add('address3')
