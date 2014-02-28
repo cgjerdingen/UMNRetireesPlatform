@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Person
@@ -613,5 +614,38 @@ class Person
     public function getHousehold()
     {
         return $this->household;
+    }
+
+    /**
+     * Add email
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Email $email
+     * @return Residence
+     */
+    public function addEmail(\UMRA\Bundle\MemberBundle\Entity\Email $email)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove email
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Email $emails
+     */
+    public function removeEmail(\UMRA\Bundle\MemberBundle\Entity\Email $email)
+    {
+        $this->emails->removeElement($email);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEmails()
+    {
+        return $this->emails;
     }
 }
