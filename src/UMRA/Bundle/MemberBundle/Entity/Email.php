@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Email
@@ -15,6 +16,7 @@ class Email
     /**
      * @var string
      *
+     * @Assert\Choice(choices = {"primary", "secondary"}, message = "Must be primary or secondary")
      * @ORM\Column(name="PriSec", type="string", length=10, nullable=false)
      */
     private $prisec;
@@ -22,6 +24,7 @@ class Email
     /**
      * @var string
      *
+     * @Assert\Email()
      * @ORM\Column(name="Email", type="string", length=20, nullable=false)
      */
     private $email;

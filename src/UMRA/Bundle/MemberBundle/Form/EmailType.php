@@ -8,15 +8,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EmailType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prisec')
-            ->add('email')
+            ->add('prisec', 'choice', array(
+                'label' => 'Type',
+                'choices' => array('primary' => 'Primary', 'secondary' => 'Secondary'),
+                'expanded' => true
+                ))
+            ->add('email', 'email')
             ->add('person', 'entity', array(
             'class' => 'UMRAMemberBundle:Person', 'property' => 'Fullname',))
             ->add('household', 'entity', array(
