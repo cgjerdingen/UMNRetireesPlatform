@@ -18,24 +18,21 @@
 <div id="container" class="container-fluid">
   <div id="page-content-container" class="row">
     <div class="col-sm-3" style="float: left;">
-      <aside id="sidebar" class="panel panel-default">
-        <nav class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <li class="nav-header">Manage Member Records</li>
-            <li><a href="{{ path('UMRA_Household') }}"><span class="glyphicon glyphicon-home"></span> Households</a></li>
-            <li><a href="{{ path('UMRA_Person') }}"><span class="glyphicon glyphicon-user"></span> People</a></li>
-            <li><a href="{{ path('UMRA_Residence') }}"><span class="glyphicon glyphicon-home"></span> Residence</a></li>
-            <li><a href="{{ path('UMRA_Phone') }}"><span class="glyphicon glyphicon-earphone"></span> Phone</a></li>
-            <li><a href="{{ path('UMRA_Trans') }}"><span class="glyphicon glyphicon-usd"></span> Transactions</a></li>
-            <li><a href="{{ path('UMRA_Photo') }}"><span class="glyphicon glyphicon-picture"></span> Photo</a></li>
-            <li><a href="{{ path('UMRA_Email', {'personId': 2}) }}"><span class="glyphicon glyphicon-envelope"></span> Email</a></li>
-            <li class="nav-header">UMRA</li>
-            <li><a href="{{ path('UMRA_Role') }}"><span class="glyphicon glyphicon-cog"></span> Role</a></li>
-            <li><a href=""><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-          </ul>
-        </nav><!--/.well -->
-        {% block sidebar %}{% endblock %}
-      </aside><!--/span3-->
+      <nav class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Manage Member Records</li>
+          <li><a href="{{ path('UMRA_Household') }}"><span class="glyphicon glyphicon-home"></span> Households</a></li>
+          <li><a href="{{ path('UMRA_Person') }}"><span class="glyphicon glyphicon-user"></span> People</a></li>
+          <li><a href="{{ path('UMRA_Residence') }}"><span class="glyphicon glyphicon-home"></span> Residence</a></li>
+          <li><a href="{{ path('UMRA_Phone') }}"><span class="glyphicon glyphicon-earphone"></span> Phone</a></li>
+          <li><a href="{{ path('UMRA_Trans') }}"><span class="glyphicon glyphicon-usd"></span> Transactions</a></li>
+          <li><a href="{{ path('UMRA_Photo') }}"><span class="glyphicon glyphicon-picture"></span> Photo</a></li>
+          <li class="nav-header">UMRA</li>
+          <li><a href="{{ path('UMRA_Role') }}"><span class="glyphicon glyphicon-cog"></span> Role</a></li>
+          <li><a href=""><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+        </ul>
+      </nav><!--/.well -->
+      {% block sidebar %}{% endblock %}
     </div>
     <section class="col-sm-9">
     {% block modulecontent %}
