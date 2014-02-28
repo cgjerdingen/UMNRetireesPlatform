@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
@@ -15,7 +13,6 @@ use UMRA\Bundle\MemberBundle\Form\PersonType;
 /**
  * Person controller.
  *
- * @Route("/UMRA/Person")
  */
 class PersonController extends Controller
 {
@@ -23,8 +20,6 @@ class PersonController extends Controller
     /**
      * Lists all Person entities.
      *
-     * @Route("/", name="UMRA_Person")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -40,8 +35,6 @@ class PersonController extends Controller
     /**
      * Creates a new Person entity.
      *
-     * @Route("/", name="UMRA_Person_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Person:new.html.twig")
      */
     public function createAction(Request $request)
@@ -86,8 +79,6 @@ class PersonController extends Controller
     /**
      * Displays a form to create a new Person entity.
      *
-     * @Route("/new", name="UMRA_Person_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -104,8 +95,6 @@ class PersonController extends Controller
     /**
      * Finds and displays a Person entity.
      *
-     * @Route("/{id}", name="UMRA_Person_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -129,8 +118,6 @@ class PersonController extends Controller
     /**
      * Displays a form to edit an existing Person entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Person_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -174,8 +161,6 @@ class PersonController extends Controller
     /**
      * Edits an existing Person entity.
      *
-     * @Route("/{id}", name="UMRA_Person_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Person:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -207,8 +192,6 @@ class PersonController extends Controller
     /**
      * Deletes a Person entity.
      *
-     * @Route("/{id}", name="UMRA_Person_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

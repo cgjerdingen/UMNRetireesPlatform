@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Email;
 use UMRA\Bundle\MemberBundle\Form\EmailType;
@@ -15,7 +13,6 @@ use UMRA\Bundle\MemberBundle\Form\PersonType;
 /**
  * Email controller.
  *
- * @Route("/UMRA/Email")
  */
 class EmailController extends Controller
 {
@@ -23,8 +20,6 @@ class EmailController extends Controller
     /**
      * Lists all Email entities.
      *
-     * @Route("/{personId}", name="UMRA_Email")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction($personId)
@@ -53,8 +48,6 @@ class EmailController extends Controller
     /**
      * Creates a new Email entity.
      *
-     * @Route("/Emailcreate/{personId}", name="UMRA_Email_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Email:new.html.twig")
      */
     public function createAction(Request $request, $personId)
@@ -98,8 +91,6 @@ class EmailController extends Controller
     /**
      * Displays a form to create a new Email entity for a given person.
      *
-     * @Route("/new/{personId}", name="UMRA_Email_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction($personId)
@@ -117,8 +108,6 @@ class EmailController extends Controller
     /**
      * Finds and displays a Email entity.
      *
-     * @Route("/{id}", name="UMRA_Email_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -142,8 +131,6 @@ class EmailController extends Controller
     /**
      * Displays a form to edit an existing Email entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Email_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -188,8 +175,6 @@ class EmailController extends Controller
     /**
      * Edits an existing Email entity.
      *
-     * @Route("UMRA/Emailupdate/{id}", name="UMRA_Email_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Email:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -221,8 +206,6 @@ class EmailController extends Controller
     /**
      * Deletes a Email entity.
      *
-     * @Route("/URMA/Emaildelete/{id}", name="UMRA_Email_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

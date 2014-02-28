@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
 use UMRA\Bundle\MemberBundle\Form\HouseholdType;
@@ -13,7 +11,6 @@ use UMRA\Bundle\MemberBundle\Form\HouseholdType;
 /**
  * Household controller.
  *
- * @Route("/UMRA/Household")
  */
 class HouseholdController extends Controller
 {
@@ -21,8 +18,6 @@ class HouseholdController extends Controller
     /**
      * Lists all Household entities.
      *
-     * @Route("/", name="UMRA_Household")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -38,8 +33,6 @@ class HouseholdController extends Controller
     /**
      * Creates a new Household entity.
      *
-     * @Route("/", name="UMRA_Household_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Household:new.html.twig")
      */
     public function createAction(Request $request)
@@ -84,8 +77,6 @@ class HouseholdController extends Controller
     /**
      * Displays a form to create a new Household entity.
      *
-     * @Route("/new", name="UMRA_Household_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -102,8 +93,6 @@ class HouseholdController extends Controller
     /**
      * Finds and displays a Household entity.
      *
-     * @Route("/{id}", name="UMRA_Household_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,8 +116,6 @@ class HouseholdController extends Controller
     /**
      * Displays a form to edit an existing Household entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Household_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -172,8 +159,6 @@ class HouseholdController extends Controller
     /**
      * Edits an existing Household entity.
      *
-     * @Route("/{id}", name="UMRA_Household_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Household:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -205,8 +190,6 @@ class HouseholdController extends Controller
     /**
      * Deletes a Household entity.
      *
-     * @Route("/{id}", name="UMRA_Household_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

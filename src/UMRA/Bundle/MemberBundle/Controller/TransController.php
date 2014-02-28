@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\TransType;
@@ -13,7 +11,6 @@ use UMRA\Bundle\MemberBundle\Form\TransType;
 /**
  * Trans controller.
  *
- * @Route("/UMRA/Trans")
  */
 class TransController extends Controller
 {
@@ -21,8 +18,6 @@ class TransController extends Controller
     /**
      * Lists all Trans entities.
      *
-     * @Route("/", name="UMRA_Trans")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -38,8 +33,6 @@ class TransController extends Controller
     /**
      * Creates a new Trans entity.
      *
-     * @Route("/", name="UMRA_Trans_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Trans:new.html.twig")
      */
     public function createAction(Request $request)
@@ -102,8 +95,6 @@ class TransController extends Controller
     /**
      * Finds and displays a Trans entity.
      *
-     * @Route("/{id}", name="UMRA_Trans_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,8 +118,6 @@ class TransController extends Controller
     /**
      * Displays a form to edit an existing Trans entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Trans_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -172,8 +161,6 @@ class TransController extends Controller
     /**
      * Edits an existing Trans entity.
      *
-     * @Route("/{id}", name="UMRA_Trans_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Trans:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -205,8 +192,6 @@ class TransController extends Controller
     /**
      * Deletes a Trans entity.
      *
-     * @Route("/{id}", name="UMRA_Trans_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

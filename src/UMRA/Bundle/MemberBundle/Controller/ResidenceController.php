@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Form\ResidenceType;
@@ -13,7 +11,6 @@ use UMRA\Bundle\MemberBundle\Form\ResidenceType;
 /**
  * Residence controller.
  *
- * @Route("/UMRA/Residence")
  */
 class ResidenceController extends Controller
 {
@@ -21,8 +18,6 @@ class ResidenceController extends Controller
     /**
      * Lists all Residence entities.
      *
-     * @Route("/", name="UMRA_Residence")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -38,8 +33,6 @@ class ResidenceController extends Controller
     /**
      * Creates a new Residence entity.
      *
-     * @Route("/", name="UMRA_Residence_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Residence:new.html.twig")
      */
     public function createAction(Request $request)
@@ -84,8 +77,6 @@ class ResidenceController extends Controller
     /**
      * Displays a form to create a new Residence entity.
      *
-     * @Route("/new", name="UMRA_Residence_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -102,8 +93,6 @@ class ResidenceController extends Controller
     /**
      * Finds and displays a Residence entity.
      *
-     * @Route("/{id}", name="UMRA_Residence_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,8 +116,6 @@ class ResidenceController extends Controller
     /**
      * Displays a form to edit an existing Residence entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Residence_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -172,8 +159,6 @@ class ResidenceController extends Controller
     /**
      * Edits an existing Residence entity.
      *
-     * @Route("/{id}", name="UMRA_Residence_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Residence:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -205,8 +190,6 @@ class ResidenceController extends Controller
     /**
      * Deletes a Residence entity.
      *
-     * @Route("/{id}", name="UMRA_Residence_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Photo;
 use UMRA\Bundle\MemberBundle\Form\PhotoType;
@@ -13,7 +11,6 @@ use UMRA\Bundle\MemberBundle\Form\PhotoType;
 /**
  * Photo controller.
  *
- * @Route("/UMRA/Photo")
  */
 class PhotoController extends Controller
 {
@@ -21,8 +18,6 @@ class PhotoController extends Controller
     /**
      * Lists all Photo entities.
      *
-     * @Route("/", name="UMRA_Photo")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -38,8 +33,6 @@ class PhotoController extends Controller
     /**
      * Creates a new Photo entity.
      *
-     * @Route("/", name="UMRA_Photo_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Photo:new.html.twig")
      */
     public function createAction(Request $request)
@@ -84,8 +77,6 @@ class PhotoController extends Controller
     /**
      * Displays a form to create a new Photo entity.
      *
-     * @Route("/new", name="UMRA_Photo_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -102,8 +93,6 @@ class PhotoController extends Controller
     /**
      * Finds and displays a Photo entity.
      *
-     * @Route("/{id}", name="UMRA_Photo_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,8 +116,6 @@ class PhotoController extends Controller
     /**
      * Displays a form to edit an existing Photo entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Photo_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -172,8 +159,6 @@ class PhotoController extends Controller
     /**
      * Edits an existing Photo entity.
      *
-     * @Route("/{id}", name="UMRA_Photo_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Photo:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -205,8 +190,6 @@ class PhotoController extends Controller
     /**
      * Deletes a Photo entity.
      *
-     * @Route("/{id}", name="UMRA_Photo_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {

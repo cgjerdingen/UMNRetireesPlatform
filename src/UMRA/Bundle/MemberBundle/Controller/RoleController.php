@@ -4,8 +4,6 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Role;
 use UMRA\Bundle\MemberBundle\Form\RoleType;
@@ -13,7 +11,6 @@ use UMRA\Bundle\MemberBundle\Form\RoleType;
 /**
  * Role controller.
  *
- * @Route("/UMRA/Role")
  */
 class RoleController extends Controller
 {
@@ -21,8 +18,6 @@ class RoleController extends Controller
     /**
      * Lists all Role entities.
      *
-     * @Route("/", name="UMRA_Role")
-     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -38,8 +33,6 @@ class RoleController extends Controller
     /**
      * Creates a new Role entity.
      *
-     * @Route("/", name="UMRA_Role_create")
-     * @Method("POST")
      * @Template("UMRAMemberBundle:Role:new.html.twig")
      */
     public function createAction(Request $request)
@@ -84,8 +77,6 @@ class RoleController extends Controller
     /**
      * Displays a form to create a new Role entity.
      *
-     * @Route("/new", name="UMRA_Role_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -102,8 +93,6 @@ class RoleController extends Controller
     /**
      * Finds and displays a Role entity.
      *
-     * @Route("/{id}", name="UMRA_Role_show")
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -127,8 +116,6 @@ class RoleController extends Controller
     /**
      * Displays a form to edit an existing Role entity.
      *
-     * @Route("/{id}/edit", name="UMRA_Role_edit")
-     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -172,8 +159,6 @@ class RoleController extends Controller
     /**
      * Edits an existing Role entity.
      *
-     * @Route("/{id}", name="UMRA_Role_update")
-     * @Method("PUT")
      * @Template("UMRAMemberBundle:Role:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -205,8 +190,6 @@ class RoleController extends Controller
     /**
      * Deletes a Role entity.
      *
-     * @Route("/{id}", name="UMRA_Role_delete")
-     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
