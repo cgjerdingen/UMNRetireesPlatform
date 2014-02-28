@@ -5,6 +5,65 @@
         <h2>Household of {{ entity.firstname }} {{ entity.lastname }}</h2>
     </div>
 
+    <div class="panel panel-primary">
+        <header class="panel-heading"><span class="glyphicon glyphicon-home"></span> Residences</header>
+        <table class="table">
+            <thead>
+                <th>Type</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>Country</th>
+                <th>Since</th>
+                <th>Season(s)</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for residence in entity.residences %}
+                <tr>
+                    <td>
+                        {% if residence.primary %}
+                            <span class="label label-success">Primary</span>
+                        {% else %}
+                            <span class="label">Secondary</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('UMRA_Residence_show', { 'id': residence.id }) }}">
+                            {{ residence.address1 }}
+                            {% if residence.address2 %}
+                                <br />{{ residence.address2 }}
+                            {% endif %}
+                            {% if residence.address3 %}
+                                <br />{{ residence.address3 }}
+                            {% endif %}
+                        </a>
+                    </td>
+                    <td>{{ residence.city }}</td>
+                    <td>{{ residence.state }}</td>
+                    <td>{{ residence.zip }}</td>
+                    <td>{{ residence.country }}</td>
+                    <td>{% if residence.since %}{{ residence.since|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ residence.forseason }}</td>
+                    <td>
+                    <ul class="list-inline">
+                        <li>
+                            <a class="btn btn-primary btn-xs" href="{{ path('UMRA_Residence_show', { 'id': residence.id }) }}">View</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-warning btn-xs" href="{{ path('UMRA_Residence_edit', { 'id': residence.id }) }}">Edit</a>
+                        </li>
+                    </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <footer class="panel-footer">
+            <a class="btn btn-primary" href="{{ path('UMRA_Residence_new') }}"><span class="glyphicon glyphicon-plus"></span> Add a Residence</a>
+        </footer>
+    </div>
     <table class="table">
         <tbody>
             <tr>
