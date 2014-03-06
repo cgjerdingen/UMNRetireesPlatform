@@ -38,7 +38,7 @@ class Phone
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Residence
      *
-     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Residence")
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Residence", inversedBy="phones")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ResID", referencedColumnName="id")
      * })

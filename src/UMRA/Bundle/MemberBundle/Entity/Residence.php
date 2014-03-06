@@ -108,7 +108,12 @@ class Residence
      */
     private $household;
 
-
+    /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Phone
+     *
+     * @ORM\OneToMany(targetEntity="UMRA\Bundle\MemberBundle\Entity\Phone", mappedBy="residence")
+     */
+    private $phones;
 
     /**
      * Set prisec
@@ -394,5 +399,38 @@ class Residence
     public function getHousehold()
     {
         return $this->household;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $email
+     * @return Residence
+     */
+    public function addPhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    {
+        $this->phones[] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $phone
+     */
+    public function removePhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    {
+        $this->phones->removeElement($phone);
+    }
+
+    /**
+     * Get phone
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
     }
 }
