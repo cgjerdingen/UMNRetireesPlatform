@@ -93,7 +93,11 @@
                             {% for email in person.emails %}
                                 <li>{{ email.email }}</li>
                             {% endfor %}
-                            <li><a href="{{ path('UMRA_Email_new', { 'personId': person.id }) }}"><small><span class="glyphicon glyphicon-plus"></span> Add</a></small></li>
+                            <li>
+                                <a href="{{ path('UMRA_Email_new', { 'personId': person.id }) }}">
+                                    <small><span class="glyphicon glyphicon-plus"></span> Add</small>
+                                </a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
