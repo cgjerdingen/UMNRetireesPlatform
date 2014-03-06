@@ -12,6 +12,7 @@
             <thead>
                 <th>Type</th>
                 <th>Address</th>
+                <th>Phones</th>
                 <th>Since</th>
                 <th>Season(s)</th>
                 <th>Actions</th>
@@ -40,6 +41,18 @@
                                 {{ residence.country }}
                             </address>
                         </a>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for phone in residence.phones %}
+                                <li>{{ phone.phnumber }} - {{ phone.phtype }}</li>
+                            {% endfor %}
+                        </ul>
+                        <li>
+                            <a href="{{ path('UMRA_Phone_new', { 'resId': residence.id }) }}">
+                                <small><span class="glyphicon glyphicon-plus"></span> Add</small>
+                            </a>
+                        </li>
                     </td>
                     <td>{% if residence.since %}{{ residence.since|date('m/d/Y') }}{% endif %}</td>
                     <td>{{ residence.forseason }}</td>
