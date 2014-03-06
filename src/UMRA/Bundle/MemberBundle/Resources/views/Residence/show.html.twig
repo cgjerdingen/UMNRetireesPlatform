@@ -1,72 +1,51 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Residence</h1>
+    <address>
+        <strong>{{ entity.household.postalname }}</strong><br />
+        {{ entity.address1 }}<br />
+        {% if entity.address2 %}
+            {{ entity.address2 }}<br />
+        {% endif %}
+        {% if entity.address3 %}
+            {{ entity.address3 }}<br />
+        {% endif %}
+        {{ entity. city }}{% if entity.state %}, {{ entity.state }}{% endif %} {{ entity.zip }}<br />
+        {{ entity.country }}
+    </address>
 
-    <table class="record_properties">
+    <table class="table">
         <tbody>
             <tr>
                 <th>Primary</th>
-                <td>{{ entity.primary }}</td>
+                <td>{% if entity.primary %}Yes{% else %}No{% endif %}</td>
             </tr>
             <tr>
-                <th>Address1</th>
-                <td>{{ entity.address1 }}</td>
-            </tr>
-            <tr>
-                <th>Address2</th>
-                <td>{{ entity.address2 }}</td>
-            </tr>
-            <tr>
-                <th>Address3</th>
-                <td>{{ entity.address3 }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ entity.city }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
-                <td>{{ entity.state }}</td>
-            </tr>
-            <tr>
-                <th>Zip</th>
-                <td>{{ entity.zip }}</td>
-            </tr>
-            <tr>
-                <th>Legdistrict</th>
+                <th>Legal District</th>
                 <td>{{ entity.legdistrict }}</td>
             </tr>
             <tr>
-                <th>Country</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
                 <th>Since</th>
-                <td>{{ entity.since|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.since|date('m/d/Y') }}</td>
             </tr>
             <tr>
-                <th>Forseason</th>
+                <th>Season(s)</th>
                 <td>{{ entity.forseason }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Residence') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('UMRA_Residence_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Household_show', { 'id': entity.household.id }) }}">
+                Back to the household
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('UMRA_Residence_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
