@@ -12,10 +12,6 @@
             <thead>
                 <th>Type</th>
                 <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip</th>
-                <th>Country</th>
                 <th>Since</th>
                 <th>Season(s)</th>
                 <th>Actions</th>
@@ -32,19 +28,19 @@
                     </td>
                     <td>
                         <a href="{{ path('UMRA_Residence_show', { 'id': residence.id }) }}">
-                            {{ residence.address1 }}
-                            {% if residence.address2 %}
-                                <br />{{ residence.address2 }}
-                            {% endif %}
-                            {% if residence.address3 %}
-                                <br />{{ residence.address3 }}
-                            {% endif %}
+                            <address>
+                                {{ residence.address1 }}<br />
+                                {% if residence.address2 %}
+                                    {{ residence.address2 }}<br />
+                                {% endif %}
+                                {% if residence.address3 %}
+                                    {{ residence.address3 }}<br />
+                                {% endif %}
+                                {{ residence. city }}{% if residence.state %}, {{ residence.state }}{% endif %} {{ residence.zip }}<br />
+                                {{ residence.country }}
+                            </address>
                         </a>
                     </td>
-                    <td>{{ residence.city }}</td>
-                    <td>{{ residence.state }}</td>
-                    <td>{{ residence.zip }}</td>
-                    <td>{{ residence.country }}</td>
                     <td>{% if residence.since %}{{ residence.since|date('m/d/Y') }}{% endif %}</td>
                     <td>{{ residence.forseason }}</td>
                     <td>
