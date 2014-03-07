@@ -165,8 +165,16 @@ class Person
      */
     private $emails;
 
+    /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     *
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person")
+     */
+    private $phones;
+
     public function __construct() {
         $this->emails = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     /**
@@ -647,5 +655,38 @@ class Person
     public function getEmails()
     {
         return $this->emails;
+    }
+
+    /**
+     * Add phone
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $email
+     * @return Person
+     */
+    public function addPhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    {
+        $this->phones[] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Remove phone
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $phone
+     */
+    public function removePhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    {
+        $this->phones->removeElement($phone);
+    }
+
+    /**
+     * Get phone
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
     }
 }
