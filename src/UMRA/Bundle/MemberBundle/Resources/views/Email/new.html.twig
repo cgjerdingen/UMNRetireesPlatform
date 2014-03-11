@@ -5,11 +5,11 @@
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Email', {'personId' : personId}) }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <ul class="list-inline">
+	    <li>
+	        <a class="btn btn-default" href="{{ path('UMRA_Household_show', {'id' : householdId }) }}">
+	            Back to household
+	        </a>
+	    </li>
+	</ul>
 {% endblock %}
