@@ -108,7 +108,7 @@
                     <td>
                         <ul class="list-unstyled">
                             {% for phone in person.phones %}
-                                <li><a href="{{ path('UMRA_Phone_show', { 'id': phone.id }) }}">{{ phone.phnumber }}</a></li>
+                                <li><a href="{{ path('UMRA_Phone_show', { 'id': phone.id }) }}">{{ phone.phnumber }}</a> - {{ phone.phtype }}</li>
                             {% endfor %}
                             <li>
                                 <a href="{{ path('UMRA_Person_Phone_new', { 'personId': person.id }) }}">
