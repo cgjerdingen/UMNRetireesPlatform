@@ -16,10 +16,10 @@ class Email
     /**
      * @var string
      *
-     * @Assert\Choice(choices = {"primary", "secondary"}, message = "Must be primary or secondary")
-     * @ORM\Column(name="PriSec", type="string", length=10, nullable=false)
+     * @Assert\Choice(choices = {"personal", "shared", "work", "other"}, message = "Must be personal, shared, work, or other")
+     * @ORM\Column(name="Type", type="string", length=10, nullable=false)
      */
-    private $prisec;
+    private $type;
 
     /**
      * @var string
@@ -61,26 +61,26 @@ class Email
 
 
     /**
-     * Set prisec
+     * Set type
      *
-     * @param string $prisec
+     * @param string $type
      * @return Email
      */
-    public function setPrisec($prisec)
+    public function setType($type)
     {
-        $this->prisec = $prisec;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get prisec
+     * Get type
      *
      * @return string
      */
-    public function getPrisec()
+    public function getType()
     {
-        return $this->prisec;
+        return $this->type;
     }
 
     /**

@@ -1,7 +1,3 @@
-UMRA_Email_new:
-    pattern:  /UMRA/Person/{personId}/Email/new
-    defaults: { _controller: UMRAMemberBundle:Email:new }
-    methods: [GET]
 UMRA_Email_show:
     pattern:  /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:show }
@@ -14,18 +10,10 @@ UMRA_Email_update:
     pattern:  /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:update }
     methods: [PUT]
-UMRA_Email_create:
-    pattern: /UMRA/Person/{personId}/Email
-    defaults: { _controller: UMRAMemberBundle:Email:create }
-    methods: [POST]
 UMRA_Email_delete:
     pattern: /UMRA/Email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:delete }
     methods: [DELETE]
-UMRA_Email:
-    pattern:  /UMRA/Person/{personId}/Email/
-    defaults: { _controller: UMRAMemberBundle:Email:index }
-    methods: [GET]
 UMRA_Household:
     pattern:  /UMRA/Household
     defaults: { _controller: UMRAMemberBundle:Household:index }
@@ -42,6 +30,14 @@ UMRA_Household_edit:
     pattern:  /UMRA/Household/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Household:edit }
     methods: [GET]
+UMRA_Household_Email_new:
+    pattern:  /UMRA/Household/{householdId}/Email/new
+    defaults: { _controller: UMRAMemberBundle:Email:new, personId: ~ }
+    methods: [GET]
+UMRA_Household_Email_create:
+    pattern: /UMRA/Household/{householdId}/Email
+    defaults: { _controller: UMRAMemberBundle:Email:create, personId: ~ }
+    methods: [POST]
 UMRA_Household_update:
     pattern:  /UMRA/Household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:update }
@@ -62,6 +58,14 @@ UMRA_Person_new:
     pattern:  /UMRA/Person/new
     defaults: { _controller: UMRAMemberBundle:Person:new }
     methods: [GET]
+UMRA_Person_Email_new:
+    pattern:  /UMRA/Person/{personId}/Email/new
+    defaults: { _controller: UMRAMemberBundle:Email:new }
+    methods: [GET]
+UMRA_Person_Email_create:
+    pattern: /UMRA/Person/{personId}/Email
+    defaults: { _controller: UMRAMemberBundle:Email:create }
+    methods: [POST]
 UMRA_Person_show:
     pattern:  /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:show }

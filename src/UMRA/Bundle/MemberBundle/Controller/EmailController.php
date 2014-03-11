@@ -31,15 +31,11 @@ class EmailController extends Controller
 			array('person' => $personId)
 		);
 
-
-
         $person_entity = $em->getRepository('UMRAMemberBundle:Person')->find($personId);
 
         if (!$person_entity) {
             throw $this->createNotFoundException('Unable to find Person entity.');
         }
-
-
 
         return array(
             'entities' => $entities, 'personId' => $personId, 'person_entity' => $person_entity,
@@ -50,17 +46,36 @@ class EmailController extends Controller
      *
      * @Template("UMRAMemberBundle:Email:new.html.twig")
      */
-    public function createAction(Request $request, $personId)
+    public function createAction(Request $request, $personId = null, $householdId = null)
     {
         $entity = new Email();
-        $form = $this->createCreateForm($entity, $personId);
+
+        $form = $this->createCreateForm($entity, $personId, $householdId);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            if($personId) {
+                $person = $em->getRepository('UMRAMemberBundle:Person')->find($personId);
+                if (!$person) {
+                    throw $this->createNotFoundException();
+                }
+                $entity->setPerson($person);
+                $hid = $person->getHousehold()->getId();
+            } elseif ($householdId) {
+                $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+                if (!$household) {
+                    throw $this->createNotFoundException();
+                }
+                $entity->setHousehold($household);
+                $hid = $householdId;
+            }
+
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPerson()->getId())));
+
+            return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $hid)));
         }
 
         return array(
@@ -76,14 +91,23 @@ class EmailController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Email $entity, $personId)
+    private function createCreateForm(Email $entity, $personId = null, $householdId = null)
     {
-        $form = $this->createForm(new EmailType(), $entity, array(
-            'action' => $this->generateUrl('UMRA_Email_create', array('personId' => $personId)),
-            'method' => 'POST',
-        ));
+        if ($householdId != null && $personId === null) {
+            $entity->setType('shared');
+            $form = $this->createForm(new EmailType(), $entity, array(
+                'action' => $this->generateUrl('UMRA_Household_Email_create', array('householdId' => $householdId)),
+                'method' => 'POST',
+            ));
+            $form->remove('type');
+        } else {
+            $form = $this->createForm(new EmailType(), $entity, array(
+                'action' => $this->generateUrl('UMRA_Person_Email_create', array('personId' => $personId)),
+                'method' => 'POST',
+            ));
+        }
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -93,15 +117,24 @@ class EmailController extends Controller
      *
      * @Template()
      */
-    public function newAction($personId)
+    public function newAction($personId = null, $householdId = null)
     {
         $entity = new Email();
-        $form   = $this->createCreateForm($entity, $personId);
+        $form   = $this->createCreateForm($entity, $personId, $householdId);
+
+        if ($personId) {
+            $person = $this->getDoctrine()->getManager()
+                        ->getRepository('UMRAMemberBundle:Person')->find($personId);
+            if (!$person) {
+                throw $this->createNotFoundException();
+            }
+            $householdId = $person->getHousehold()->getId();
+        }
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'personId' => $personId,
+            'householdId' => $householdId,
         );
     }
 
@@ -120,11 +153,18 @@ class EmailController extends Controller
             throw $this->createNotFoundException('Unable to find Email entity.');
         }
 
+        if ($entity->getPerson()) {
+            $householdId = $entity->getPerson()->getHousehold()->getId();
+        } else {
+            $householdId = $entity->getHousehold()->getId();
+        }
+
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'householdId' => $householdId,
         );
     }
 
@@ -143,14 +183,20 @@ class EmailController extends Controller
             throw $this->createNotFoundException('Unable to find Email entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        if ($entity->getPerson()) {
+            $householdId = $entity->getPerson()->getHousehold()->getId();
+        } else {
+            $householdId = $entity->getHousehold()->getId();
+        }
+
+        $editForm = $this->createEditForm($entity, $householdId);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'personId' => $entity->getPerson()->getId(),
+            'householdId' => $householdId,
         );
     }
 
@@ -161,14 +207,18 @@ class EmailController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Email $entity)
+    private function createEditForm(Email $entity, $householdId = null)
     {
         $form = $this->createForm(new EmailType(), $entity, array(
             'action' => $this->generateUrl('UMRA_Email_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        if ($householdId != null && $entity->getPerson() == null) {
+            $form->remove('type');
+        }
+
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -187,20 +237,27 @@ class EmailController extends Controller
             throw $this->createNotFoundException('Unable to find Email entity.');
         }
 
+        if ($entity->getPerson()) {
+            $householdId = $entity->getPerson()->getHousehold()->getId();
+        } else {
+            $householdId = $entity->getHousehold()->getId();
+        }
+
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $householdId);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('UMRA_Email_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $householdId)));
         }
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'householdId' => $householdId,
         );
     }
     /**
@@ -212,19 +269,28 @@ class EmailController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UMRAMemberBundle:Email')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Email entity.');
+        }
+
+        if ($entity->getPerson()) {
+            $householdId = $entity->getPerson()->getHousehold()->getId();
+        } else {
+            $householdId = $entity->getHousehold()->getId();
+        }
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('UMRAMemberBundle:Email')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Email entity.');
-            }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('UMRA_Email', array('personId' => $entity->getPerson()->getId())));
+        return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $householdId)));
     }
 
     /**
@@ -239,7 +305,7 @@ class EmailController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('UMRA_Email_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger')))
             ->getForm()
         ;
     }

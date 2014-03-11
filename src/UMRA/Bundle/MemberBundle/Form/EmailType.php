@@ -15,16 +15,12 @@ class EmailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prisec', 'choice', array(
+            ->add('type', 'choice', array(
                 'label' => 'Type',
-                'choices' => array('primary' => 'Primary', 'secondary' => 'Secondary'),
+                'choices' => array('personal' => 'Personal', 'work' => 'Work', 'other' => 'Other'),
                 'expanded' => true
                 ))
             ->add('email', 'email')
-            ->add('person', 'entity', array(
-            'class' => 'UMRAMemberBundle:Person', 'property' => 'Fullname',))
-            ->add('household', 'entity', array(
-            'class' => 'UMRAMemberBundle:Household', 'property' => 'Postalname',))
         ;
     }
 
