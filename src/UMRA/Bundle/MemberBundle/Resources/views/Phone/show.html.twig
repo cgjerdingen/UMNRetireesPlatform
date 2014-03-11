@@ -1,36 +1,44 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Phone</h1>
+    <div class="page-header">
+        <h1>{{ entity.phnumber }}
+            {% if entity.phtype == 'mobile' %}
+            <span class="label label-primary">Mobile</span>
+            {% elseif entity.phtype == 'work' %}
+            <span class="label label-success">Work</span>
+            {% elseif entity.phtype == 'shared' %}
+            <span class="label label-danger">Shared</span>
+            {% else %}
+            <span class="label label-default">Other</span>
+            {% endif %}
+        </h1>
+        <h2 class="text-muted">Owned by:
+            <small>
+                {% if entity.residence %}
+                <a href="{{ path('UMRA_Residence_show', { 'id': entity.residence.id }) }}">
+                    Residence of {{ entity.residence.address1 }}
+                </a>
+                {% else %}
+                <a href="{{ path('UMRA_Person_show', { 'id': entity.person.id }) }}">
+                    {{ entity.person.firstName }} {{ entity.person.lastName }}
+                </a>
+                {% endif %}
+            </small>
+        </h2>
+    </div>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Phnumber</th>
-                <td>{{ entity.phnumber }}</td>
-            </tr>
-            <tr>
-                <th>Phtype</th>
-                <td>{{ entity.phtype }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Phone') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('UMRA_Phone_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Household_show', { 'id': householdId }) }}">
+                Back to household
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('UMRA_Phone_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
