@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Phone
@@ -22,6 +23,7 @@ class Phone
     /**
      * @var string
      *
+     * @Assert\Choice(choices = {"mobile", "work", "other", "shared"}, message = "Must be mobile, work, other, or shared")
      * @ORM\Column(name="Phtype", type="string", length=20, nullable=false)
      */
     private $phtype;
