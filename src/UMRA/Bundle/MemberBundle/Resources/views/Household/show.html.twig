@@ -45,10 +45,10 @@
                     <td>
                         <ul class="list-unstyled">
                             {% for phone in residence.phones %}
-                                <li>{{ phone.phnumber }} - {{ phone.phtype }}</li>
+                                <li><a href="{{ path('UMRA_Phone_show', { 'id': phone.id }) }}">{{ phone.phnumber }}</a></li>
                             {% endfor %}
                             <li>
-                                <a href="{{ path('UMRA_Phone_new', { 'resId': residence.id }) }}">
+                                <a href="{{ path('UMRA_Residence_Phone_new', { 'residenceId': residence.id }) }}">
                                     <small><span class="glyphicon glyphicon-plus"></span> Add</small>
                                 </a>
                             </li>
