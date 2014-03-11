@@ -16,11 +16,11 @@ class PhoneType extends AbstractType
     {
         $builder
             ->add('phnumber')
-            ->add('phtype')
-            ->add('residence', 'entity', array(
-            'class' => 'UMRAMemberBundle:Residence', 'property' => 'Address1',))
-            ->add('person', 'entity', array(
-            'class' => 'UMRAMemberBundle:Person', 'property' => 'Fullname',))
+            ->add('phtype', 'choice', array(
+                'label' => 'Type',
+                'choices' => array('work' => 'Work', 'mobile' => 'Mobile', 'other' => 'Other'),
+                'expanded' => true
+                ))
         ;
     }
 
