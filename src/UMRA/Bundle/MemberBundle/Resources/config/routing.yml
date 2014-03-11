@@ -66,6 +66,14 @@ UMRA_Person_Email_create:
     pattern: /UMRA/Person/{personId}/Email
     defaults: { _controller: UMRAMemberBundle:Email:create }
     methods: [POST]
+UMRA_Person_Phone_new:
+    pattern:  /UMRA/Person/{personId}/Phone/new
+    defaults: { _controller: UMRAMemberBundle:Phone:new }
+    methods: [GET]
+UMRA_Person_Phone_create:
+    pattern:  /UMRA/Person/{personId}/Phone
+    defaults: { _controller: UMRAMemberBundle:Phone:create }
+    methods: [POST]
 UMRA_Person_show:
     pattern:  /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:show }
@@ -89,10 +97,6 @@ UMRA_Person_delete:
 UMRA_Phone:
     pattern:  /UMRA/Phone/
     defaults: { _controller: UMRAMemberBundle:Phone:index }
-    methods: [GET]
-UMRA_Phone_new:
-    pattern:  /UMRA/Phone/new
-    defaults: { _controller: UMRAMemberBundle:Phone:new }
     methods: [GET]
 UMRA_Phone_show:
     pattern:  /UMRA/Phone/{id}
@@ -150,6 +154,14 @@ UMRA_Residence_new:
     pattern:  /UMRA/Residence/new
     defaults: { _controller: UMRAMemberBundle:Residence:new }
     methods: [GET]
+UMRA_Residence_Phone_new:
+    pattern:  /UMRA/Residence/{residenceId}/Phone/new
+    defaults: { _controller: UMRAMemberBundle:Phone:new, personId: ~ }
+    methods: [GET]
+UMRA_Residence_Phone_create:
+    pattern: /UMRA/Residence/{residenceId}/Phone
+    defaults: { _controller: UMRAMemberBundle:Phone:create, personId: ~ }
+    methods: [POST]
 UMRA_Residence_show:
     pattern:  /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:show }
