@@ -284,7 +284,6 @@ class EmailController extends Controller
         }
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
             $em->remove($entity);
             $em->flush();
