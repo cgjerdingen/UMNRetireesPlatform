@@ -266,6 +266,8 @@ class PhoneController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
         $entity = $em->getRepository('UMRAMemberBundle:Phone')->find($id);
 
         if (!$entity) {
@@ -279,7 +281,6 @@ class PhoneController extends Controller
         }
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
             $em->remove($entity);
             $em->flush();
