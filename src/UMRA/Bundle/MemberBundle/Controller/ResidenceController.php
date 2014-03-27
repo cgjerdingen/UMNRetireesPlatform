@@ -35,14 +35,22 @@ class ResidenceController extends Controller
      *
      * @Template("UMRAMemberBundle:Residence:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $householdId)
     {
         $entity = new Residence();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $householdId);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+
+        if (!$household) {
+            throw $this->createNotFoundException('Unable to find Household entity.');
+        }
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $entity->setHousehold($household);
             $em->persist($entity);
             $em->flush();
 
@@ -52,6 +60,7 @@ class ResidenceController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'household' => $household
         );
     }
 
@@ -62,14 +71,14 @@ class ResidenceController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Residence $entity)
+    private function createCreateForm(Residence $entity, $householdId)
     {
         $form = $this->createForm(new ResidenceType(), $entity, array(
-            'action' => $this->generateUrl('UMRA_Residence_create'),
+            'action' => $this->generateUrl('UMRA_Household_Residence_create', array('householdId' => $householdId)),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -79,14 +88,23 @@ class ResidenceController extends Controller
      *
      * @Template()
      */
-    public function newAction()
+    public function newAction($householdId)
     {
         $entity = new Residence();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $householdId);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+
+        if (!$household) {
+            throw $this->createNotFoundException('Unable to find Household entity.');
+        }
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'household' => $household
         );
     }
 
@@ -152,7 +170,7 @@ class ResidenceController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -196,19 +214,21 @@ class ResidenceController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('UMRAMemberBundle:Residence')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Residence entity.');
+        }
+
+        $hid = $entity->getHousehold()->getId();
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('UMRAMemberBundle:Residence')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Residence entity.');
-            }
-
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('UMRA_Residence'));
+        return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $hid)));
     }
 
     /**

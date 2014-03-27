@@ -38,6 +38,14 @@ UMRA_Household_Person_create:
     pattern: /UMRA/Household/{householdId}/Person
     defaults: { _controller: UMRAMemberBundle:Person:create }
     methods: [POST]
+UMRA_Household_Residence_new:
+    pattern:  /UMRA/Household/{householdId}/Residence/new
+    defaults: { _controller: UMRAMemberBundle:Residence:new }
+    methods: [GET]
+UMRA_Household_Residence_create:
+    pattern: /UMRA/Household/{householdId}/Residence
+    defaults: { _controller: UMRAMemberBundle:Residence:create }
+    methods: [POST]
 UMRA_Household_Email_new:
     pattern:  /UMRA/Household/{householdId}/Email/new
     defaults: { _controller: UMRAMemberBundle:Email:new, personId: ~ }
@@ -150,10 +158,6 @@ UMRA_Residence:
     pattern:  /UMRA/Residence/
     defaults: { _controller: UMRAMemberBundle:Residence:index }
     methods: [GET]
-UMRA_Residence_new:
-    pattern:  /UMRA/Residence/new
-    defaults: { _controller: UMRAMemberBundle:Residence:new }
-    methods: [GET]
 UMRA_Residence_Phone_new:
     pattern:  /UMRA/Residence/{residenceId}/Phone/new
     defaults: { _controller: UMRAMemberBundle:Phone:new, personId: ~ }
@@ -174,10 +178,6 @@ UMRA_Residence_update:
     pattern:  /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:update }
     methods: [PUT]
-UMRA_Residence_create:
-    pattern: /UMRA/Residence
-    defaults: { _controller: UMRAMemberBundle:Residence:create }
-    methods: [POST]
 UMRA_Residence_delete:
     pattern: /UMRA/Residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:delete }
