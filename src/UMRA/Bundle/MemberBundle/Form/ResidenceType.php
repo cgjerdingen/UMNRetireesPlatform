@@ -22,10 +22,10 @@ class ResidenceType extends AbstractType
             ->add('city')
             ->add('state')
             ->add('zip')
-            ->add('legdistrict')
+            ->add('legdistrict', 'text', array('label' => 'Legislative District'))
             ->add('country')
             ->add('since')
-            ->add('forseason')
+            ->add('forseason', 'text', array('label' => 'Season(s)'))
         ;
     }
 
