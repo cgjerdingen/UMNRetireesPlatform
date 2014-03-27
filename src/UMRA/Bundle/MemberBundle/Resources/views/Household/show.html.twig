@@ -76,10 +76,11 @@
     </div>
 
     <div class="panel panel-primary">
-        <header class="panel-heading"><span class="glyphicon glyphicon-user"></span> Members</header>
+        <header class="panel-heading"><span class="glyphicon glyphicon-user"></span> People</header>
         <table class="table">
             <thead>
                 <th>Full Name</th>
+                <th>UMRA Status</th>
                 <th>Member Since</th>
                 <th>Email Addresses</th>
                 <th>Phone Numbers</th>
@@ -88,6 +89,11 @@
                 {% for person in entity.persons %}
                 <tr>
                     <td><a href="{{ url('UMRA_Person_show', { id: person.id }) }}">{{ person.fullname }}</a></td>
+                    <td>
+                    {% if person.activenow %}
+                        <span class="label label-success">Active</span>
+                    {% endif %}
+                    </td>
                     <td>{{ person.membersince | date("m/d/Y") }}</td>
                     <td>
                         <ul class="list-unstyled">
