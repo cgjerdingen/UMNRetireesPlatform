@@ -95,7 +95,7 @@
                             <li>
                                 <a href="{{ path('UMRA_Email_show', {'id': email.id }) }}">
                                     {{ email.email }}
-                                </a>
+                                </a> - {{ email.type }}
                             </li>
                             {% endfor %}
                             <li>
