@@ -121,7 +121,7 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="Activenow", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Activenow", type="boolean", nullable=true)
      */
     private $activenow;
 
@@ -525,7 +525,7 @@ class Person
     /**
      * Set activenow
      *
-     * @param string $activenow
+     * @param boolean $activenow
      * @return Person
      */
     public function setActivenow($activenow)
@@ -538,9 +538,9 @@ class Person
     /**
      * Get activenow
      *
-     * @return string
+     * @return boolean
      */
-    public function getActivenow()
+    public function isActivenow()
     {
         return $this->activenow;
     }
