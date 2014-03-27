@@ -1,9 +1,15 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Person edit</h1>
+    <div class="page-header">
+        <h1>Editing <strong>{{ entity.firstname }} {{ entity.lastname }}</strong></h1>
+    </div>
 
-    {{ form(edit_form) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form(edit_form) }}
+        </div>
+    </div>
 
     <ul class="list-inline">
         <li>

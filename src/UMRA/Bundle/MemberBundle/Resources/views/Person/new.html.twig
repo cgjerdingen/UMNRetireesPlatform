@@ -1,9 +1,15 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Person creation</h1>
+    <div class="page-header">
+        <h1>Adding a Person to Household of <strong>{{ household.firstname }} {{ household.lastname }}</strong></h1>
+    </div>
 
-    {{ form(form) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form(form) }}
+        </div>
+    </div>
 
     <ul class="list-inline">
         <li>
