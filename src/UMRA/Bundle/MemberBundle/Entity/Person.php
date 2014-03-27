@@ -16,35 +16,35 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="Lastname", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Lastname", type="string", length=35, nullable=false)
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Firstname", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Firstname", type="string", length=35, nullable=false)
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Nickname", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Nickname", type="string", length=35, nullable=false)
      */
     private $nickname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Fullname", type="string", length=50, nullable=false)
+     * @ORM\Column(name="Fullname", type="string", length=70, nullable=false)
      */
     private $fullname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Postalname", type="string", length=50, nullable=false)
+     * @ORM\Column(name="Postalname", type="string", length=70, nullable=false)
      */
     private $postalname;
 
@@ -65,14 +65,14 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="UTopUnit", type="string", length=20, nullable=true)
+     * @ORM\Column(name="UTopUnit", type="string", length=35, nullable=true)
      */
     private $utopunit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UDeptEquiv", type="string", length=20, nullable=true)
+     * @ORM\Column(name="UDeptEquiv", type="string", length=35, nullable=true)
      */
     private $udeptequiv;
 
@@ -86,7 +86,7 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="UTitle", type="string", length=20, nullable=true)
+     * @ORM\Column(name="UTitle", type="string", length=35, nullable=true)
      */
     private $utitle;
 
@@ -135,7 +135,7 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="Weburl", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Weburl", type="string", length=255, nullable=true)
      */
     private $weburl;
 
