@@ -34,38 +34,49 @@ class PersonType extends AbstractType
                     'label' => 'Nametag Name'
                 ))
             ->add('membersince', 'date', array(
-                    'label' => 'UMRA Member Since'
+                    'label' => 'UMRA Member Since',
+                    'required' => false
                 ))
             ->add('utopunit', 'text', array(
-                    'label' => 'University Unit'
+                    'label' => 'University Unit',
+                    'required' => false
                 ))
             ->add('udeptequiv', 'text', array(
-                    'label' => 'University Department'
+                    'label' => 'University Department',
+                    'required' => false
                 ))
             ->add('uempltype', 'text', array(
-                    'label' => 'Employment Type'
+                    'label' => 'Employment Type',
+                    'required' => false
                 ))
             ->add('utitle', 'text', array(
-                    'label' => 'Title'
+                    'label' => 'Title',
+                    'required' => false
                 ))
             ->add('ustartdate', 'date', array(
-                    'label' => 'University Start Date'
+                    'label' => 'University Start Date',
+                    'required' => false
                 ))
             ->add('uretiredate', 'date', array(
-                    'label' => 'University Retire Date'
+                    'label' => 'University Retire Date',
+                    'required' => false
                 ))
             ->add('joindate', 'date', array(
-                    'label' => 'Join Date'
+                    'label' => 'Join Date',
+                    'required' => false
                 ))
             ->add('deceasedate', 'date', array(
-                    'label' => 'Deceased Date'
+                    'label' => 'Deceased Date',
+                    'required' => false
                 ))
             ->add('activenow', 'checkbox', array(
                     'label' => 'Active',
                     'required' => false
                 ))
             ->add('postalnews')
-            ->add('weburl', 'url')
+            ->add('weburl', 'url', array(
+                    'required' => false
+                ))
         ;
     }
 
