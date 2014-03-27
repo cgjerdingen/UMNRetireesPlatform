@@ -7,8 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
-//use Doctrine\Common\Collections\ArrayCollection;
-//use URMA\Bundle\MemberBundle\Entity\Household;
 
 /**
  * Person controller.
@@ -37,14 +35,22 @@ class PersonController extends Controller
      *
      * @Template("UMRAMemberBundle:Person:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $householdId)
     {
         $entity = new Person();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $householdId);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+
+        $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+
+        if (!$household) {
+            throw $this->createNotFoundException('Unable to find Household entity.');
+        }
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $entity->setHousehold($household);
             $em->persist($entity);
             $em->flush();
 
@@ -54,6 +60,7 @@ class PersonController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'household' => $household
         );
     }
 
@@ -64,14 +71,14 @@ class PersonController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Person $entity)
+    private function createCreateForm(Person $entity, $householdId)
     {
         $form = $this->createForm(new PersonType(), $entity, array(
-            'action' => $this->generateUrl('UMRA_Person_create'),
+            'action' => $this->generateUrl('UMRA_Household_Person_create', array('householdId' => $householdId)),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -81,14 +88,23 @@ class PersonController extends Controller
      *
      * @Template()
      */
-    public function newAction()
+    public function newAction($householdId)
     {
         $entity = new Person();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, $householdId);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+
+        if (!$household) {
+            throw $this->createNotFoundException('Unable to find Household entity.');
+        }
 
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'household' => $household
         );
     }
 
@@ -154,7 +170,7 @@ class PersonController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -198,19 +214,22 @@ class PersonController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('UMRAMemberBundle:Person')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Person entity.');
+        }
+
+        $hid = $entity->getHousehold()->getId();
+
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('UMRAMemberBundle:Person')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Person entity.');
-            }
-
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('UMRA_Person'));
+        return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $hid)));
     }
 
     /**
