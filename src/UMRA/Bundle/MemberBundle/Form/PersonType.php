@@ -15,26 +15,57 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname')
-            ->add('firstname')
-            ->add('nickname')
-            ->add('fullname')
-            ->add('postalname')
-            ->add('nametagname')
-            ->add('membersince')
-            ->add('utopunit')
-            ->add('udeptequiv')
-            ->add('uempltype')
-            ->add('utitle')
-            ->add('ustartdate')
-            ->add('uretiredate')
-            ->add('joindate')
-            ->add('deceasedate')
-            ->add('activenow')
+            ->add('lastname', 'text', array(
+                    'label' => 'Last Name'
+                ))
+            ->add('firstname', 'text', array(
+                    'label' => 'First Name'
+                ))
+            ->add('nickname', 'text', array(
+                    'label' => 'Nickname'
+                ))
+            ->add('fullname', 'text', array(
+                    'label' => 'Full Name'
+                ))
+            ->add('postalname', 'text', array(
+                    'label' => 'Postal Name'
+                ))
+            ->add('nametagname', 'text', array(
+                    'label' => 'Nametag Name'
+                ))
+            ->add('membersince', 'date', array(
+                    'label' => 'UMRA Member Since'
+                ))
+            ->add('utopunit', 'text', array(
+                    'label' => 'University Unit'
+                ))
+            ->add('udeptequiv', 'text', array(
+                    'label' => 'University Department'
+                ))
+            ->add('uempltype', 'text', array(
+                    'label' => 'Employment Type'
+                ))
+            ->add('utitle', 'text', array(
+                    'label' => 'Title'
+                ))
+            ->add('ustartdate', 'date', array(
+                    'label' => 'University Start Date'
+                ))
+            ->add('uretiredate', 'date', array(
+                    'label' => 'University Retire Date'
+                ))
+            ->add('joindate', 'date', array(
+                    'label' => 'Join Date'
+                ))
+            ->add('deceasedate', 'date', array(
+                    'label' => 'Deceased Date'
+                ))
+            ->add('activenow', 'checkbox', array(
+                    'label' => 'Active',
+                    'required' => false
+                ))
             ->add('postalnews')
-            ->add('weburl')
-            ->add('household', 'entity', array(
-			'class' => 'UMRAMemberBundle:Household', 'property' => 'Postalname',))
+            ->add('weburl', 'url')
         ;
     }
 
