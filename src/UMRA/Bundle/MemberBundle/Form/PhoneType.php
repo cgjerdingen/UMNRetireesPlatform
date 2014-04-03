@@ -15,7 +15,10 @@ class PhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('phnumber')
+            ->add('phnumber', 'text', array(
+                'label' => 'Phone Number',
+                'attr' => array('placeholder' => 'e.g. 555-555-5555')
+                ))
             ->add('phtype', 'choice', array(
                 'label' => 'Type',
                 'choices' => array('work' => 'Work', 'mobile' => 'Mobile', 'other' => 'Other'),
