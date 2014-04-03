@@ -42,7 +42,11 @@ class ResidenceType extends AbstractType
             ->add('country', 'country', array(
                 'preferred_choices' => array('US')
                 ))
-            ->add('since')
+            ->add('since', 'date', array(
+                    'years' => range(1910, date('Y')),
+                    'label' => 'Since',
+                    'required' => false
+                ))
             ->add('forseason', 'text', array(
                 'label' => 'Season(s)',
                 'required' => false,
