@@ -43,7 +43,11 @@ class ResidenceType extends AbstractType
                 'preferred_choices' => array('US')
                 ))
             ->add('since')
-            ->add('forseason', 'text', array('label' => 'Season(s)'))
+            ->add('forseason', 'text', array(
+                'label' => 'Season(s)',
+                'required' => false,
+                'attr' => array('placeholder' => 'e.g. April through August')
+                ))
         ;
     }
 
