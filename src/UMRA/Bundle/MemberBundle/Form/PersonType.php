@@ -75,7 +75,8 @@ class PersonType extends AbstractType
                 ))
             ->add('postalnews')
             ->add('weburl', 'url', array(
-                    'required' => false
+                    'required' => false,
+                    'attr' => array('placeholder' => 'e.g. http://umn.edu/~test001/')
                 ))
         ;
     }
