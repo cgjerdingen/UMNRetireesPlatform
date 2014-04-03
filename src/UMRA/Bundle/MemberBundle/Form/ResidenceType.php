@@ -34,7 +34,10 @@ class ResidenceType extends AbstractType
                 ))
             ->add('city')
             ->add('state')
-            ->add('zip')
+            ->add('zip', 'text', array(
+                'label' => 'Zip/Postal Code',
+                'attr' => array('placeholder' => 'e.g. 55455')
+                ))
             ->add('legdistrict', 'text', array('label' => 'Legislative District'))
             ->add('country', 'country', array(
                 'preferred_choices' => array('US')
