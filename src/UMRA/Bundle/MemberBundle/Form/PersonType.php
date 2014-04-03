@@ -34,6 +34,7 @@ class PersonType extends AbstractType
                     'label' => 'Nametag Name'
                 ))
             ->add('membersince', 'date', array(
+                    'years' => range(1910, date('Y')),
                     'label' => 'UMRA Member Since',
                     'required' => false
                 ))
@@ -54,18 +55,22 @@ class PersonType extends AbstractType
                     'required' => false
                 ))
             ->add('ustartdate', 'date', array(
+                    'years' => range(1910, date('Y')),
                     'label' => 'University Start Date',
                     'required' => false
                 ))
             ->add('uretiredate', 'date', array(
+                    'years' => range(1910, date('Y')),
                     'label' => 'University Retire Date',
                     'required' => false
                 ))
             ->add('joindate', 'date', array(
+                    'years' => range(1910, date('Y')),
                     'label' => 'Join Date',
                     'required' => false
                 ))
             ->add('deceasedate', 'date', array(
+                    'years' => range(1910, date('Y')),
                     'label' => 'Deceased Date',
                     'required' => false
                 ))
