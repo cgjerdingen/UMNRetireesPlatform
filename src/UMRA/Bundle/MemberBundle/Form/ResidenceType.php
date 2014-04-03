@@ -16,9 +16,22 @@ class ResidenceType extends AbstractType
     {
         $builder
             ->add('primary', 'checkbox', array('required' => false))
-            ->add('address1')
-            ->add('address2')
-            ->add('address3')
+            ->add('address1', 'text', array(
+                'label' => 'Address',
+                'attr' => array('placeholer' => 'e.g. 123 Main Street')
+                ))
+            ->add('address2', 'text', array(
+                'label' => 'Address 2',
+                'label_attr' => array('class' => 'sr-only'),
+                'required' => false,
+                'attr' => array('placeholder' => 'e.g. Suite 3B')
+                ))
+            ->add('address3', 'text', array(
+                'label' => 'Address 3',
+                'label_attr' => array('class' => 'sr-only'),
+                'required' => false,
+                'attr' => array('placeholder' => 'e.g. c/o Steven Exampleton')
+                ))
             ->add('city')
             ->add('state')
             ->add('zip')
