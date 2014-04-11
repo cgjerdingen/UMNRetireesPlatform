@@ -49,7 +49,13 @@ class PersonController extends Controller
             throw $this->createNotFoundException('Unable to find Household entity.');
         }
 
+        $userManager = $this->container->get('fos_user.user_manager');
+
         if ($form->isValid()) {
+            // Set to some random value. If we're adding from the records pages, we're not the person in question.
+            // Therfore, we don't need a known password (yet). The user may reset it later.
+            $entity->setPlainPassword(uniqid(mt_rand()));
+            $userManager->updatePassword($entity);
             $entity->setHousehold($household);
             $em->persist($entity);
             $em->flush();
