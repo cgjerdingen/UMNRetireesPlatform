@@ -25,7 +25,7 @@ class Email
      * @var string
      *
      * @Assert\Email()
-     * @ORM\Column(name="Email", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Email", type="string", length=60, nullable=false, unique=True)
      */
     private $email;
 
