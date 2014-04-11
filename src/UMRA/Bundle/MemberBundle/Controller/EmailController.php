@@ -53,25 +53,26 @@ class EmailController extends Controller
         $form = $this->createCreateForm($entity, $personId, $householdId);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-            if($personId) {
-                $person = $em->getRepository('UMRAMemberBundle:Person')->find($personId);
-                if (!$person) {
-                    throw $this->createNotFoundException();
-                }
-                $entity->setPerson($person);
-                $hid = $person->getHousehold()->getId();
-            } elseif ($householdId) {
-                $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
-                if (!$household) {
-                    throw $this->createNotFoundException();
-                }
-                $entity->setHousehold($household);
-                $hid = $householdId;
+
+        if ($personId) {
+            $person = $em->getRepository('UMRAMemberBundle:Person')->find($personId);
+            if (!$person) {
+                throw $this->createNotFoundException();
             }
+            $entity->setPerson($person);
+            $hid = $person->getHousehold()->getId();
+        } elseif ($householdId) {
+            $household = $em->getRepository('UMRAMemberBundle:Household')->find($householdId);
+            if (!$household) {
+                throw $this->createNotFoundException();
+            }
+            $entity->setHousehold($household);
+            $hid = $householdId;
+        }
 
+        if ($form->isValid()) {
             $em->persist($entity);
             $em->flush();
 
@@ -81,6 +82,7 @@ class EmailController extends Controller
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'householdId' => $hid
         );
     }
 
