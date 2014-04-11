@@ -355,7 +355,7 @@
 {% block form_errors %}
 {% spaceless %}
     {% if errors|length > 0 %}
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
         <ul>
             {% for error in errors %}
                 <li>{{ error.message }}</li>
