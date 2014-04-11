@@ -30,6 +30,13 @@ class Person
     /**
      * @var string
      *
+     * @ORM\Column(name="x500", type="string", length=15, nullable=False, unique=True)
+     */
+    private $x500;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="Nickname", type="string", length=35, nullable=false)
      */
     private $nickname;
