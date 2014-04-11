@@ -2,6 +2,7 @@
 
 namespace UMRA\Bundle\MemberBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="person", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"})})
  * @ORM\Entity
  */
-class Person
+class Person extends BaseUser
 {
     /**
      * @var string
@@ -153,7 +154,7 @@ class Person
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Household
@@ -179,7 +180,104 @@ class Person
      */
     private $phones;
 
+    /**
+     * @var string
+     *
+     */
+    protected $email;
+
+    /**
+     * @var string
+     *
+     */
+    protected $emailCanonical;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    protected $enabled;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string")
+     */
+    protected $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string")
+     */
+    protected $password;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    protected $lastLogin;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="locked", type="boolean")
+     */
+    protected $locked;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="expired", type="boolean")
+     */
+    protected $expired;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expires_at", type="datetime", nullable=true)
+     */
+    protected $expiresAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmation_token", type="string", nullable=true)
+     */
+    protected $confirmationToken;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     */
+    protected $passwordRequestedAt;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="roles", type="array")
+     */
+    protected $roles;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="credentials_expired", type="boolean")
+     */
+    protected $credentialsExpired;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
+     */
+    protected $credentialsExpireAt;
+
     public function __construct() {
+        parent::__construct();
         $this->emails = new ArrayCollection();
         $this->phones = new ArrayCollection();
     }
@@ -228,6 +326,54 @@ class Person
     public function getFirstname()
     {
         return $this->firstname;
+    }
+
+    /**
+     * Set x500
+     *
+     * @param string $x500
+     * @return Person
+     */
+    public function setX500($x500)
+    {
+        $this->x500 = $x500;
+
+        return $this;
+    }
+
+    /**
+     * Get x500
+     *
+     * @return string
+     */
+    public function getX500()
+    {
+        return $this->x500;
+    }
+
+    // For compatibility with FOSUserBundle
+    public function setUsername($x500)
+    {
+        $this->x500;
+
+        return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->x500;
+    }
+
+    public function setUsernameCanonical($x500)
+    {
+        $this->x500;
+
+        return $this;
+    }
+
+    public function getUsernameCanonical()
+    {
+        return $this->x500;
     }
 
     /**
