@@ -3,12 +3,14 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Email
  *
  * @ORM\Table(name="email", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"}), @ORM\Index(name="PersonID", columns={"PersonID"})})
+ * @UniqueEntity(fields={"email"}, message="The specified email already exists.")
  * @ORM\Entity
  */
 class Email
