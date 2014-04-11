@@ -5,11 +5,14 @@ namespace UMRA\Bundle\MemberBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Person
  *
  * @ORM\Table(name="person", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"})})
+ * @UniqueEntity(fields={"x500"}, message="A user with the specified X.500 already exists.")
  * @ORM\Entity
  */
 class Person extends BaseUser
