@@ -9,6 +9,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/typeaheadjs.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/application.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
@@ -21,6 +22,9 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/handlebars-v1.3.0.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/peopleSearch.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
