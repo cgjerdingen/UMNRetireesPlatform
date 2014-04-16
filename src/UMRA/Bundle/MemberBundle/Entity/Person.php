@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="person", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"})})
  * @UniqueEntity(fields={"x500"}, message="A user with the specified X.500 already exists.")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UMRA\Bundle\MemberBundle\Entity\PersonRepository")
  */
 class Person extends BaseUser
 {
