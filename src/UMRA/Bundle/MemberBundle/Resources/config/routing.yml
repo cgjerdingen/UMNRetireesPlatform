@@ -68,7 +68,7 @@ UMRA_Household_delete:
     methods: [DELETE]
 UMRA_Person:
     pattern:  /UMRA/Person
-    defaults: { _controller: UMRAMemberBundle:Person:index }
+    defaults: { _controller: UMRAMemberBundle:Person:index, _format: json }
     methods: [GET]
 UMRA_Person_Email_new:
     pattern:  /UMRA/Person/{personId}/Email/new

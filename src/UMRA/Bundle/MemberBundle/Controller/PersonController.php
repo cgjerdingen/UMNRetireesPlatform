@@ -20,16 +20,25 @@ class PersonController extends Controller
      *
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UMRAMemberBundle:Person')->findAll();
+        $searchTerm = $request->query->get('q');
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+
+        if (!empty($searchTerm)) {
+            $entities = $em->getRepository('UMRAMemberBundle:Person')->findBySearchTerms($searchTerm, $page, $limit);
+        } else {
+            $entities = array();
+        }
 
         return array(
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Person entity.
      *
