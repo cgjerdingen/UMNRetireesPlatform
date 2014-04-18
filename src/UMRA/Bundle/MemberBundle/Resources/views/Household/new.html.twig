@@ -5,14 +5,14 @@
         <h1>Create a New Household</h1>
     </div>
     <div class="col-xs-4">
-    {{ form(form) }}
+        {{ form(form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
     </div>
 {% endblock %}
