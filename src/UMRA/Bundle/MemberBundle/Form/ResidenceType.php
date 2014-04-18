@@ -18,7 +18,7 @@ class ResidenceType extends AbstractType
             ->add('primary', 'checkbox', array('required' => false))
             ->add('address1', 'text', array(
                 'label' => 'Address',
-                'attr' => array('placeholer' => 'e.g. 123 Main Street')
+                'attr' => array('placeholder' => 'e.g. 123 Main Street')
                 ))
             ->add('address2', 'text', array(
                 'label' => 'Address 2',
