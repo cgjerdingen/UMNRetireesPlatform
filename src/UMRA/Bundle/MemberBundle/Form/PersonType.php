@@ -105,6 +105,7 @@ class PersonType extends AbstractType
                     'required' => false
                 ))
             ->add('weburl', 'url', array(
+                    'label' => 'Personal Website',
                     'required' => false,
                     'attr' => array('placeholder' => 'e.g. http://umn.edu/~test001/')
                 ))
