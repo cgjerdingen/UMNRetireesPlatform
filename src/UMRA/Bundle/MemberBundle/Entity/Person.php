@@ -189,13 +189,6 @@ class Person extends BaseUser
     protected $emailCanonical;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="enabled", type="boolean")
-     */
-    protected $enabled;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string")
@@ -814,5 +807,28 @@ class Person extends BaseUser
     public function getPhones()
     {
         return $this->phones;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Person
+     */
+    public function setEnabled($enabled)
+    {
+        $this->activenow = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->activenow;
     }
 }
