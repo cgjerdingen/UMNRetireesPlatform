@@ -117,13 +117,6 @@ class Person extends BaseUser
 
     /**
      * @var \DateTime
-     * TODO: Remove?
-     * @ORM\Column(name="Joindate", type="date", nullable=true)
-     */
-    private $joindate;
-
-    /**
-     * @var \DateTime
      *
      * @ORM\Column(name="Deceasedate", type="date", nullable=true)
      */
@@ -630,29 +623,6 @@ class Person extends BaseUser
     public function getUretiredate()
     {
         return $this->uretiredate;
-    }
-
-    /**
-     * Set joindate
-     *
-     * @param \DateTime $joindate
-     * @return Person
-     */
-    public function setJoindate($joindate)
-    {
-        $this->joindate = $joindate;
-
-        return $this;
-    }
-
-    /**
-     * Get joindate
-     *
-     * @return \DateTime
-     */
-    public function getJoindate()
-    {
-        return $this->joindate;
     }
 
     /**
