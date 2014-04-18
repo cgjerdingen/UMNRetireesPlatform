@@ -70,8 +70,18 @@
                 </td>
             </tr>
             <tr>
-                <th>Postalnews</th>
-                <td>{{ entity.postalnews }}</td>
+                <th>Newsletter Preference</th>
+                <td>
+                    {% if entity.newsPref == 'postal' %}
+                        Postal
+                    {% elseif entity.newsPref == 'email' %}
+                        Email
+                    {% elseif entity.newsPref == 'both' %}
+                        Postal &amp; Email
+                    {% else %}
+                        Does not receive newsletter
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Web URL</th>

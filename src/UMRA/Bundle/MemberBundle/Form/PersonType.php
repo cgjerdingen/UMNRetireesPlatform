@@ -94,7 +94,16 @@ class PersonType extends AbstractType
                     'label' => 'Active',
                     'required' => false
                 ))
-            ->add('postalnews')
+            ->add('newsPref', 'choice', array(
+                    'choices' => array(
+                        'postal' => 'Postal Mail',
+                        'email' => 'Email',
+                        'both' => 'Both'
+                    ),
+                    'label' => 'Newsletter Preference',
+                    'expanded' => true,
+                    'required' => false
+                ))
             ->add('weburl', 'url', array(
                     'required' => false,
                     'attr' => array('placeholder' => 'e.g. http://umn.edu/~test001/')

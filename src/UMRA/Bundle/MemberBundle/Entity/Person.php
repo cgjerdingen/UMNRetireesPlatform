@@ -117,7 +117,7 @@ class Person extends BaseUser
 
     /**
      * @var \DateTime
-     *
+     * TODO: Remove?
      * @ORM\Column(name="Joindate", type="date", nullable=true)
      */
     private $joindate;
@@ -138,10 +138,10 @@ class Person extends BaseUser
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="Postalnews", type="string", length=20, nullable=true)
+     * @Assert\Choice(choices={"", "postal", "email", "both"}, message="Must be postal, email, or both.")
+     * @ORM\Column(name="news_pref", type="string", length=20, nullable=true)
      */
-    private $postalnews;
+    private $newsPref;
 
     /**
      * @var string
@@ -260,7 +260,7 @@ class Person extends BaseUser
 
     /**
      * @var array
-     *
+     * TODO: Change to ArrayCollection
      * @ORM\Column(name="roles", type="array")
      */
     protected $roles;
@@ -702,26 +702,26 @@ class Person extends BaseUser
     }
 
     /**
-     * Set postalnews
+     * Set newsPref
      *
-     * @param string $postalnews
+     * @param string $newsPref
      * @return Person
      */
-    public function setPostalnews($postalnews)
+    public function setNewsPref($newsPref)
     {
-        $this->postalnews = $postalnews;
+        $this->newsPref = $newsPref;
 
         return $this;
     }
 
     /**
-     * Get postalnews
+     * Get newsPref
      *
      * @return string
      */
-    public function getPostalnews()
+    public function getNewsPref()
     {
-        return $this->postalnews;
+        return $this->newsPref;
     }
 
     /**
