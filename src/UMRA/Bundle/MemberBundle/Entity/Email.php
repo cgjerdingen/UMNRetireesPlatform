@@ -11,8 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="email",
  *            indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"}),
- *                     @ORM\Index(name="PersonID", columns={"PersonID"}),
- *                     @ORM\Index(name="UserPreferred", columns={"preferred", "PersonID"})})
+ *                     @ORM\Index(name="PersonID", columns={"PersonID"})},
+ *            uniqueConstraints={@ORM\UniqueConstraint(name="OnePreferredPerUser", columns={"preferred", "PersonID"})}
+ * )
  * @UniqueEntity(fields={"email"}, message="The specified email already exists.")
  * @UniqueEntity(fields={"preferred", "person"}, message="Cannot have more than one preferred email")
  * @ORM\Entity
