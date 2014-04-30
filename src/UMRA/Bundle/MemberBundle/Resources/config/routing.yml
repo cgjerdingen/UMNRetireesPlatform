@@ -1,105 +1,105 @@
 UMRA_Email_show:
-    pattern:  /UMRA/Email/{id}
+    pattern:  /email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:show }
     methods: [GET]
 UMRA_Email_edit:
-    pattern:  /UMRA/Email/{id}/edit
+    pattern:  /email/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Email:edit }
     methods: [GET]
 UMRA_Email_update:
-    pattern:  /UMRA/Email/{id}
+    pattern:  /email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:update }
     methods: [PUT]
 UMRA_Email_delete:
-    pattern: /UMRA/Email/{id}
+    pattern: /email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:delete }
     methods: [DELETE]
 UMRA_Household:
-    pattern:  /UMRA/Household
+    pattern:  /households
     defaults: { _controller: UMRAMemberBundle:Household:index }
     methods: [GET]
 UMRA_Household_new:
-    pattern:  /UMRA/Household/new
+    pattern:  /household/new
     defaults: { _controller: UMRAMemberBundle:Household:new }
     methods: [GET]
 UMRA_Household_show:
-    pattern:  /UMRA/Household/{id}
+    pattern:  /household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:show }
     methods: [GET]
 UMRA_Household_edit:
-    pattern:  /UMRA/Household/{id}/edit
+    pattern:  /household/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Household:edit }
     methods: [GET]
 UMRA_Household_Person_new:
-    pattern:  /UMRA/Household/{householdId}/Person/new
+    pattern:  /household/{householdId}/person/new
     defaults: { _controller: UMRAMemberBundle:Person:new }
     methods: [GET]
 UMRA_Household_Person_create:
-    pattern: /UMRA/Household/{householdId}/Person
+    pattern: /household/{householdId}/person
     defaults: { _controller: UMRAMemberBundle:Person:create }
     methods: [POST]
 UMRA_Household_Residence_new:
-    pattern:  /UMRA/Household/{householdId}/Residence/new
+    pattern:  /household/{householdId}/residence/new
     defaults: { _controller: UMRAMemberBundle:Residence:new }
     methods: [GET]
 UMRA_Household_Residence_create:
-    pattern: /UMRA/Household/{householdId}/Residence
+    pattern: /household/{householdId}/residence
     defaults: { _controller: UMRAMemberBundle:Residence:create }
     methods: [POST]
 UMRA_Household_Email_new:
-    pattern:  /UMRA/Household/{householdId}/Email/new
+    pattern:  /household/{householdId}/email/new
     defaults: { _controller: UMRAMemberBundle:Email:new, personId: ~ }
     methods: [GET]
 UMRA_Household_Email_create:
-    pattern: /UMRA/Household/{householdId}/Email
+    pattern: /household/{householdId}/email
     defaults: { _controller: UMRAMemberBundle:Email:create, personId: ~ }
     methods: [POST]
 UMRA_Household_update:
-    pattern:  /UMRA/Household/{id}
+    pattern:  /household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:update }
     methods: [PUT]
 UMRA_Household_create:
-    pattern: /UMRA/Household
+    pattern: /household
     defaults: { _controller: UMRAMemberBundle:Household:create }
     methods: [POST]
 UMRA_Household_delete:
-    pattern: /UMRA/Household/{id}
+    pattern:  /household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:delete }
     methods: [DELETE]
 UMRA_Person:
-    pattern:  /UMRA/Person
+    pattern:  /persons
     defaults: { _controller: UMRAMemberBundle:Person:index, _format: json }
     methods: [GET]
 UMRA_Person_Email_new:
-    pattern:  /UMRA/Person/{personId}/Email/new
+    pattern:  /person/{personId}/email/new
     defaults: { _controller: UMRAMemberBundle:Email:new }
     methods: [GET]
 UMRA_Person_Email_create:
-    pattern: /UMRA/Person/{personId}/Email
+    pattern: /person/{personId}/email
     defaults: { _controller: UMRAMemberBundle:Email:create }
     methods: [POST]
 UMRA_Person_Phone_new:
-    pattern:  /UMRA/Person/{personId}/Phone/new
+    pattern:  /person/{personId}/phone/new
     defaults: { _controller: UMRAMemberBundle:Phone:new }
     methods: [GET]
 UMRA_Person_Phone_create:
-    pattern:  /UMRA/Person/{personId}/Phone
+    pattern:  /person/{personId}/phone
     defaults: { _controller: UMRAMemberBundle:Phone:create }
     methods: [POST]
 UMRA_Person_show:
-    pattern:  /UMRA/Person/{id}
+    pattern:  /person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:show }
     methods: [GET]
 UMRA_Person_edit:
-    pattern:  /UMRA/Person/{id}/edit
+    pattern:  /person/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Person:edit }
     methods: [GET]
 UMRA_Person_update:
-    pattern:  /UMRA/Person/{id}
+    pattern:  /person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:update }
     methods: [PUT]
 UMRA_Person_delete:
-    pattern: /UMRA/Person/{id}
+    pattern: /person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:delete }
     methods: [DELETE]
 UMRA_Person_Profile:
@@ -107,138 +107,138 @@ UMRA_Person_Profile:
     defaults: { _controller: UMRAMemberBundle:Person:profile }
     methods: [GET]
 UMRA_Phone:
-    pattern:  /UMRA/Phone/
+    pattern:  /phones
     defaults: { _controller: UMRAMemberBundle:Phone:index }
     methods: [GET]
 UMRA_Phone_show:
-    pattern:  /UMRA/Phone/{id}
+    pattern:  /phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:show }
     methods: [GET]
 UMRA_Phone_edit:
-    pattern:  /UMRA/Phone/{id}/edit
+    pattern:  /phone/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Phone:edit }
     methods: [GET]
 UMRA_Phone_update:
-    pattern:  /UMRA/Phone/{id}
+    pattern:  /phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:update }
     methods: [PUT]
 UMRA_Phone_create:
-    pattern: /UMRA/Phone
+    pattern: /phone
     defaults: { _controller: UMRAMemberBundle:Phone:create }
     methods: [POST]
 UMRA_Phone_delete:
-    pattern: /UMRA/Phone/{id}
+    pattern: /phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:delete }
     methods: [DELETE]
 UMRA_Photo:
-    pattern:  /UMRA/Photo/
+    pattern:  /photos
     defaults: { _controller: UMRAMemberBundle:Photo:index }
     methods: [GET]
 UMRA_Photo_new:
-    pattern:  /UMRA/Photo/new
+    pattern:  /photo/new
     defaults: { _controller: UMRAMemberBundle:Photo:new }
     methods: [GET]
 UMRA_Photo_show:
-    pattern:  /UMRA/Photo/{id}
+    pattern:  /photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:show }
     methods: [GET]
 UMRA_Photo_edit:
-    pattern:  /UMRA/Photo/{id}/edit
+    pattern:  /photo/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Photo:edit }
     methods: [GET]
 UMRA_Photo_update:
-    pattern:  /UMRA/Photo/{id}
+    pattern:  /photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:update }
     methods: [PUT]
 UMRA_Photo_create:
-    pattern: /UMRA/Photo
+    pattern: /photo
     defaults: { _controller: UMRAMemberBundle:Photo:create }
     methods: [POST]
 UMRA_Photo_delete:
-    pattern: /UMRA/Photo/{id}
+    pattern: /photo/{id}
     defaults: { _controller: UMRAMemberBundle:Photo:delete }
     methods: [DELETE]
 UMRA_Residence:
-    pattern:  /UMRA/Residence/
+    pattern:  /residences
     defaults: { _controller: UMRAMemberBundle:Residence:index }
     methods: [GET]
 UMRA_Residence_Phone_new:
-    pattern:  /UMRA/Residence/{residenceId}/Phone/new
+    pattern:  /residence/{residenceId}/phone/new
     defaults: { _controller: UMRAMemberBundle:Phone:new, personId: ~ }
     methods: [GET]
 UMRA_Residence_Phone_create:
-    pattern: /UMRA/Residence/{residenceId}/Phone
+    pattern: /residence/{residenceId}/phone
     defaults: { _controller: UMRAMemberBundle:Phone:create, personId: ~ }
     methods: [POST]
 UMRA_Residence_show:
-    pattern:  /UMRA/Residence/{id}
+    pattern:  /residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:show }
     methods: [GET]
 UMRA_Residence_edit:
-    pattern:  /UMRA/Residence/{id}/edit
+    pattern:  /residence/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Residence:edit }
     methods: [GET]
 UMRA_Residence_update:
-    pattern:  /UMRA/Residence/{id}
+    pattern:  /residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:update }
     methods: [PUT]
 UMRA_Residence_delete:
-    pattern: /UMRA/Residence/{id}
+    pattern: /residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:delete }
     methods: [DELETE]
 UMRA_Role:
-    pattern:  /UMRA/Role/
+    pattern:  /roles
     defaults: { _controller: UMRAMemberBundle:Role:index }
     methods: [GET]
 UMRA_Role_new:
-    pattern:  /UMRA/Role/new
+    pattern:  /role/new
     defaults: { _controller: UMRAMemberBundle:Role:new }
     methods: [GET]
 UMRA_Role_show:
-    pattern:  /UMRA/Role/{id}
+    pattern:  /role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:show }
     methods: [GET]
 UMRA_Role_edit:
-    pattern:  /UMRA/Role/{id}/edit
+    pattern:  /role/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Role:edit }
     methods: [GET]
 UMRA_Role_update:
-    pattern:  /UMRA/Role/{id}
+    pattern:  /role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:update }
     methods: [PUT]
 UMRA_Role_create:
-    pattern: /UMRA/Role
+    pattern: /role
     defaults: { _controller: UMRAMemberBundle:Role:create }
     methods: [POST]
 UMRA_Role_delete:
-    pattern: /UMRA/Role/{id}
+    pattern: /role/{id}
     defaults: { _controller: UMRAMemberBundle:Role:delete }
     methods: [DELETE]
 UMRA_Trans_new:
-    pattern:  /UMRA/Trans/new
+    pattern:  /transaction/new
     defaults: { _controller: UMRAMemberBundle:Trans:new }
     methods: [GET]
 UMRA_Trans:
-    pattern:  /UMRA/Trans/
+    pattern:  /transactions
     defaults: { _controller: UMRAMemberBundle:Trans:index }
     methods: [GET]
 UMRA_Trans_edit:
-    pattern:  /UMRA/Trans/{id}/edit
+    pattern:  /transaction/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Trans:edit }
     methods: [GET]
 UMRA_Trans_show:
-    pattern:  /UMRA/Trans/{id}
+    pattern:  /transaction/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:show }
     methods: [GET]
 UMRA_Trans_update:
-    pattern:  /UMRA/Trans/{id}
+    pattern:  /transaction/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:update }
     methods: [PUT]
 UMRA_Trans_create:
-    pattern: /UMRA/Trans
+    pattern: /transaction
     defaults: { _controller: UMRAMemberBundle:Trans:create }
     methods: [POST]
 UMRA_Trans_delete:
-    pattern: /UMRA/Trans/{id}
+    pattern: /transaction/{id}
     defaults: { _controller: UMRAMemberBundle:Trans:delete }
     methods: [DELETE]
