@@ -3,7 +3,7 @@ var people = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('fullname'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
-    url:'/UMRA/Person?q=%QUERY',
+    url:'/persons?q=%QUERY',
     filter: function (parsedResponse) {
       console.log(parsedResponse);
       return parsedResponse.persons;
@@ -29,10 +29,10 @@ $('#peopleSearch').typeahead({
       'Unable to find any members that match the current query',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<p><strong><a href="/UMRA/Person/{{id}}">{{fullname}}</a></strong></p>')
+    suggestion: Handlebars.compile('<p><strong><a href="/person/{{id}}">{{fullname}}</a></strong></p>')
   }
 });
 
 $('#peopleSearch').bind('typeahead:selected', function (obj, datum) {
-  window.location = "/UMRA/Person/" + datum.id;
-})
+  window.location = "/person/" + datum.id;
+});
