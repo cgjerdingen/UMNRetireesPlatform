@@ -20,6 +20,10 @@ class EmailType extends AbstractType
                 'choices' => array('personal' => 'Personal', 'work' => 'Work', 'other' => 'Other'),
                 'expanded' => true
                 ))
+            ->add('preferred', 'checkbox', array(
+                    'label' => 'Preferred / Login Email',
+                    'required' => false
+                ))
             ->add('email', 'email')
         ;
     }

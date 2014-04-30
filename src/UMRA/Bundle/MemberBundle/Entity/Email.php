@@ -9,8 +9,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Email
  *
- * @ORM\Table(name="email", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"}), @ORM\Index(name="PersonID", columns={"PersonID"})})
+ * @ORM\Table(name="email",
+ *            indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"}),
+ *                     @ORM\Index(name="PersonID", columns={"PersonID"}),
+ *                     @ORM\Index(name="UserPreferred", columns={"preferred", "PersonID"})})
  * @UniqueEntity(fields={"email"}, message="The specified email already exists.")
+ * @UniqueEntity(fields={"preferred", "person"}, message="Cannot have more than one preferred email")
  * @ORM\Entity
  */
 class Email
@@ -30,6 +34,13 @@ class Email
      * @ORM\Column(name="Email", type="string", length=60, nullable=false, unique=True)
      */
     private $email;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Preferred", type="boolean", nullable=True)
+     */
+    private $preferred;
 
     /**
      * @var integer
@@ -59,8 +70,6 @@ class Email
      * })
      */
     private $household;
-
-
 
     /**
      * Set type
@@ -106,6 +115,29 @@ class Email
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set preferred
+     *
+     * @param boolean $preferred
+     * @return Person
+     */
+    public function setPreferred($preferred)
+    {
+        $this->preferred = $preferred;
+
+        return $this;
+    }
+
+    /**
+     * Get preferred
+     *
+     * @return boolean
+     */
+    public function isPreferred()
+    {
+        return $this->preferred;
     }
 
     /**
