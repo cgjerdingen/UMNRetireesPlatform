@@ -9,11 +9,19 @@
     {% include 'UMRAMemberBundle:Household:detail.html.twig' %}
 
     <ul class="list-inline">
+        {% if is_granted('ROLE_ADMIN') %}
         <li>
             <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
                 Back to the list
             </a>
         </li>
+        {% else %}
+        <li>
+            <a class="btn btn-default" href="{{ path('UMRA_Person_Profile') }}">
+                Back to my profile
+            </a>
+        </li>
+        {% endif %}
         <li>
             <a class="btn btn-primary" href="{{ path('UMRA_Household_edit', { 'id': entity.id }) }}">
                 Edit

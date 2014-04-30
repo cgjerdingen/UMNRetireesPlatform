@@ -102,6 +102,10 @@ UMRA_Person_delete:
     pattern: /UMRA/Person/{id}
     defaults: { _controller: UMRAMemberBundle:Person:delete }
     methods: [DELETE]
+UMRA_Person_Profile:
+    pattern:  /profile
+    defaults: { _controller: UMRAMemberBundle:Person:profile }
+    methods: [GET]
 UMRA_Phone:
     pattern:  /UMRA/Phone/
     defaults: { _controller: UMRAMemberBundle:Phone:index }

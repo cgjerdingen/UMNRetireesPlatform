@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+{% block body %}
+    {% block fos_user_content %}
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
+        <li><a href="#household" data-toggle="tab">Household Details</a></li>
+        <li><a href="#details" data-toggle="tab">Account Details</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="overview">
+            <p>
+                Future: Put transactions, etc.
+            </p>
+        </div>
+        <div class="tab-pane fade" id="household">
+            <br />
+            {% include 'UMRAMemberBundle:Household:detail.html.twig' with { 'entity': user.household } %}
+        </div>
+        <div class="tab-pane fade" id="details">
+            <br />
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <header class="panel-heading">
+                        <h3 class="panel-title">Profile Details</h3>
+                    </header>
+                    <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(profileForm) }} method="POST" class="fos_user_profile_edit panel-body">
+                        {{ form_widget(profileForm) }}
+                        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-warning">
+                    <header class="panel-heading">
+                        <h3 class="panel-title">Change Password</h3>
+                    </header>
+                    <form action="{{ path('fos_user_change_password') }}" {{ form_enctype(changePasswordForm) }} method="POST" class="fos_user_change_password panel-body">
+                        {{ form_widget(changePasswordForm) }}
+                        <input type="submit" value="{{ 'change_password.submit'|trans }}" class="btn btn-warning" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+{% endblock %}
