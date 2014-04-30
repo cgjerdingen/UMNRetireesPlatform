@@ -73,6 +73,10 @@ class EmailController extends Controller
         }
 
         if ($form->isValid()) {
+            if ($person instanceof Person && $entity->isPreferred()) {
+                $person->setEmailCanonical($entity->getEmail());
+                $em->persist($person);
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -250,6 +254,12 @@ class EmailController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $person = $entity->getPerson();
+            if ($person instanceof Person && $entity->isPreferred()) {
+                $person->setEmailCanonical($entity->getEmail());
+                $em->persist($person);
+            }
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $householdId)));
