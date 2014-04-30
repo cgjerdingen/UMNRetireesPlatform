@@ -23,11 +23,6 @@ class PersonType extends AbstractType
             ->add('firstname', 'text', array(
                     'label' => 'First Name'
                 ))
-            ->add('x500', 'text', array(
-                    'label' => 'UMN Internet ID (X.500 ID) / UMRA Username',
-                    'required' => false,
-                    'attr' => array('placeholder' => 'e.g. goldy001. If none, leave blank.')
-                ))
             ->add('nickname', 'text', array(
                     'label' => 'Nickname'
                 ))

@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Person
  *
  * @ORM\Table(name="person", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"})})
- * @UniqueEntity(fields={"x500"}, message="A user with the specified X.500 already exists.")
  * @ORM\Entity(repositoryClass="UMRA\Bundle\MemberBundle\Entity\PersonRepository")
  */
 class Person extends BaseUser
@@ -30,13 +29,6 @@ class Person extends BaseUser
      * @ORM\Column(name="Firstname", type="string", length=35, nullable=false)
      */
     private $firstname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="x500", type="string", length=15, nullable=False, unique=True)
-     */
-    private $x500;
 
     /**
      * @var string
@@ -185,6 +177,7 @@ class Person extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="email_canonical", type="string", length=255, nullable=True, unique=True)
      */
     protected $emailCanonical;
 
@@ -317,52 +310,29 @@ class Person extends BaseUser
         return $this->firstname;
     }
 
-    /**
-     * Set x500
-     *
-     * @param string $x500
-     * @return Person
-     */
-    public function setX500($x500)
-    {
-        $this->x500 = $x500;
-
-        return $this;
-    }
-
-    /**
-     * Get x500
-     *
-     * @return string
-     */
-    public function getX500()
-    {
-        return $this->x500;
-    }
-
     // For compatibility with FOSUserBundle
-    public function setUsername($x500)
+    public function setEmail($email)
     {
-        $this->x500;
+        $this->setEmailCanonical($email);
 
         return $this;
     }
 
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->x500;
+        return $this->getEmailCanonical();
     }
 
-    public function setUsernameCanonical($x500)
+    public function setEmailCanonical($email)
     {
-        $this->x500;
+        $this->emailCanonical = $email;
 
         return $this;
     }
 
-    public function getUsernameCanonical()
+    public function getEmailCanonical()
     {
-        return $this->x500;
+        return $this->emailCanonical;
     }
 
     /**
