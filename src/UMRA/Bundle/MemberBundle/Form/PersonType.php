@@ -100,16 +100,19 @@ class PersonType extends AbstractType
                     'attr' => array('placeholder' => 'e.g. http://umn.edu/~test001/')
                 ))
 
+            ->add('plainPassword', 'repeated', array(
+                    'type' => 'password',
+                    'invalid_message' => 'The password fields must match.',
+                    'required' => false,
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Confirm Password')
+                ))
+
             ->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) {
                 $person = $event->getData();
 
-                if (empty($person["x500"])) {
-                    /* If the user doesn't have an X.500, we'll create a username for them.
-                     * Format: umra_[first 5 chars of last name][uniqid() result]
-                     */
-                    $dummyId = "umra_" . substr(strtolower($person["lastname"]), 0, 5) . substr(uniqid(), 5, 4);
-
-                    $person["x500"] = $dummyId;
+                if (empty($person['plainPassword'])) {
+                    unset($person['plainPassword']);
                 }
 
                 $event->setData($person);

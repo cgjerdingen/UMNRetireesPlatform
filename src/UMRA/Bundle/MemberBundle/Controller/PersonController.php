@@ -63,11 +63,12 @@ class PersonController extends Controller
         if ($form->isValid()) {
             // Set to some random value. If we're adding from the records pages, we're not the person in question.
             // Therfore, we don't need a known password (yet). The user may reset it later.
-            $entity->setPlainPassword(uniqid(mt_rand()));
-            $userManager->updatePassword($entity);
+            $plainPassword = $entity->getPlainPassword();
+            if(empty($plainPassword)) {
+                $entity->setPlainPassword(uniqid(mt_rand()));
+            }
             $entity->setHousehold($household);
-            $em->persist($entity);
-            $em->flush();
+            $userManager->updateUser($entity, true); // Create user & password. Flush changes.
 
             return $this->redirect($this->generateUrl('UMRA_Person_show', array('id' => $entity->getId())));
         }
@@ -209,7 +210,8 @@ class PersonController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
+            $userManager = $this->get('fos_user.user_manager');
+            $userManager->updateUser($entity, true);
 
             return $this->redirect($this->generateUrl('UMRA_Person_edit', array('id' => $id)));
         }
