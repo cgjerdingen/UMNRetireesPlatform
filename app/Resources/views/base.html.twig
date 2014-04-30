@@ -13,7 +13,38 @@
         <link href="{{ asset('css/application.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
+    <header class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">UMRA Membership Management</a>
+        </div>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+        {% if is_granted('ROLE_USER') %}
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Member Search" id="peopleSearch" />
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+          </ul>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+        </ul>
+        {% endif %}
+        </div>
+      </div>
+    </header>
+    <div id="container" class="container-fluid">
         {% block body %}{% endblock %}
+    </div>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
