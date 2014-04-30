@@ -50,11 +50,7 @@ class EmailController extends Controller
     {
         $entity = new Email();
 
-        $form = $this->createCreateForm($entity, $personId, $householdId);
-        $form->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
-
 
         if ($personId) {
             $person = $em->getRepository('UMRAMemberBundle:Person')->find($personId);
@@ -71,6 +67,9 @@ class EmailController extends Controller
             $entity->setHousehold($household);
             $hid = $householdId;
         }
+
+        $form = $this->createCreateForm($entity, $personId, $householdId);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             if ($person instanceof Person && $entity->isPreferred()) {
