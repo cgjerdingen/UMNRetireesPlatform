@@ -180,6 +180,7 @@ class PhoneController extends Controller
 
         if ($entity->getPerson()) {
             $householdId = $entity->getPerson()->getHousehold()->getId();
+            $residenceId = null;
         } else {
             $householdId = $entity->getResidence()->getHousehold()->getId();
             $residenceId = $entity->getResidence()->getId();
