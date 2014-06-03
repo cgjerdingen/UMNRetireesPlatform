@@ -25,14 +25,17 @@
           <a class="navbar-brand" href="#">UMRA Membership Management</a>
         </div>
         <div class="collapse navbar-collapse" id="nav-collapse">
-        {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_CAN_VIEW_OTHER_PERSON') %}
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Member Search" id="peopleSearch" />
             </div>
           </form>
+        {% endif %}
+        {% if app.user %}
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+            <li class="navbar-text">Logged in as {{ app.user.firstname }} {{ app.user.lastname }}</li>
+            <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-sign-out"></span> Logout</a></li>
           </ul>
         {% else %}
         <ul class="nav navbar-nav navbar-right">
