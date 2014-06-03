@@ -9,7 +9,7 @@
     {% include 'UMRAMemberBundle:Household:detail.html.twig' %}
 
     <ul class="list-inline">
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_CAN_VIEW_OTHER_HOUSEHOLD') %}
         <li>
             <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
                 Back to the list
