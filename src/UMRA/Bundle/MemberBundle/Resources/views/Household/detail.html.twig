@@ -93,7 +93,18 @@
                         <li>
                             <a href="{{ path('UMRA_Email_show', {'id': email.id }) }}">
                                 {{ email.email }}
-                            </a> - {{ email.type }}
+                            </a> {% spaceless %}
+                                {% if email.type == 'personal' %}
+                                    <span class="label label-primary">Personal</span>
+                                {% elseif email.type == 'work' %}
+                                    <span class="label label-success">Work</span>
+                                {% else %}
+                                    <span class="label label-default">Other</span>
+                                {% endif %}
+                            {% endspaceless %}
+                            {% if email.preferred %}
+                                <span class="label label-danger">Preferred</span>
+                            {% endif %}
                         </li>
                         {% endfor %}
                         <li>
