@@ -1,3 +1,7 @@
+UMRA_Landing:
+    pattern:  /
+    defaults: { _controller: UMRAMemberBundle:Default:index }
+    methods: [GET]
 UMRA_Email_show:
     pattern:  /email/{id}
     defaults: { _controller: UMRAMemberBundle:Email:show }
