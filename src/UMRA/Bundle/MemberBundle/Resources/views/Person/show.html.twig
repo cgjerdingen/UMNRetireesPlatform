@@ -92,11 +92,15 @@
                 Back to household
             </a>
         </li>
+        {% if entity.id == app.user.id or entity.household.id == app.user.household.id or is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
         <li>
             <a class="btn btn-primary" href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
                 Edit
             </a>
         </li>
+        {% endif %}
+        {% if is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
         <li>{{ form(delete_form) }}</li>
+        {% endif %}
     </ul>
 {% endblock %}

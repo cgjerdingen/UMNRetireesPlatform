@@ -17,6 +17,8 @@
                 Back to household
             </a>
         </li>
+        {% if is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
         <li>{{ form(delete_form) }}</li>
+        {% endif %}
     </ul>
 {% endblock %}
