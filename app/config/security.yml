@@ -19,7 +19,8 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/profile/, role: ROLE_USER }
+        - { path: ^/households, role: ROLE_CAN_VIEW_OTHER_HOUSEHOLD }
+        - { path: ^/profile, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
     role_hierarchy:
