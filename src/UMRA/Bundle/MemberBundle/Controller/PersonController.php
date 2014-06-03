@@ -23,6 +23,13 @@ class PersonController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if (!$securityContext->isGranted('ROLE_CAN_VIEW_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $searchTerm = $request->query->get('q');
@@ -57,6 +64,14 @@ class PersonController extends Controller
 
         if (!$household) {
             throw $this->createNotFoundException('Unable to find Household entity.');
+        }
+
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ($authedUser->getHousehold()->getId() !== $household->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
         $userManager = $this->container->get('fos_user.user_manager');
@@ -118,6 +133,14 @@ class PersonController extends Controller
             throw $this->createNotFoundException('Unable to find Household entity.');
         }
 
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ($authedUser->getHousehold()->getId() !== $household->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
+        }
+
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -138,6 +161,15 @@ class PersonController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Person entity.');
+        }
+
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ((int)$id !== $authedUser->getId() &&
+            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_VIEW_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -161,6 +193,15 @@ class PersonController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Person entity.');
+        }
+
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ((int)$id !== $authedUser->getId() &&
+            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -212,9 +253,11 @@ class PersonController extends Controller
         ));
 
         $securityContext = $this->get('security.context');
-        $user = $this->get('security.context')->getToken()->getUser();
+        $authedUser = $securityContext->getToken()->getUser();
 
-        if (!$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+        if ($entity->getId() !== $authedUser->getId() &&
+            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
             $form->remove('plainPassword');
         }
 
@@ -235,6 +278,15 @@ class PersonController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Person entity.');
+        }
+
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ((int)$id !== $authedUser->getId() &&
+            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -271,6 +323,15 @@ class PersonController extends Controller
         }
 
         $hid = $entity->getHousehold()->getId();
+
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if ((int)$id === $authedUser->getId() && // Authed user cannot delete themselves
+            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
+            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
+        }
 
 
         if ($form->isValid()) {
