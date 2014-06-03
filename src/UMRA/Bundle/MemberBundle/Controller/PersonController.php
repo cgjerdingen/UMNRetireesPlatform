@@ -211,6 +211,13 @@ class PersonController extends Controller
             'method' => 'PUT',
         ));
 
+        $securityContext = $this->get('security.context');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (!$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            $form->remove('plainPassword');
+        }
+
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
