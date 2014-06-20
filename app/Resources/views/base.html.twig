@@ -10,55 +10,127 @@
         <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/typeaheadjs.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/umnhf-drupal.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('css/application.css') }}" rel="stylesheet" type="text/css" />
     </head>
     <body>
-    <header class="navbar navbar-default navbar-static-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">UMRA Membership Management</a>
-        </div>
-        <div class="collapse navbar-collapse" id="nav-collapse">
-        {% if is_granted('ROLE_CAN_VIEW_OTHER_PERSON') %}
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Member Search" id="peopleSearch" />
+        <div id="campus-header-wrapper">
+            <div id="campus-header">
+                <p>Campuses:</p>
+                <ul class="umnhf">
+                    <li><a href="http://www1.umn.edu/twincities/index.html">Twin Cities</a></li>
+                    <li><a href="http://www1.crk.umn.edu/">Crookston</a></li>
+                    <li><a href="http://www.d.umn.edu">Duluth</a></li>
+                    <li><a href="http://www.morris.umn.edu/index.php">Morris</a></li>
+                    <li><a href="http://www.r.umn.edu">Rochester</a></li>
+                    <li><a href="http://www1.umn.edu/twincities/campuses/#other-locations">Other Locations</a></li>
+                </ul>
             </div>
-          </form>
-        {% endif %}
-        {% if app.user %}
-          <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-text">Logged in as {{ app.user.firstname }} {{ app.user.lastname }}</li>
-            <li><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-sign-out"></span> Logout</a></li>
-          </ul>
-        {% else %}
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
-        </ul>
-        {% endif %}
         </div>
-      </div>
-    </header>
-    <div id="container" class="container-fluid">
-        {% block body %}{% endblock %}
-    </div>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/handlebars-v1.3.0.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/peopleSearch.js') }}"></script>
+        <div id="mandatory-header-wrapper" class="umnhf-campus-tc">
+            <div class="umnhf" id="umnhf-h">
+                <div class="umnhf" id="umnhf-h-mast">
+                    <a class="umnhf" id="umnhf-h-logo" href="http://umn.edu"><span>Go to the U of M home page</span></a>
+                    <ul class="umnhf" id="umnhf-h-ql">
+                        <li class="umnhf" id="umnhf-h-onestop"><a href="http://onestop.umn.edu"><span>One Stop</span></a></li>
+                        <li class="umnhf" id="umnhf-h-myu"><a href="http://myu.umn.edu"><span>myU</span></a></li>
+                    </ul>
+                    <button class="umnhf" id="umnhf-m-search" href="#">Search</button>
+                </div>
+                <div class="search-aria-wrapper" role="search">
+                    <form class="umnhf" id="umnhf-h-search" method="get" title="Search Websites and People" action="http://google.umn.edu/search" accept-charset="UTF-8">
+                        <div>
+                            <label class="umnhf" for="umnhf-h-st">Search</label>
+                            <div class="form-item form-type-textfield form-item-q">
+                                <input class="umnhf form-text" id="umnhf-h-st" placeholder="Search Websites and People" type="text" name="q" value="" size="60" maxlength="128" />
+                            </div>
+                            <input type="hidden" name="client" value="searchumn" />
+                            <input type="hidden" name="proxystylesheet" value="searchumn" />
+                            <input type="hidden" name="site" value="systemwide" />
+                            <input type="hidden" name="output" value="xml_no_dtd" />
+                            <input type="hidden" name="form_build_id" value="form-Kalsu7BBKz1Ddb6CQgOvukmo6EdJHFGkf-ApDpQlZbo" />
+                            <input type="hidden" name="form_id" value="umn_search_gsa7_form" />
+                            <div class="form-actions form-wrapper" id="edit-actions">
+                                <input class="umnhf form-submit" id="umnhf-h-sb" type="submit" name="op" value="Search" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <header id="sub-header-site-name">
+            <div class="panel-pane pane-token pane-variable-site-name">
+                University of Minnesota Retirees Association
+            </div>
+        </header>
+        <section id="header-wrapper-full-width">
+            <div id="header-wrapper-internal">
+                <div id="sub-header" class="clearfix">
+                    {% if app.user %}
+                    <ul class="nav-umra">
+                        <li>
+                            <a href="http://umra-dev.umn.edu">Return to UMRA Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-sign-out"></span> Logout</a>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <ul class="nav-umra">
+                        <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        <div id="full-page-wrapper" class="container-fluid">
+            {% if app.user %}
+            <p class="pull-right">
+                Logged in as {{ app.user.firstname }} {{ app.user.lastname }}
+            </p>
+            {% endif %}
+            {% if is_granted('ROLE_CAN_VIEW_OTHER_PERSON') %}
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                  <input type="search" autocomplete="off" class="form-control" placeholder="Member Search" id="peopleSearch" />
+                </div>
+            </form>
+            {% endif %}
+            {% block body %}{% endblock %}
+        </div>
+        <footer id="mandatory-footer-wrapper" role="contentinfo">
+            <div id="umnhf-f" class="umnhf">
+                <div id="umnhf-f-cl" class="umnhf">
+                    <h2 class="umnhf">
+                        Twin Cities Campus:
+                    </h2>
+                    <ul class="umnhf">
+                        <li class="umnhf"><a class="umnhf" href="http://www.umn.edu/twincities/maps/index.html">Maps&nbsp;&amp;&nbsp;Directions</a></li>
+                        <li class="umnhf"><a class="umnhf" href="http://www1.umn.edu/pts/">Parking&nbsp;&amp;&nbsp;Transportation</a></li>
+                        <li class="umnhf"><a class="umnhf" href="http://www.umn.edu/twincities/contact/">Contact&nbsp;U&nbsp;of&nbsp;M</a></li>
+                        <li class="umnhf"><a class="umnhf" href="http://www1.umn.edu/twincities/privacy/">Privacy</a></li>
+                        <li class="umnhf"><a class="umnhf" href="http://www.directory.umn.edu/">Directories</a></li>
+                    </ul>
+                </div>
+                <div id="umnhf-f-bp" class="umnhf">
+                    <p>© 2014 Regents of the University of Minnesota. All rights reserved.</p>
+                    <p>
+                        <span class="eeoc-responsive-hide">The University of Minnesota is an</span><span class="eeoc-responsive-upcase"> equal</span> opportunity educator and employer.<span class="privacy-statement-responsive"> <a href="http://www1.umn.edu/twincities/privacy/">Privacy</a></span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/handlebars-v1.3.0.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/typeahead.bundle.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/peopleSearch.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
