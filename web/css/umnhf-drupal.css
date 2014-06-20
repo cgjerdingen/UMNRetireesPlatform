@@ -613,30 +613,6 @@ need specificity >= 110 to override (at least 1 ID + 1 class in selector)
     background-size: 410px 159px;
   }
 }
-@media screen and (min-width: 1200px) {
-  nav {
-    -webkit-border-radius: 0 0 5px 0;
-    -moz-border-radius: 0 0 5px 0;
-    border-radius: 0 0 5px 0;
-  }
-}
-@media screen and (max-width: 900px) {
-  nav {
-    width: 100%;
-  }
-}
-@media screen and (min-width: 610px) {
-  nav {
-    background: #8c1919;
-    background: -moz-linear-gradient(left, #8c1919 0%, #9c3b3b 60%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #8c1919), color-stop(60%, #9c3b3b));
-    background: -webkit-linear-gradient(left, #8c1919 0%, #9c3b3b 60%);
-    background: -o-linear-gradient(left, #8c1919 0%, #9c3b3b 60%);
-    background: -ms-linear-gradient(left, #8c1919 0%, #9c3b3b 60%);
-    background: linear-gradient(to right, #8c1919 0%, #9c3b3b 60%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c1919', endColorstr='#9c3b3b',GradientType=1 );
-  }
-}
 @media screen and (max-width: 609px) {
   .umnhf-campus-m #umnhf-h.umnhf {
     padding: 0;

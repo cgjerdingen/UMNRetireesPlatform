@@ -4,6 +4,13 @@
   <div id="page-content-container" class="row">
     {% if is_granted('ROLE_CAN_VIEW_OTHER_HOUSEHOLD') %}
     <div class="col-sm-3 col-lg-2">
+      {% if is_granted('ROLE_CAN_VIEW_OTHER_PERSON') %}
+      <form role="search">
+          <div class="form-group">
+            <input type="search" autocomplete="off" class="form-control" placeholder="Member Search" id="peopleSearch" />
+          </div>
+      </form>
+      {% endif %}
       <nav class="well sidebar-nav">
         <ul class="nav nav-pills nav-stacked">
           <li><small class="text-muted">Member Records</small></li>
@@ -25,6 +32,11 @@
         class="col-xs-12"
       {% endif %}
     >
+      {% if app.user %}
+      <p class="pull-right">
+          Logged in as {{ app.user.firstname }} {{ app.user.lastname }}
+      </p>
+      {% endif %}
     {% block modulecontent %}
         <div class="row">
         </div>
