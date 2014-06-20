@@ -5,7 +5,6 @@ var people = new Bloodhound({
   remote: {
     url:'/persons?q=%QUERY',
     filter: function (parsedResponse) {
-      console.log(parsedResponse);
       return parsedResponse.persons;
     }
   }
@@ -25,9 +24,9 @@ $('#peopleSearch').typeahead({
   source: people.ttAdapter(),
   templates: {
     empty: [
-      '<div class="alert alert-danger">',
+      '<p class="text-muted text-center">',
       'Unable to find any members that match the current query',
-      '</div>'
+      '</p>'
     ].join('\n'),
     suggestion: Handlebars.compile('<p><strong><a href="/person/{{id}}">{{fullname}}</a></strong></p>')
   }
