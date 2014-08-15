@@ -30,7 +30,7 @@ class ResidenceType extends AbstractType
                 'label' => 'Address 3',
                 'label_attr' => array('class' => 'sr-only'),
                 'required' => false,
-                'attr' => array('placeholder' => 'e.g. c/o Steven Exampleton')
+                'attr' => array('placeholder' => 'e.g. c/o Steven Smith')
                 ))
             ->add('city')
             ->add('state')
