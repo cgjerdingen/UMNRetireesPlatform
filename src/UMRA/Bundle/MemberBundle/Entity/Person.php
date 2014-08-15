@@ -47,13 +47,6 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="Postalname", type="string", length=70, nullable=false)
-     */
-    private $postalname;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="Nametagname", type="string", length=20, nullable=false)
      */
     private $nametagname;
@@ -380,29 +373,6 @@ class Person extends BaseUser
     public function getFullname()
     {
         return $this->fullname;
-    }
-
-    /**
-     * Set postalname
-     *
-     * @param string $postalname
-     * @return Person
-     */
-    public function setPostalname($postalname)
-    {
-        $this->postalname = $postalname;
-
-        return $this;
-    }
-
-    /**
-     * Get postalname
-     *
-     * @return string
-     */
-    public function getPostalname()
-    {
-        return $this->postalname;
     }
 
     /**

@@ -29,9 +29,6 @@ class PersonType extends AbstractType
             ->add('fullname', 'text', array(
                     'label' => 'Full Name'
                 ))
-            ->add('postalname', 'text', array(
-                    'label' => 'Postal Name'
-                ))
             ->add('nametagname', 'text', array(
                     'label' => 'Nametag Name'
                 ))
