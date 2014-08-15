@@ -69,15 +69,15 @@
                     {% if app.user %}
                     <ul class="nav-umra">
                         <li>
-                            <a href="http://umra-dev.umn.edu">Return to UMRA Home</a>
+                            <a href="http://umra-dev.umn.edu"><span class="glyphicon glyphicon-arrow-left"></span> Return to UMRA Home</a>
                         </li>
                         <li>
-                            <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-sign-out"></span> Logout</a>
+                            <a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </li>
                     </ul>
                     {% else %}
                     <ul class="nav-umra">
-                        <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                        <li><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                     {% endif %}
                 </div>
