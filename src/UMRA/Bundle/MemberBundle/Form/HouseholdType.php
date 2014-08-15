@@ -25,7 +25,10 @@ class HouseholdType extends AbstractType
             ))
             ->add('postalname', 'text', array(
                 'label' => 'Postal Name',
-                'attr' => array('class' => 'form-control'),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'e.g. Prof. and Mrs. John Doe'
+                ),
             ))
         ;
     }

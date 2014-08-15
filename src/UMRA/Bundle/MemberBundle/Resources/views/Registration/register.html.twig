@@ -1,0 +1,363 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}UMRA Membership Registration{% endblock %}
+
+{% block body %}
+<div id="page-content-container" ng-controller="RegistrationCtrl">
+	<div class="row">
+		<div class="col-sm-8">
+		{{ form_start(form, { action: path('UMRA_register') }) }}
+			{{ form_widget(form.household.firstname, { type: 'hidden', attr: {
+				'ng-value': form.vars.full_name ~
+							'[\'' ~ form.members[0].firstname.vars.full_name ~
+							'\'].$viewValue'}
+				})
+			}}
+			{{ form_widget(form.household.lastname, { type: 'hidden', attr: {
+				'ng-value': form.vars.full_name ~
+							'[\'' ~ form.members[0].lastname.vars.full_name ~
+							'\'].$viewValue'}
+				})
+			}}
+			<h4 class="text-muted">
+				Member(s)
+			</h4>
+			<div class="panel panel-default">
+				<div class="list-group" id="members-list-group">
+					{% for member in form.members %}
+					<div class="list-group-item">
+						<h5>Retiree {% if loop.index == 1 %}(Primary Member){% endif %}</h5>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(member.firstname) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(member.lastname) }}
+							</div>
+						</div>
+						{{ form_row(member.fullname) }}
+						{{ form_row(member.nametagname) }}
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(member.nickname) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(member.membersince) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(member.ustartdate) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(member.uretiredate) }}
+							</div>
+						</div>
+						{{ form_row(member.utopunit) }}
+						{{ form_row(member.udeptequiv) }}
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(member.utitle) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(member.uempltype) }}
+							</div>
+						</div>
+						{{ form_row(member.weburl) }}
+						<div class="row">
+							<div class="col-sm-4">
+								{{ form_row(member.newsPref) }}
+							</div>
+							{% if loop.index == 1 %}
+							<div class="col-sm-4">
+								{{ form_row(form.primaryEmail.email) }}
+							</div>
+							<div class="col-sm-4">
+								{{ form_row(form.primaryEmail.type) }}
+								{{ form_widget(form.primaryEmail.preferred, { type: 'hidden' }) }}
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="panel-footer">
+					<button id="person-add" type="button" class="btn btn-primary" collection-add="#tpl-members-group">
+						<span class="fa fa-plus"></span> Add Person
+					</button>
+				</div>
+			</div>
+			<h4 class="text-muted">
+				Residence(s)
+			</h4>
+			<div class="panel panel-default">
+				<div class="list-group">
+					{% for residence in form.residences %}
+					<div class="list-group-item">
+						{% if loop.index == 1 %}
+							{{ form_row(form.household.postalname) }}
+						{% endif %}
+						{{ form_row(residence.address1) }}
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(residence.address2) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(residence.address3) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(residence.city)}}
+							</div>
+							<div class="col-sm-3">
+								{{ form_row(residence.state) }}
+							</div>
+							<div class="col-sm-3">
+								{{ form_row(residence.zip) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(residence.legdistrict) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(residence.country) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-1">
+								{{ form_row(residence.primary) }}
+							</div>
+							<div class="col-xs-11 col-sm-5">
+								{{ form_row(residence.forseason) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(residence.since) }}
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				<div class="panel-footer">
+					<button type="button" class="btn btn-primary">
+						<span class="fa fa-plus"></span> Add Residence
+					</button>
+				</div>
+			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="control-label">Membership Status</label>
+						<div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="membership_status" ng-model="memberStatus" value="new" /> New Member
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="membership_status" ng-model="memberStatus" value="renew" /> Renewing Member
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Membership Type</label>
+						<div>
+							<div class="radio-inline" ng-if="memberStatus === 'new'">
+								<label>
+									<input type="radio" name="membership_type" ng-model="costs.member" value="10" /> Single ($10)
+								</label>
+							</div>
+							<div class="radio-inline" ng-if="memberStatus === 'new'">
+								<label>
+									<input type="radio" name="membership_type" ng-model="costs.member" value="15" /> Couple ($15)
+								</label>
+							</div>
+							<div class="radio-inline" ng-if="memberStatus === 'renew'">
+								<label>
+									<input type="radio" name="membership_type" ng-model="costs.member" value="25" /> Single ($25)
+								</label>
+							</div>
+							<div class="radio-inline" ng-if="memberStatus === 'renew'">
+								<label>
+									<input type="radio" name="membership_type" ng-model="costs.member" value="35" /> Couple ($35)
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Pre-purchase First 7 Luncheons</label>
+						<div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="luncheon_preorder" ng-model="costs.luncheon" value="112" /> Single ($112)
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="luncheon_preorder" ng-model="costs.luncheon" value="224" /> Couple ($224)
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="luncheon_preorder" ng-model="costs.luncheon" value="0" /> Do not pre-purchase
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label">Please send me discount parking coupons with my membership card</label>
+						<div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="parking_coupon" ng-model="counts.parkingCoupons" value="1" checked /> 1
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="parking_coupon" ng-model="counts.parkingCoupons" value="3" /> 3
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="parking_coupon" ng-model="counts.parkingCoupons" value="6" /> 6
+								</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="parking_coupon" ng-model="counts.parkingCoupons" value="9" /> 9
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label">
+							Total Amount Payable
+						</label>
+						<div class="row">
+							<div class="col-xs-4 col-sm-3">
+								<div class="input-group">
+									<span class="input-group-addon">$</span>
+									<input type="text" name="total_cost" ng-model="costs.total" class="form-control" readonly="readonly" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<button id="payCredit" name="payCredit" type="submit" class="btn btn-primary">
+						Pay by Credit Card
+					</button>
+					<button id="payCheck" name="payCheck" type="submit" class="btn btn-primary">
+						Print &amp; Pay by Check
+					</button>
+				</div>
+			</div>
+		{{ form_end(form) }}
+		</div>
+		<div class="col-sm-4">
+			<h4 class="text-muted">Instructions</h4>
+			<ul>
+				<li>Please fill out forms as completely as you can.</li>
+				<li>You may optionally pay in advance for the first seven luncheons with your renewal. No refunds are available; a missed luncheon will be considered a donation to UMRA.</li>
+				<li>To pay by check, complete all of this form, then select "pay by check" to print the completed form and mail it in to UMRA with your check.</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<script id="tpl-members-group" type="text/ng-template">
+	<div class="list-group-item">
+		<h5>Retiree</h5>
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.firstname) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.lastname) }}
+			</div>
+		</div>
+		{{ form_row(form.members.vars.prototype.fullname) }}
+		{{ form_row(form.members.vars.prototype.nametagname) }}
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.nickname) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.membersince) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.ustartdate) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.uretiredate) }}
+			</div>
+		</div>
+		{{ form_row(form.members.vars.prototype.utopunit) }}
+		{{ form_row(form.members.vars.prototype.udeptequiv) }}
+		<div class="row">
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.utitle) }}
+			</div>
+			<div class="col-sm-6">
+				{{ form_row(form.members.vars.prototype.uempltype) }}
+			</div>
+		</div>
+		{{ form_row(form.members.vars.prototype.weburl) }}
+		<div class="row">
+			<div class="col-sm-4">
+
+			</div>
+			<div class="col-sm-8">
+
+			</div>
+		</div>
+		{{ form_row(form.members.vars.prototype.newsPref) }}
+	</div>
+</script>
+
+<script id="tpl-residence-group" type="text/ng-template">
+	{{ form_row(form.residences.vars.prototype) }}
+</script>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		var $personCollectionHolder;
+		var $addPersonBtn;
+		$addPersonBtn = $('#person-add');
+		// Get the div that holds the collection of members
+		$personCollectionHolder = $('#members-list-group');
+
+		// count the current member field groups we have (e.g. 2), use that as the new
+		// index when inserting a new item (e.g. 2)
+		$personCollectionHolder.data('index', $personCollectionHolder.children('.list-group-item').length);
+
+		$addPersonBtn.on('click', function (e) {
+			// prevent the link from creating a "#" on the URL
+			e.preventDefault();
+
+			// add a new member
+			var prototype = $('#tpl-members-group').html();
+
+			// get the new index
+			var index = $personCollectionHolder.data('index');
+
+			// Replace '__name__' in the prototype's HTML to
+			// instead be a number based on how many items we have
+			var newForm = prototype.replace(/__name__/g, index);
+
+			// increase the index with one for the next item
+			$personCollectionHolder.data('index', index + 1);
+
+			$personCollectionHolder.append(newForm);
+		});
+	});
+</script>
+{% endblock %}
