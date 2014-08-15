@@ -319,6 +319,7 @@ class Person extends BaseUser
 
     public function setEmailCanonical($email)
     {
+        if ($email === '') $email = null;
         $this->emailCanonical = $email;
 
         return $this;
