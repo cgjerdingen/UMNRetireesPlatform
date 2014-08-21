@@ -26,7 +26,7 @@
 				<div class="list-group" id="members-list-group">
 					{% for member in form.members %}
 					<div class="list-group-item">
-						<h5>Retiree {% if loop.index == 1 %}(Primary Member){% endif %}</h5>
+						<h5>Retiree {{ loop.index }} {% if loop.index == 1 %}(Primary Member){% endif %}</h5>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ form_row(member.firstname) }}
@@ -91,12 +91,13 @@
 				Residence(s)
 			</h4>
 			<div class="panel panel-default">
-				<div class="list-group">
+				<div class="list-group" id="res-list-group">
 					{% for residence in form.residences %}
 					<div class="list-group-item">
 						{% if loop.index == 1 %}
 							{{ form_row(form.household.postalname) }}
 						{% endif %}
+						<h5>Residence {{ loop.index }}</h5>
 						{{ form_row(residence.address1) }}
 						<div class="row">
 							<div class="col-sm-6">
@@ -127,7 +128,11 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-1">
-								{{ form_row(residence.primary) }}
+								<div class="form-group">
+									{{ form_label(residence.primary) }}
+									{{ form_widget(residence.primary) }}
+									{{ form_errors(residence.primary) }}
+								</div>
 							</div>
 							<div class="col-xs-11 col-sm-5">
 								{{ form_row(residence.forseason) }}
@@ -140,7 +145,7 @@
 					{% endfor %}
 				</div>
 				<div class="panel-footer">
-					<button type="button" class="btn btn-primary">
+					<button type="button" class="btn btn-primary" id="res-add">
 						<span class="fa fa-plus"></span> Add Residence
 					</button>
 				</div>
@@ -251,7 +256,7 @@
 					<button id="payCredit" name="payCredit" type="submit" class="btn btn-primary">
 						Pay by Credit Card
 					</button>
-					<button id="payCheck" name="payCheck" type="submit" class="btn btn-primary">
+					<button id="payCheck" name="payCheck" type="submit" class="btn btn-link">
 						Print &amp; Pay by Check
 					</button>
 				</div>
@@ -271,44 +276,83 @@
 
 <script id="tpl-members-group" type="text/ng-template">
 	<div class="list-group-item">
-		<h5>Retiree</h5>
+		<h5>Retiree __num__</h5>
 		<div class="row">
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.firstname) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.firstname) }}
+					{{ form_widget(form.members.vars.prototype.firstname) }}
+				</div>
 			</div>
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.lastname) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.lastname) }}
+					{{ form_widget(form.members.vars.prototype.lastname) }}
+				</div>
 			</div>
 		</div>
-		{{ form_row(form.members.vars.prototype.fullname) }}
-		{{ form_row(form.members.vars.prototype.nametagname) }}
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.fullname) }}
+			{{ form_widget(form.members.vars.prototype.fullname) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.nametagname) }}
+			{{ form_widget(form.members.vars.prototype.nametagname) }}
+		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.nickname) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.nickname) }}
+					{{ form_widget(form.members.vars.prototype.nickname) }}
+				</div>
 			</div>
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.membersince) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.membersince) }}
+					{{ form_widget(form.members.vars.prototype.membersince) }}
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.ustartdate) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.ustartdate) }}
+					{{ form_widget(form.members.vars.prototype.ustartdate) }}
+				</div>
 			</div>
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.uretiredate) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.uretiredate) }}
+					{{ form_widget(form.members.vars.prototype.uretiredate) }}
+				</div>
 			</div>
 		</div>
-		{{ form_row(form.members.vars.prototype.utopunit) }}
-		{{ form_row(form.members.vars.prototype.udeptequiv) }}
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.utopunit) }}
+			{{ form_widget(form.members.vars.prototype.utopunit) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.udeptequiv) }}
+			{{ form_widget(form.members.vars.prototype.udeptequiv) }}
+		</div>
 		<div class="row">
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.utitle) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.utitle) }}
+					{{ form_widget(form.members.vars.prototype.utitle) }}
+				</div>
 			</div>
 			<div class="col-sm-6">
-				{{ form_row(form.members.vars.prototype.uempltype) }}
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.uempltype) }}
+					{{ form_widget(form.members.vars.prototype.uempltype) }}
+				</div>
 			</div>
 		</div>
-		{{ form_row(form.members.vars.prototype.weburl) }}
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.weburl) }}
+			{{ form_widget(form.members.vars.prototype.weburl) }}
+		</div>
 		<div class="row">
 			<div class="col-sm-4">
 
@@ -317,17 +361,95 @@
 
 			</div>
 		</div>
-		{{ form_row(form.members.vars.prototype.newsPref) }}
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.newsPref) }}
+			{{ form_widget(form.members.vars.prototype.newsPref) }}
+		</div>
 	</div>
 </script>
 
 <script id="tpl-residence-group" type="text/ng-template">
-	{{ form_row(form.residences.vars.prototype) }}
+	<div class="list-group-item">
+		<h5>Residence __num__</h5>
+		<div class="form-group">
+			{{ form_label(form.residences.vars.prototype.address1) }}
+			{{ form_widget(form.residences.vars.prototype.address1) }}
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.address2) }}
+					{{ form_widget(form.residences.vars.prototype.address2) }}
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.address3) }}
+					{{ form_widget(form.residences.vars.prototype.address3) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.city)}}
+					{{ form_widget(form.residences.vars.prototype.city)}}
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.state) }}
+					{{ form_widget(form.residences.vars.prototype.state) }}
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.zip) }}
+					{{ form_widget(form.residences.vars.prototype.zip) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.legdistrict) }}
+					{{ form_widget(form.residences.vars.prototype.legdistrict) }}
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.country) }}
+					{{ form_widget(form.residences.vars.prototype.country) }}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-1">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.primary) }}
+					{{ form_widget(form.residences.vars.prototype.primary) }}
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-5">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.forseason) }}
+					{{ form_widget(form.residences.vars.prototype.forseason) }}
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.residences.vars.prototype.since) }}
+					{{ form_widget(form.residences.vars.prototype.since) }}
+				</div>
+			</div>
+		</div>
+	</div>
 </script>
 {% endblock %}
 
 {% block javascripts %}
 <script type="text/javascript">
+	// Todo: Angularize Me
 	jQuery(document).ready(function() {
 		var $personCollectionHolder;
 		var $addPersonBtn;
@@ -351,12 +473,42 @@
 
 			// Replace '__name__' in the prototype's HTML to
 			// instead be a number based on how many items we have
-			var newForm = prototype.replace(/__name__/g, index);
+			var newForm = prototype.replace(/__name__/g, index).replace(/__num__/g, index+1);
 
 			// increase the index with one for the next item
 			$personCollectionHolder.data('index', index + 1);
 
 			$personCollectionHolder.append(newForm);
+		});
+
+		var $resCollectionHolder;
+		var $addResBtn;
+		$addResBtn = $('#res-add');
+		// Get the div that holds the collection of members
+		$resCollectionHolder = $('#res-list-group');
+
+		// count the current member field groups we have (e.g. 2), use that as the new
+		// index when inserting a new item (e.g. 2)
+		$resCollectionHolder.data('index', $resCollectionHolder.children('.list-group-item').length);
+
+		$addResBtn.on('click', function (e) {
+			// prevent the link from creating a "#" on the URL
+			e.preventDefault();
+
+			// add a new member
+			var prototype = $('#tpl-residence-group').html();
+
+			// get the new index
+			var index = $resCollectionHolder.data('index');
+
+			// Replace '__name__' in the prototype's HTML to
+			// instead be a number based on how many items we have
+			var newForm = prototype.replace(/__name__/g, index).replace(/__num__/g, index+1);
+
+			// increase the index with one for the next item
+			$resCollectionHolder.data('index', index + 1);
+
+			$resCollectionHolder.append(newForm);
 		});
 	});
 </script>
