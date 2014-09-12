@@ -23,6 +23,6 @@ class RegistrationPersonType extends PersonType
      */
     public function getName()
     {
-        return 'umra_registration_person';
+        return 'person';
     }
 }

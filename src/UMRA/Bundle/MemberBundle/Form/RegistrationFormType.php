@@ -33,6 +33,6 @@ class RegistrationFormType extends AbstractType
 
 	public function getName()
 	{
-		return 'umra_member_registration';
+		return 'register';
 	}
 }
