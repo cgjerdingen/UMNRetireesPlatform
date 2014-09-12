@@ -11,9 +11,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade in active" id="overview">
-            <p>
-                Future: Put transactions, etc.
-            </p>
+            {% include 'UMRAMemberBundle:Person:detail.html.twig' with { 'entity': user } %}
         </div>
         <div class="tab-pane fade" id="household">
             <br />
