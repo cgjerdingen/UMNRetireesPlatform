@@ -259,7 +259,7 @@ class Person extends BaseUser
     }
 
     public function __toString() {
-        return $this->getFullname() + "($this->getEmailCanonical())";
+        return $this->getFullname() . " (" . $this->getEmailCanonical() . ")";
     }
 
     /**
