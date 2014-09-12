@@ -258,6 +258,10 @@ class Person extends BaseUser
         $this->phones = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->getFullname() + "($this->getEmailCanonical())";
+    }
+
     /**
      * Set lastname
      *
