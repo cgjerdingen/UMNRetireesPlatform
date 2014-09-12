@@ -22,17 +22,6 @@
         <div class="tab-pane fade" id="details">
             <br />
             <div class="col-sm-6 col-md-4">
-                <div class="panel panel-default">
-                    <header class="panel-heading">
-                        <h3 class="panel-title">Profile Details</h3>
-                    </header>
-                    <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(profileForm) }} method="POST" class="fos_user_profile_edit panel-body">
-                        {{ form_widget(profileForm) }}
-                        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="btn btn-primary" />
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
                 <div class="panel panel-warning">
                     <header class="panel-heading">
                         <h3 class="panel-title">Change Password</h3>
