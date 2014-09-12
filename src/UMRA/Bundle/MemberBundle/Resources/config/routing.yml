@@ -134,34 +134,6 @@ UMRA_Phone_delete:
     pattern: /phone/{id}
     defaults: { _controller: UMRAMemberBundle:Phone:delete }
     methods: [DELETE]
-UMRA_Photo:
-    pattern:  /photos
-    defaults: { _controller: UMRAMemberBundle:Photo:index }
-    methods: [GET]
-UMRA_Photo_new:
-    pattern:  /photo/new
-    defaults: { _controller: UMRAMemberBundle:Photo:new }
-    methods: [GET]
-UMRA_Photo_show:
-    pattern:  /photo/{id}
-    defaults: { _controller: UMRAMemberBundle:Photo:show }
-    methods: [GET]
-UMRA_Photo_edit:
-    pattern:  /photo/{id}/edit
-    defaults: { _controller: UMRAMemberBundle:Photo:edit }
-    methods: [GET]
-UMRA_Photo_update:
-    pattern:  /photo/{id}
-    defaults: { _controller: UMRAMemberBundle:Photo:update }
-    methods: [PUT]
-UMRA_Photo_create:
-    pattern: /photo
-    defaults: { _controller: UMRAMemberBundle:Photo:create }
-    methods: [POST]
-UMRA_Photo_delete:
-    pattern: /photo/{id}
-    defaults: { _controller: UMRAMemberBundle:Photo:delete }
-    methods: [DELETE]
 UMRA_Residence:
     pattern:  /residences
     defaults: { _controller: UMRAMemberBundle:Residence:index }
