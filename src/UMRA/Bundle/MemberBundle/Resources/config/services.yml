@@ -5,3 +5,13 @@ services:
     umra_member.user_manipulator:
         class: UMRA\Bundle\MemberBundle\Services\UserManipulator
         arguments: ["@fos_user.user_manager"]
+    sonata.admin.member:
+        class: UMRA\Bundle\MemberBundle\Admin\MemberAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Members", label: "Member" }
+        arguments:
+            - ~
+            - UMRA\Bundle\MemberBundle\Entity\Person
+            - ~
+        calls:
+            - [ setTranslationDomain, [UMRAMemberBundle]]

@@ -72,3 +72,10 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: UMRA\Bundle\MemberBundle\Entity\Person
+
+sonata_block:
+    default_contexts: [admin]
+    blocks:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
