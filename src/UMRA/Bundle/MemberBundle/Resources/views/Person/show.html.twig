@@ -1,86 +1,8 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>{{ entity.firstname }} {{ entity.lastname }}</h1>
-
-    <table class="table table-hover table-striped">
-        <tbody>
-            <tr>
-                <th>Full Name</th>
-                <td>{{ entity.fullname }}</td>
-            </tr>
-            <tr>
-                <th>Nickname</th>
-                <td>{{ entity.nickname }}</td>
-            </tr>
-            <tr>
-                <th>Name Tag Name</th>
-                <td>{{ entity.nametagname }}</td>
-            </tr>
-            <tr>
-                <th>Member Since</th>
-                <td>{{ entity.membersince|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>University Unit</th>
-                <td>{{ entity.utopunit }}</td>
-            </tr>
-            <tr>
-                <th>University Department</th>
-                <td>{{ entity.udeptequiv }}</td>
-            </tr>
-            <tr>
-                <th>Employment Type</th>
-                <td>{{ entity.uempltype }}</td>
-            </tr>
-            <tr>
-                <th>University Title</th>
-                <td>{{ entity.utitle }}</td>
-            </tr>
-            <tr>
-                <th>University Start Date</th>
-                <td>{{ entity.ustartdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>University Retire Date</th>
-                <td>{{ entity.uretiredate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            {% if entity.deceasedate %}
-            <tr>
-                <th>Date Deceased</th>
-                <td>{{ entity.deceasedate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            {% endif %}
-            <tr>
-                <th>Active?</th>
-                <td>
-                    {% if entity.activenow %}
-                        Yes
-                    {% else %}
-                        No
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Newsletter Preference</th>
-                <td>
-                    {% if entity.newsPref == 'postal' %}
-                        Postal
-                    {% elseif entity.newsPref == 'email' %}
-                        Email
-                    {% elseif entity.newsPref == 'both' %}
-                        Postal &amp; Email
-                    {% else %}
-                        Does not receive newsletter
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Web URL</th>
-                <td>{{ entity.weburl }}</td>
-            </tr>
-        </tbody>
-    </table>
+    
+    {% include 'UMRAMemberBundle:Person:detail.html.twig' %}
 
     <ul class="list-inline">
         <li>
@@ -88,13 +10,6 @@
                 Back to household
             </a>
         </li>
-        {% if entity.id == app.user.id or entity.household.id == app.user.household.id or is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
-        <li>
-            <a class="btn btn-primary" href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
-                Edit
-            </a>
-        </li>
-        {% endif %}
         {% if is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
         <li>{{ form(delete_form) }}</li>
         {% endif %}
