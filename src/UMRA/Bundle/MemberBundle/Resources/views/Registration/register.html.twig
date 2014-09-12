@@ -8,15 +8,11 @@
 		<div class="col-sm-8">
 		{{ form_start(form, { action: path('UMRA_register') }) }}
 			{{ form_widget(form.household.firstname, { type: 'hidden', attr: {
-				'ng-value': form.vars.full_name ~
-							'[\'' ~ form.members[0].firstname.vars.full_name ~
-							'\'].$viewValue'}
+				'ng-value': 'household.members[0].firstname'}
 				})
 			}}
 			{{ form_widget(form.household.lastname, { type: 'hidden', attr: {
-				'ng-value': form.vars.full_name ~
-							'[\'' ~ form.members[0].lastname.vars.full_name ~
-							'\'].$viewValue'}
+				'ng-value': 'household.members[0].lastname'}
 				})
 			}}
 			<h4 class="text-muted">
@@ -25,24 +21,27 @@
 			<div class="panel panel-default">
 				<div class="list-group" id="members-list-group">
 					{% for member in form.members %}
-					<div class="list-group-item">
+					<div class="list-group-item" ng-init="household.members[{{loop.index0}}] = {
+						firstname: '{{ member.firstname.vars.value }}',
+						lastname: '{{ member.lastname.vars.value }}'
+					}">
 						<h5>Retiree {{ loop.index }} {% if loop.index == 1 %}(Primary Member){% endif %}</h5>
 						<div class="row">
 							<div class="col-sm-6">
-								{{ form_row(member.firstname) }}
+								{{ form_row(member.firstname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].firstname' }}) }}
 							</div>
 							<div class="col-sm-6">
-								{{ form_row(member.lastname) }}
+								{{ form_row(member.lastname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].lastname' }}) }}
 							</div>
 						</div>
-						{{ form_row(member.fullname) }}
-						{{ form_row(member.nametagname) }}
+						{{ form_row(member.fullname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].fullname' }}) }}
+						{{ form_row(member.nametagname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].nametagname' }}) }}
 						<div class="row">
 							<div class="col-sm-6">
-								{{ form_row(member.nickname) }}
+								{{ form_row(member.nickname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].nickname' }}) }}
 							</div>
 							<div class="col-sm-6">
-								{{ form_row(member.membersince) }}
+								{{ form_row(member.membersince, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].membersince' }}) }}
 							</div>
 						</div>
 						<div class="row">
@@ -83,7 +82,7 @@
 				</div>
 				<div class="panel-footer">
 					<button id="person-add" type="button" class="btn btn-primary" collection-add="#tpl-members-group">
-						<span class="fa fa-plus"></span> Add Person
+						<span class="fa fa-plus"></span> Another Person
 					</button>
 				</div>
 			</div>
@@ -95,7 +94,7 @@
 					{% for residence in form.residences %}
 					<div class="list-group-item">
 						{% if loop.index == 1 %}
-							{{ form_row(form.household.postalname) }}
+							{{ form_row(form.household.postalname, { attr: { 'ng-model': 'household.postalname' }}) }}
 						{% endif %}
 						<h5>Residence {{ loop.index }}</h5>
 						{{ form_row(residence.address1) }}
@@ -146,7 +145,7 @@
 				</div>
 				<div class="panel-footer">
 					<button type="button" class="btn btn-primary" id="res-add">
-						<span class="fa fa-plus"></span> Add Residence
+						<span class="fa fa-plus"></span> Another Residence
 					</button>
 				</div>
 			</div>
@@ -254,10 +253,10 @@
 				</div>
 				<div class="panel-footer">
 					<button id="payCredit" name="payCredit" type="submit" class="btn btn-primary">
-						Pay by Credit Card
+						<span class="fa fa-credit-card"></span> Pay by Credit Card
 					</button>
 					<button id="payCheck" name="payCheck" type="submit" class="btn btn-link">
-						Print &amp; Pay by Check
+						<span class="fa fa-print"></span> Print &amp; Pay by Check
 					</button>
 				</div>
 			</div>
