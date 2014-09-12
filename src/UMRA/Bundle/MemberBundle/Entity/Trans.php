@@ -57,7 +57,7 @@ class Trans
     /**
      * @var string
      *
-     * @ORM\Column(name="Notes", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Notes", type="string", length=255, nullable=true)
      */
     private $notes;
 
