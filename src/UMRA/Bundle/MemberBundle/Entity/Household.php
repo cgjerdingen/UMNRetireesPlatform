@@ -61,6 +61,10 @@ class Household
         $this->residences = new ArrayCollection();
     }
 
+    public function __toString() {
+        return sprintf("Household of %s %s [%s] (ID: %d)", $this->firstname, $this->lastname, $this->postalname, $this->id);
+    }
+
     /**
      * Set lastname
      *

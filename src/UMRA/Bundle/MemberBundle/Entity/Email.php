@@ -72,6 +72,11 @@ class Email
      */
     private $household;
 
+    public function __toString()
+    {
+        return $this->email . " - " . $this->type;
+    }
+
     /**
      * Set type
      *

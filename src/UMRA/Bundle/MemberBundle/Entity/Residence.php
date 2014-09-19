@@ -115,6 +115,23 @@ class Residence
      */
     private $phones;
 
+    public function __toString()
+    {
+        $string = "$this->address1" . "\n";
+        if (!empty($this->address2)) {
+            $string .= $this->address2 . "\n";
+        }
+        if (!empty($this->address3)) {
+            $string .= $this->address3 . "\n";
+        }
+        $string .= $this->city;
+        if (!empty($this->state)) {
+            $string .= ", $this->state";
+        }
+        $string .= $this->zip . "\n" . $this->country;
+        return $string;
+    }
+
     /**
      * Set prisec
      *
