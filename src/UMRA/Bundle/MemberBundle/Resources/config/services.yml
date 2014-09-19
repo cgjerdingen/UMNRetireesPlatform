@@ -5,6 +5,16 @@ services:
     umra_member.user_manipulator:
         class: UMRA\Bundle\MemberBundle\Services\UserManipulator
         arguments: ["@fos_user.user_manager"]
+    sonata.admin.housegold:
+        class: UMRA\Bundle\MemberBundle\Admin\HouseholdAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Households", label: "Household" }
+        arguments:
+            - ~
+            - UMRA\Bundle\MemberBundle\Entity\Household
+            - ~
+        calls:
+            - [ setTranslationDomain, [UMRAMemberBundle]]
     sonata.admin.member:
         class: UMRA\Bundle\MemberBundle\Admin\MemberAdmin
         tags:
