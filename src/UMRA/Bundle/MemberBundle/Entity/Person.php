@@ -150,14 +150,14 @@ class Person extends BaseUser
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
-     * @ORM\OneToMany(targetEntity="Email", mappedBy="person", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $emails;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $phones;
 
