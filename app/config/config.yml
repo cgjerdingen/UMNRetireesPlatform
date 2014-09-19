@@ -73,6 +73,10 @@ fos_user:
     firewall_name: main
     user_class: UMRA\Bundle\MemberBundle\Entity\Person
 
+sonata_admin:
+    title: UMRA Admin
+    title_logo: bundles/sonataadmin/logo_title.png
+
 sonata_block:
     default_contexts: [admin]
     blocks:
