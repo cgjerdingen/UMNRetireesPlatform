@@ -255,10 +255,14 @@ class PersonController extends Controller
         $securityContext = $this->get('security.context');
         $authedUser = $securityContext->getToken()->getUser();
 
-        if ($entity->getId() !== $authedUser->getId() &&
-            $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId() &&
-            !$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
-            $form->remove('plainPassword');
+        if (!$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_PERSON')) {
+            $form->remove('memberSince');
+            $form->remove('activenow');
+
+            if ($entity->getId() !== $authedUser->getId() &&
+                $authedUser->getHousehold()->getId() !== $entity->getHousehold()->getId()) {
+                $form->remove('plainPassword');
+            }
         }
 
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')));
