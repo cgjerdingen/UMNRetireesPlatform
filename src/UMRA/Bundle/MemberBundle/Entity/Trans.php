@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trans
@@ -22,6 +23,7 @@ class Trans
     /**
      * @var string
      *
+     * @Assert\Choice(choices = {"MEMBERSHIP_NEW", "MEMBERSHIP_RENEW", "LUNCHEON_FEE", "OTHER"}, message = "Must be 'new membership', 'membership renewal', 'luncheon fee', and 'other'.")
      * @ORM\Column(name="Trantype", type="string", length=20, nullable=false)
      */
     private $trantype;
@@ -36,6 +38,7 @@ class Trans
     /**
      * @var string
      *
+     * @Assert\Choice(choices = {"CREDIT_CARD", "CHECK", "OTHER"}, message = "Must be credit card, check, or other.")
      * @ORM\Column(name="Pmtmethod", type="string", length=20, nullable=false)
      */
     private $pmtmethod;
@@ -62,6 +65,16 @@ class Trans
     private $notes;
 
     /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     *
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person", inversedBy="transactions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="PersonID", referencedColumnName="id")
+     * })
+     */
+    private $person;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -71,6 +84,10 @@ class Trans
     private $id;
 
 
+    public function __toString()
+    {
+        return sprintf("%s - %s - $%.2f (%s)", $this->trandate->format('Y-m-d'), $this->trantype, $this->amount, $this->pmtmethod);
+    }
 
     /**
      * Set trandate
@@ -231,6 +248,29 @@ class Trans
     public function getNotes()
     {
         return $this->notes;
+    }
+
+    /**
+     * Set person
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
+     * @return Email
+     */
+    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
+     */
+    public function getPerson()
+    {
+        return $this->person;
     }
 
     /**

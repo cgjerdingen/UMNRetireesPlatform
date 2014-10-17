@@ -148,6 +148,9 @@ class MemberAdmin extends Admin
                 ->add('emailCanonical', 'email', array('label' => 'Login Email Address'))
                 ->add('emails')
             ->end()
+            ->with('Transactions')
+                ->add('transactions')
+            ->end()
         ;
     }
 

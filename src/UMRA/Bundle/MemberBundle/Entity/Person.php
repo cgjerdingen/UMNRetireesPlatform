@@ -148,6 +148,13 @@ class Person extends BaseUser
     private $household;
 
     /**
+     * @var \UMRA\Bundle\MemberBundle\Entity\Trans
+     *
+     * @ORM\OneToMany(targetEntity="Trans", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $transactions;
+
+    /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
      * @ORM\OneToMany(targetEntity="Email", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -687,6 +694,39 @@ class Person extends BaseUser
     public function getHousehold()
     {
         return $this->household;
+    }
+
+    /**
+     * Add transaction
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Transaction $transaction
+     * @return Residence
+     */
+    public function addTransaction(\UMRA\Bundle\MemberBundle\Entity\Trans $transaction)
+    {
+        $this->transactions[] = $transactions;
+
+        return $this;
+    }
+
+    /**
+     * Remove transaction
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Transaction $transactions
+     */
+    public function removeTransaction(\UMRA\Bundle\MemberBundle\Entity\Trans $transaction)
+    {
+        $this->transactions->removeElement($transaction);
+    }
+
+    /**
+     * Get transactions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTransactions()
+    {
+        return $this->transactions;
     }
 
     /**
