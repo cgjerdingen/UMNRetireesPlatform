@@ -26,14 +26,16 @@ security:
         - { path: ^/emails, role: ROLE_CAN_VIEW_OTHER_PERSON }
         - { path: ^/roles, role: ROLE_ADMIN }
         - { path: ^/transactions, role: ROLE_ADMIN }
-        - { path: ^/role, role: ROLE_ADMIN }
-        - { path: ^/transaction, role: ROLE_CAN_VIEW_OWN_TRANSACTION }
+        - { path: ^/household/new, role: ROLE_CAN_EDIT_OTHER_HOUSEHOLD }
+        - { path: ^/transaction/new, role: ROLE_CAN_EDIT_OTHER_TRANSACTION }
+        - { path: ^/role/, role: ROLE_ADMIN }
+        - { path: ^/transaction/, role: ROLE_CAN_VIEW_OWN_TRANSACTION }
         - { path: ^/profile, role: ROLE_USER }
-        - { path: ^/household, role: ROLE_USER }
-        - { path: ^/person, role: ROLE_USER }
-        - { path: ^/phone, role: ROLE_USER }
-        - { path: ^/residence, role: ROLE_USER }
-        - { path: ^/email, role: ROLE_USER }
+        - { path: ^/household/, role: ROLE_USER }
+        - { path: ^/person/, role: ROLE_USER }
+        - { path: ^/phone/, role: ROLE_USER }
+        - { path: ^/residence/, role: ROLE_USER }
+        - { path: ^/email/, role: ROLE_USER }
         - { path: ^/renew, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }
 
