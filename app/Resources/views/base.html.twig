@@ -78,6 +78,14 @@
                         <li class="pull-right">
                             <a href="{{ path('UMRA_Person_Profile') }}"><span class="fa fa-user"></span> My Membership</a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="pull-right">
+                                <a href="{{ path('sonata_admin_redirect') }}">
+                                    <span class="fa fa-cogs"></span>
+                                    Membership Administration
+                                </a>
+                            </li>
+                        {% endif %}
                     </ul>
                     {% else %}
                     <ul class="nav-umra">
