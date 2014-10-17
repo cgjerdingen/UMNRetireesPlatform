@@ -34,3 +34,9 @@ services:
         arguments: [~, UMRA\Bundle\MemberBundle\Entity\Phone, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Phone}
+
+    umra_member.admin.trans:
+        class: UMRA\Bundle\MemberBundle\Admin\TransAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Trans, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "UMRA Transactions", label: Transaction}
