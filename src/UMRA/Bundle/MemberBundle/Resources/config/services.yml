@@ -5,23 +5,32 @@ services:
     umra_member.user_manipulator:
         class: UMRA\Bundle\MemberBundle\Services\UserManipulator
         arguments: ["@fos_user.user_manager"]
-    sonata.admin.housegold:
+    umra_member.admin.household:
         class: UMRA\Bundle\MemberBundle\Admin\HouseholdAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Household, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Households", label: "Household" }
-        arguments:
-            - ~
-            - UMRA\Bundle\MemberBundle\Entity\Household
-            - ~
-        calls:
-            - [ setTranslationDomain, [UMRAMemberBundle]]
-    sonata.admin.member:
+            - { name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Household }
+
+    umra_member.admin.member:
         class: UMRA\Bundle\MemberBundle\Admin\MemberAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Person, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Members", label: "Member" }
-        arguments:
-            - ~
-            - UMRA\Bundle\MemberBundle\Entity\Person
-            - ~
-        calls:
-            - [ setTranslationDomain, [UMRAMemberBundle]]
+            - { name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Member }
+
+    umra_member.admin.residence:
+        class: UMRA\Bundle\MemberBundle\Admin\ResidenceAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Residence, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Residence}
+
+    umra_member.admin.email:
+        class: UMRA\Bundle\MemberBundle\Admin\EmailAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Email, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Email}
+
+    umra_member.admin.phone:
+        class: UMRA\Bundle\MemberBundle\Admin\PhoneAdmin
+        arguments: [~, UMRA\Bundle\MemberBundle\Entity\Phone, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: "UMRA Membership", label: Phone}

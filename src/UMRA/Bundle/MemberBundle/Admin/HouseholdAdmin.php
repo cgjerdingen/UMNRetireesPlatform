@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class HouseholdAdmin extends Admin
 {
@@ -34,7 +35,24 @@ class HouseholdAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('postalname')
+            ->add('postalname', null, array('label' => 'Postal Name'))
+        ;
+    }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->with('General Information')
+                ->add('lastname')
+                ->add('firstname')
+                ->add('postalname')
+            ->end()
+            ->with('Members/People')
+                ->add('persons')
+            ->end()
+            ->with('Residences')
+                ->add('residences')
+            ->end()
         ;
     }
 
@@ -42,9 +60,16 @@ class HouseholdAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('lastname')
-            ->add('firstname')
-            ->add('postalname')
+            ->addIdentifier('lastname', null, array('label' => 'Last Name'))
+            ->add('firstname', null, array('label' => 'First Name'))
+            ->add('postalname', null, array('label' => 'Postal Name'))
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
         ;
     }
 }

@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class MemberAdmin extends Admin
 {
@@ -109,6 +110,47 @@ class MemberAdmin extends Admin
         ;
     }
 
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->with('Personal Information')
+                ->add('household')
+                ->add('lastname',  null, array(
+                        'label' => 'Last Name'
+                    ))
+                ->add('firstname', null, array(
+                        'label' => 'First Name'
+                    ))
+                ->add('nickname', null, array(
+                        'label' => 'Nickname'
+                    ))
+                ->add('fullname', null, array(
+                        'label' => 'Full Name'
+                    ))
+                ->add('nametagname', null, array('label' => 'Nametag Name'))
+                ->add('deceasedate', null, array('label' => 'Deceased Date'))
+                ->add('weburl', null, array('label' => 'Homepage URL'))
+            ->end()
+            ->with('University Information')
+                ->add('utopunit', null, array('label' => 'University Unit'))
+                ->add('udeptequiv', null, array('label' => 'University Department'))
+                ->add('uempltype', null, array('label' => 'Employment Type'))
+                ->add('utitle', null, array('label' => 'Job Title'))
+                ->add('ustartdate', null, array('label' => 'University Start Date'))
+                ->add('uretiredate', null, array('label' => 'University Retire Date'))
+            ->end()
+            ->with('UMRA Information')
+                ->add('membersince', null, array('label' => 'UMRA Member Since'))
+                ->add('activenow', null, array('label' => 'Active'))
+                ->add('newsPref', null, array('label' => 'Newsletter Preference'))
+            ->end()
+            ->with('Emails')
+                ->add('emailCanonical', 'email', array('label' => 'Login Email Address'))
+                ->add('emails')
+            ->end()
+        ;
+    }
+
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
@@ -127,9 +169,17 @@ class MemberAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('fullname')
-            ->add('membersince')
-            ->add('activenow')
+            ->addIdentifier('fullname', null, array('label' => 'Full Name'))
+            ->add('membersince', null, array('label' => 'Member Since'))
+            ->add('emailCanonical', null, array('label' => 'Login Email'))
+            ->add('activenow', null, array('label' => 'Active'))
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
         ;
     }
 }
