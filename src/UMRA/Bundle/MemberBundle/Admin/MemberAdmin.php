@@ -158,13 +158,14 @@ class MemberAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('lastname')
-            ->add('firstname')
-            ->add('utopunit')
-            ->add('udeptequiv')
-            ->add('uempltype')
-            ->add('membersince')
-            ->add('activenow')
+            ->add('lastname', null, array('label' => 'Last Name'))
+            ->add('firstname', null, array('label' => 'First Name'))
+            ->add('utopunit', null, array('label' => 'University Unit'))
+            ->add('udeptequiv', null, array('label' => 'University Department'))
+            ->add('uempltype', null, array('label' => 'Employment Type'))
+            ->add('membersince', null, array('label' => 'Member Since'))
+            ->add('activenow', null, array('label' => 'Active'))
+            ->add('locked')
         ;
     }
 
