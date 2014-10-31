@@ -53,7 +53,7 @@ class Trans
     /**
      * @var string
      *
-     * @ORM\Column(name="Doneby", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Doneby", type="string", length=50, nullable=true)
      */
     private $doneby;
 
@@ -86,7 +86,11 @@ class Trans
 
     public function __toString()
     {
-        return sprintf("%s - %s - $%.2f (%s)", $this->trandate->format('Y-m-d'), $this->trantype, $this->amount, $this->pmtmethod);
+        $now = new \DateTime();
+        $tranDateStr = $this->trandate instanceof \DateTime ? $this->trandate->format('Y-m-d') : $now->format('Y-m-d');
+        $tranType = strlen($this->trantype) > 0 ? $this->trantype : "NEW";
+        $pmtMethod = strlen($this->pmtmethod) > 0 ? " ($this->pmtmethod)" : "";
+        return sprintf("%s - %s - $%.2f%s", $tranDateStr, $tranType, $this->amount, $pmtMethod);
     }
 
     /**
@@ -138,7 +142,7 @@ class Trans
     /**
      * Set amount
      *
-     * @param string $amount
+     * @param float $amount
      * @return Trans
      */
     public function setAmount($amount)
@@ -151,7 +155,7 @@ class Trans
     /**
      * Get amount
      *
-     * @return string 
+     * @return float
      */
     public function getAmount()
     {
