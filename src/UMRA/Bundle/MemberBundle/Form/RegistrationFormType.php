@@ -21,6 +21,30 @@ class RegistrationFormType extends AbstractType
 					'allow_add' => true
 				))
 				->add('primaryEmail', new EmailType())
+				->add('membershipStatus', 'choice', array(
+					'choices' => array('new' => 'New Member', 'renew' => 'Renewing Member'),
+					'expanded' => true
+				))
+				->add('membershipType', 'choice', array(
+					'choices' => array('10' => 'Single ($10)', '15' => 'Couple ($15)', '20' => 'Single ($20)', '25' => 'Couple ($25)'),
+					'expanded' => true
+				))
+				->add('luncheonPreorder', 'choice', array(
+					'choices' => array('112' => 'Single ($112)', '224' => 'Couple ($224)', '0' => 'Do not pre-purchase'),
+					'expanded' => true
+				))
+				->add('parkingCoupon', 'choice', array(
+					'choices' => array('1'=> '1', '3' => '3', '6' => '6', '9' => '9'),
+					'expanded' => true
+				))
+				->add('payCreditCard', 'submit', array(
+					'label' => 'Pay by Credit Card',
+					'attr' => array('class' => 'btn btn-primary')
+				))
+				->add('payCheck', 'submit', array(
+					'label' => 'Print & Pay by Check',
+					'attr' => array('class' => 'btn btn-link')
+				))
 		;
 	}
 
