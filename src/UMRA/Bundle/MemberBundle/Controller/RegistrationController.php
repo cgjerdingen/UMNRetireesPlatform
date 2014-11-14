@@ -35,6 +35,8 @@ class RegistrationController extends Controller
 
             if ($form->isValid()) {
                 $userManager = $this->container->get('fos_user.user_manager');
+                $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+                $userMailer = $this->container->get('fos_user.mailer');
 
                 $formData = $form->getData();
 
@@ -45,6 +47,7 @@ class RegistrationController extends Controller
                 // Persist each user.
                 foreach ($formData['members'] as $key => $member) {
                     if ($key === 0) {
+                        $member->setConfirmationToken($tokenGenerator->generateToken());
                         $member->setEmailCanonical($email->getEmail());
                         $email->setPerson($member);
                         $em->persist($email);
@@ -105,7 +108,7 @@ class RegistrationController extends Controller
 
                 $primaryUser = $userManager->findUserByEmail($email->getEmail());
 
-                $this->get('fos_user.mailer')->sendResettingEmailMessage($primaryUser);
+                $userMailer->sendResettingEmailMessage($primaryUser);
 
                 //TODO: Some stuff with payment processing and transaction handling & emailing password reset link.
 
