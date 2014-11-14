@@ -103,6 +103,10 @@ class RegistrationController extends Controller
 
                 $em->flush();
 
+                $primaryUser = $userManager->findUserByEmail($email->getEmail());
+
+                $this->get('fos_user.mailer')->sendResettingEmailMessage($primaryUser);
+
                 //TODO: Some stuff with payment processing and transaction handling & emailing password reset link.
 
                 return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
