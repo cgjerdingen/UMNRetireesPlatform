@@ -26,7 +26,12 @@ class TransType extends AbstractType
                 'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
                 ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
-            ->add('doneby', null, array('label' => 'Done By'))
+            ->add('status', 'choice', array(
+                'label' => 'Transaction Type',
+                'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
+                ))
+            ->add('doneby')
+            ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
             ->add('notes')
             ->add('person')
         ;

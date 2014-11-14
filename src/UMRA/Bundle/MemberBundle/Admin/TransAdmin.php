@@ -35,10 +35,9 @@ class TransAdmin extends Admin
         $listMapper
             ->add('trandate', null, array('label' => 'Transaction Date'))
             ->add('trantype', null, array('label' => 'Transaction Type'))
+            ->add('status', null, array('label' => 'Transaction Status'))
             ->add('amount')
             ->add('pmtmethod', null, array('label' => 'Payment Method'))
-            ->add('servicechg', null, array('label' => 'Service Charge'))
-            ->add('doneby', null, array('label' => 'Done By'))
             ->add('person')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -67,7 +66,12 @@ class TransAdmin extends Admin
                 'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
                 ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
-            ->add('doneby', null, array('label' => 'Done By'))
+            ->add('status', 'choice', array(
+                'label' => 'Transaction Type',
+                'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
+                ))
+            ->add('doneby')
+            ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
             ->add('notes')
             ->add('person')
         ;
@@ -84,7 +88,9 @@ class TransAdmin extends Admin
             ->add('amount')
             ->add('pmtmethod', null, array('label' => 'Payment Method'))
             ->add('servicechg', null, array('label' => 'Service Charge'))
+            ->add('status')
             ->add('doneby', null, array('label' => 'Done By'))
+            ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
             ->add('person')
             ->add('notes')
             ->add('id')

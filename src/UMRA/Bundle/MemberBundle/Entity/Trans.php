@@ -51,9 +51,12 @@ class Trans
     private $servicechg;
 
     /**
-     * @var string
+     * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
-     * @ORM\Column(name="Doneby", type="string", length=50, nullable=true)
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="doneby_id", referencedColumnName="id")
+     * })
      */
     private $doneby;
 
@@ -63,6 +66,21 @@ class Trans
      * @ORM\Column(name="Notes", type="string", length=255, nullable=true)
      */
     private $notes;
+
+    /**
+     * @var string
+     *
+     * @Assert\Choice(choices = {"AWAITING_PROCESS", "PROCESSING", "PROCESSED"}, message = "Must be awaiting process, processing, or processed.")
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="reconciled_date", type="date", nullable=true)
+     */
+    private $reconciledDate;
 
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
@@ -211,10 +229,10 @@ class Trans
     /**
      * Set doneby
      *
-     * @param string $doneby
+     * @param \UMRA\Bundle\MemberBundle\Entity\Person $doneby
      * @return Trans
      */
-    public function setDoneby($doneby)
+    public function setDoneby(\UMRA\Bundle\MemberBundle\Entity\Person $doneby = null)
     {
         $this->doneby = $doneby;
 
@@ -224,7 +242,7 @@ class Trans
     /**
      * Get doneby
      *
-     * @return string 
+     * @return \UMRA\Bundle\MemberBundle\Entity\Person
      */
     public function getDoneby()
     {
@@ -258,7 +276,7 @@ class Trans
      * Set person
      *
      * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
-     * @return Email
+     * @return Trans
      */
     public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
     {
@@ -275,6 +293,52 @@ class Trans
     public function getPerson()
     {
         return $this->person;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Trans
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set reconciledDate
+     *
+     * @param \DateTime $reconciledDate
+     * @return Trans
+     */
+    public function setReconciledDate($reconciledDate)
+    {
+        $this->reconciledDate = $reconciledDate;
+
+        return $this;
+    }
+
+    /**
+     * Get reconciledDate
+     *
+     * @return \DateTime 
+     */
+    public function getReconciledDate()
+    {
+        return $this->reconciledDate;
     }
 
     /**
