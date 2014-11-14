@@ -1,0 +1,28 @@
+{% block subject %}Set/Reset your password{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Hello {{ user.fullname }},
+
+You can reset (or set) your password by accessing {{ confirmationUrl }}.
+
+Regards,
+University of Minnesota Retirees Association
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+<p>Hello {{ user.fullname }},<br /><br /></p>
+
+<p>
+	You can reset (or set) your password by clicking the link below. You will be taken to the UMRA Membership Management Application.
+</p>
+<p>
+	<strong><a href="{{ confirmationUrl }}">Set/Reset Your Password</a></strong>
+</p>
+<br />
+<p>
+	Regards,<br />
+	University of Minnesota Retirees Association
+</p>
+{% endblock %}

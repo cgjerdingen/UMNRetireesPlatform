@@ -74,6 +74,13 @@ fos_user:
     user_class: UMRA\Bundle\MemberBundle\Entity\Person
     service:
         mailer: fos_user.mailer.twig_swift
+    from_email:
+        address: umra-noreply@umn.edu
+        sender_name: UMRA Membership Management Application
+    resetting:
+        email:
+            template: UMRAMemberBundle:Person:resetting.email.html.twig
+
 
 sonata_admin:
     title: UMRA Admin
