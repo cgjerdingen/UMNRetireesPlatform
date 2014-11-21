@@ -10,6 +10,7 @@ use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\RegistrationFormType;
+use UMRA\Bundle\MemberBundle\Form\RenewalType;
 
 class RegistrationController extends Controller
 {
@@ -79,38 +80,14 @@ class RegistrationController extends Controller
                     $pmtMethod = 'CHECK';
                 }
 
-                // Create tranaction for membership fee.
-                $membershipTrans = new Trans();
-                $membershipTrans->setPerson($member)
-                                ->setTrantype($membershipStatus)
-                                ->setTrandate(new \DateTime("now"))
-                                ->setPmtmethod($pmtMethod)
-                                ->setAmount((float) $formData['membershipType'])
-                ;
-                $em->persist($membershipTrans);
-
-                $singleLuncheonCost = (float) $formData['luncheonPreorder'] / self::LUNCHEON_COUNT;
-
-                // Create a transaction for each luncheon
-                for ($i = 0; $i < self::LUNCHEON_COUNT; $i++) {
-                    $trans = new Trans();
-                    $trans->setPerson($member)
-                          ->setTrantype("LUNCHEON_FEE")
-                          ->setTrandate(new \DateTime("now"))
-                          ->setPmtmethod($pmtMethod)
-                          ->setAmount($singleLuncheonCost)
-                          ->setNotes(sprintf("%d/%d prepaid luncheon fee", $i+1, self::LUNCHEON_COUNT))
-                    ;
-                    $em->persist($trans);
-                }
-
-                $em->flush();
+                $this->processMembershipTransactions(
+                    $em, $member, $membershipStatus, $pmtMethod,
+                    $formData['membershipType'], $formData['luncheonPreorder']
+                );
 
                 $primaryUser = $userManager->findUserByEmail($email->getEmail());
 
                 $userMailer->sendResettingEmailMessage($primaryUser);
-
-                //TODO: Some stuff with payment processing and transaction handling & emailing password reset link.
 
                 return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
             }
@@ -121,8 +98,67 @@ class RegistrationController extends Controller
         ));
     }
 
-    public function renewAction()
+    public function renewAction(Request $request)
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        if (!$user instanceof Person) {
+            throw new AccessDeniedException('You do not have access to this page. Please login.');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(new RenewalType());
+
+        if ($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+            $formData = $form->getData();
+
+            if ($form->isValid()) {
+
+                // Determine payment method.
+                if ($form->get('payCreditCard')->isClicked()) {
+                    $pmtMethod = 'CREDIT_CARD';
+                } else {
+                    $pmtMethod = 'CHECK';
+                }
+
+                $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType'], $formData['luncheonPreorder']);
+
+                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
+            }
+        }
+
+        return $this->render('UMRAMemberBundle:Registration:renew.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
+    private function processMembershipTransactions($em, Person $member, $tranType, $pmtMethod, $membershipCost, $luncheonCost)
+    {
+        // Create tranaction for membership fee.
+        $membershipTrans = new Trans();
+        $membershipTrans->setPerson($member)
+                        ->setTrantype($tranType)
+                        ->setTrandate(new \DateTime("now"))
+                        ->setPmtmethod($pmtMethod)
+                        ->setAmount((float) $membershipCost)
+        ;
+        $em->persist($membershipTrans);
+
+        $singleLuncheonCost = (float) $luncheonCost / self::LUNCHEON_COUNT;
+
+        // Create a transaction for each luncheon
+        for ($i = 0; $i < self::LUNCHEON_COUNT; $i++) {
+            $trans = new Trans();
+            $trans->setPerson($member)
+                  ->setTrantype("LUNCHEON_FEE")
+                  ->setTrandate(new \DateTime("now"))
+                  ->setPmtmethod($pmtMethod)
+                  ->setAmount($singleLuncheonCost)
+                  ->setNotes(sprintf("%d/%d prepaid luncheon fee", $i+1, self::LUNCHEON_COUNT))
+            ;
+            $em->persist($trans);
+        }
+
+        $em->flush();
+    }
 }

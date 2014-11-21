@@ -1,0 +1,76 @@
+{{ form_start(form, { action: path('UMRA_renew') }) }}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Renewal</h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="control-label">Membership Type</label>
+			<div>
+				{% do form.membershipType.setRendered %}
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[membershipType]" value="25" /> Single ($25)
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[membershipType]" value="35" /> Couple ($35)
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Pre-purchase First 7 Luncheons</label>
+			<div>
+				{% do form.luncheonPreorder.setRendered %}
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[luncheonPreorder]" value="112" /> Single ($112)
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[luncheonPreorder]" value="224" /> Couple ($224)
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[luncheonPreorder]" value="0" /> Do not pre-purchase
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Please send me discount parking coupons with my membership card</label>
+			<div>
+				{% do form.parkingCoupon.setRendered %}
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[parkingCoupon]" value="1" /> 1
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[parkingCoupon]" value="3" /> 3
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[parkingCoupon]" value="6" /> 6
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="renewal[parkingCoupon]" value="9" /> 9
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel-footer">
+		{{ form_widget(form.payCreditCard) }}
+		{{ form_widget(form.payCheck) }}
+	</div>
+</div>
+{{ form_end(form) }}

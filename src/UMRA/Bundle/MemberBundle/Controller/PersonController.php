@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
+use UMRA\Bundle\MemberBundle\Form\RenewalType;
 
 /**
  * Person controller.
@@ -224,17 +225,19 @@ class PersonController extends Controller
     public function profileAction(Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof Person) {
+        if (!$user instanceof Person) {
             throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
         $profileForm = $this->get('fos_user.profile.form');
         $changePasswordForm = $this->get('fos_user.change_password.form');
+        $renewalForm = $this->createForm(new RenewalType());
 
         return array(
             'user' => $user,
             'profileForm' => $profileForm->createView(),
-            'changePasswordForm' => $changePasswordForm->createView()
+            'changePasswordForm' => $changePasswordForm->createView(),
+            'renewalForm' => $renewalForm->createView()
         );
     }
 

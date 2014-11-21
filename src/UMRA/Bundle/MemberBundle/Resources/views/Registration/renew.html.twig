@@ -1,7 +1,7 @@
-{% extends "::base.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}UMRAMemberBundle:Registration:renew{% endblock %}
+{% block title %}UMRA Membership Renewal{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Registration:renew page</h1>
+	{% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' %}
 {% endblock %}

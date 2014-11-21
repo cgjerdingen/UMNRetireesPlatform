@@ -30,6 +30,9 @@
                     </form>
                 </div>
             </div>
+            <div class="col-sm-6">
+                {% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' with {'form': renewalForm } %}
+            </div>
         </div>
     </div>
     {% endblock %}
