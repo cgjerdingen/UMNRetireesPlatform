@@ -2,35 +2,7 @@
 
 {% block body %}
   <div id="page-content-container" class="row">
-    {% if is_granted('ROLE_CAN_VIEW_OTHER_HOUSEHOLD') %}
-    <div class="col-sm-3 col-lg-2">
-      {% if is_granted('ROLE_CAN_VIEW_OTHER_PERSON') %}
-      <form role="search">
-          <div class="form-group">
-            <input type="search" autocomplete="off" class="form-control" placeholder="Member Search" id="peopleSearch" />
-          </div>
-      </form>
-      {% endif %}
-      <nav class="well sidebar-nav">
-        <ul class="nav nav-pills nav-stacked">
-          <li><small class="text-muted">Member Records</small></li>
-          <li><a href="{{ path('UMRA_Household') }}"><span class="glyphicon glyphicon-home"></span> Households</a></li>
-          <li><a href="{{ path('UMRA_Trans') }}"><span class="glyphicon glyphicon-usd"></span> Transactions</a></li>
-          <li><small class="text-muted">UMRA</small></li>
-          <li><a href="{{ path('UMRA_Role') }}"><span class="glyphicon glyphicon-cog"></span> Role</a></li>
-          <li><a href=""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-      </nav><!--/.well -->
-      {% block sidebar %}{% endblock %}
-    </div>
-    {% endif %}
-    <section
-      {% if is_granted('ROLE_CAN_VIEW_OTHER_HOUSEHOLD') %}
-        class="col-sm-9 col-lg-10"
-      {% else %}
-        class="col-xs-12"
-      {% endif %}
-    >
+    <section class="col-xs-12">
       {% if app.user %}
       <p class="pull-right">
           Logged in as {{ app.user.firstname }} {{ app.user.lastname }}
