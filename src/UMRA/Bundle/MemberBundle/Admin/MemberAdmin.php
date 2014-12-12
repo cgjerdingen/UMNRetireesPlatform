@@ -163,7 +163,8 @@ class MemberAdmin extends Admin
             ->add('utopunit', null, array('label' => 'University Unit'))
             ->add('udeptequiv', null, array('label' => 'University Department'))
             ->add('uempltype', null, array('label' => 'Employment Type'))
-            ->add('membersince', null, array('label' => 'Member Since'))
+            ->add('membersince', 'doctrine_orm_date', array('label' => 'Member Since', 'format' => 'm/d/Y'),
+                null, array('required' => false, 'attr' => array('class' => 'datepicker')))
             ->add('activenow', null, array('label' => 'Active'))
             ->add('locked')
         ;
@@ -174,7 +175,7 @@ class MemberAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('fullname', null, array('label' => 'Full Name'))
-            ->add('membersince', null, array('label' => 'Member Since'))
+            ->add('membersince', 'date', array('label' => 'Member Since', 'format' => 'm/d/Y'))
             ->add('emailCanonical', null, array('label' => 'Login Email'))
             ->add('activenow', null, array('label' => 'Active'))
             ->add('_action', 'actions', array(

@@ -33,7 +33,7 @@ class TransAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('trandate', null, array('label' => 'Transaction Date'))
+            ->add('trandate', 'datetime', array('label' => 'Transaction Date', 'format' => 'm/d/Y'))
             ->add('trantype', null, array('label' => 'Transaction Type'))
             ->add('status', null, array('label' => 'Transaction Status'))
             ->add('amount')

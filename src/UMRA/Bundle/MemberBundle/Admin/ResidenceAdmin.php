@@ -46,7 +46,7 @@ class ResidenceAdmin extends Admin
             ->add('zip')
             ->add('legdistrict')
             ->add('country')
-            ->add('since')
+            ->add('since', 'datetime', array('format' => 'm/d/Y'))
             ->add('forseason')
             ->add('_action', 'actions', array(
                 'actions' => array(
