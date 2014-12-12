@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <th>Since</th>
-                <td>{{ entity.since|date('m/d/Y') }}</td>
+                <td>{{ entity.since is empty ? "" : entity.since|date('m/d/Y') }}</td>
             </tr>
             <tr>
                 <th>Season(s)</th>

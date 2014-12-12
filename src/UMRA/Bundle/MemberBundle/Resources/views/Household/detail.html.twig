@@ -86,7 +86,7 @@
                     <span class="label label-success">Active</span>
                 {% endif %}
                 </td>
-                <td>{{ person.membersince | date("m/d/Y") }}</td>
+                <td>{{ person.membersince is empty ? "" : person.membersince|date('m/d/Y') }}</td>
                 <td>
                     <ul class="list-unstyled">
                         {% for email in person.emails %}

@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th>Member Since</th>
-            <td>{{ entity.membersince|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.membersince is empty ? "" : entity.membersince|date('m/d/Y') }}</td>
         </tr>
         <tr>
             <th>University Unit</th>
@@ -43,16 +43,16 @@
         </tr>
         <tr>
             <th>University Start Date</th>
-            <td>{{ entity.ustartdate|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.ustartdate is empty ? "" : entity.ustartdate|date('m/d/Y') }}</td>
         </tr>
         <tr>
             <th>University Retire Date</th>
-            <td>{{ entity.uretiredate|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.uretiredate is empty ? "" : entity.uretiredate|date('m/d/Y') }}</td>
         </tr>
         {% if entity.deceasedate %}
         <tr>
             <th>Date Deceased</th>
-            <td>{{ entity.deceasedate|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.deceasedate is empty ? "" : entity.deceasedate|date('m/d/Y') }}</td>
         </tr>
         {% endif %}
         <tr>
