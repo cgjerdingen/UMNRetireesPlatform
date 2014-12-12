@@ -17,18 +17,18 @@ class TransType extends AbstractType
         $builder
             ->add('trandate', null, array('label' => 'Transaction Date'))
             ->add('trantype', 'choice', array(
-                'label' => 'Transaction Type',
-                'choices' => array('MEMBERSHIP_NEW' => 'New Membership', 'MEMBERSHIP_RENEW' => 'Membership Renewal', 'LUNCHEON_FEE' => 'Luncheon Fee', 'OTHER' => 'Other'),
+                    'label' => 'Transaction Type',
+                    'choices' => array('MEMBERSHIP_NEW' => 'New Membership', 'MEMBERSHIP_RENEW' => 'Membership Renewal', 'LUNCHEON_FEE' => 'Luncheon Fee', 'OTHER' => 'Other'),
                 ))
             ->add('amount')
             ->add('pmtmethod', 'choice', array(
-                'label' => 'Payment Method',
-                'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
+                    'label' => 'Payment Method',
+                    'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
                 ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
             ->add('status', 'choice', array(
-                'label' => 'Transaction Type',
-                'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
+                    'label' => 'Transaction Type',
+                    'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
                 ))
             ->add('doneby')
             ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
