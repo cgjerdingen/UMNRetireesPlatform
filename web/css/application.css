@@ -135,6 +135,10 @@ a {
 	text-shadow: none;
 }
 
+.sonata-ba-filter .col-xs-3 {
+	width: 100%;
+}
+
 @media (min-width: 459px) {
 	#campus-header-wrapper {
 		display: block;
