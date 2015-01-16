@@ -84,7 +84,8 @@ fos_user:
 
 sonata_admin:
     title: UMRA Admin
-    title_logo: bundles/sonataadmin/logo_title.png
+    options:
+        title_mode: single_text
 
     assets:
         stylesheets:
