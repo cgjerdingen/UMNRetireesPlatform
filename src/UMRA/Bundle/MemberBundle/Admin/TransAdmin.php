@@ -16,10 +16,15 @@ class TransAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('trandate', null, array('label' => 'Transaction Date'))
+            ->add('trandate', 'doctrine_orm_date', array('label' => 'Transaction Date'), 'date', array())
             ->add('trantype', null, array('label' => 'Transaction Type'))
             ->add('amount')
-            ->add('pmtmethod', null, array('label' => 'Payment Method'))
+            ->add('pmtmethod', 'doctrine_orm_choice', array('label' => 'Payment Method'), 'choice', array(
+                'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other')
+            ))
+            ->add('status', 'doctrine_orm_choice', array('label' => 'Transaction Status'), 'choice', array(
+                'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
+            ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
             ->add('doneby', null, array('label' => 'Done By'))
             ->add('person')
