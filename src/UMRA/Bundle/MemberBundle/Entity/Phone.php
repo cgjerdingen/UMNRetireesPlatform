@@ -57,7 +57,10 @@ class Phone
      */
     private $person;
 
-
+    public function __toString()
+    {
+        return $this->phnumber . " - " . $this->phtype;
+    }
 
     /**
      * Set phnumber

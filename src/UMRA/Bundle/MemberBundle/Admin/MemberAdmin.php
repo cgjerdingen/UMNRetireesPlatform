@@ -107,6 +107,9 @@ class MemberAdmin extends Admin
                 ->add('emailCanonical', 'email', array('label' => 'Login Email Address'))
                 ->add('emails')
             ->end()
+            ->with('Phones')
+                ->add('phones')
+            ->end()
         ;
     }
 
@@ -147,6 +150,9 @@ class MemberAdmin extends Admin
             ->with('Emails')
                 ->add('emailCanonical', 'email', array('label' => 'Login Email Address'))
                 ->add('emails')
+            ->end()
+            ->with('Phones')
+                ->add('phones')
             ->end()
             ->with('Transactions')
                 ->add('transactions')
