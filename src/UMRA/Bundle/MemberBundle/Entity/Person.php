@@ -817,4 +817,9 @@ class Person extends BaseUser
     {
         return $this->activenow;
     }
+
+    public function getAvatarUrl()
+    {
+        return sprintf("https://gravatar.com/avatar/%s", md5($this->emailCanonical));
+    }
 }
