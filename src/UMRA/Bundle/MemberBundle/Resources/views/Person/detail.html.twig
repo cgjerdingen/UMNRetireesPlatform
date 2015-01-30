@@ -43,11 +43,29 @@
         </tr>
         <tr>
             <th>University Start Date</th>
-            <td>{{ entity.ustartdate is empty ? "" : entity.ustartdate|date('m/d/Y') }}</td>
+            {% if entity.ustartDayIndeterminate %}
+                {% set startdate_format = 'm/Y' %}
+                {% if entity.ustartMonthIndeterminate %}
+                    {% set startdate_format = 'Y' %}
+                {% endif %}
+            {% else %}
+                {% set startdate_format = 'm/d/Y' %}
+            {% endif %}
+
+            <td>{{ entity.ustartdate is empty ? "" : entity.ustartdate|date(startdate_format) }}</td>
         </tr>
         <tr>
             <th>University Retire Date</th>
-            <td>{{ entity.uretiredate is empty ? "" : entity.uretiredate|date('m/d/Y') }}</td>
+            {% if entity.uretireDayIndeterminate %}
+                {% set retiredate_format = 'm/Y' %}
+                {% if entity.uretireMonthIndeterminate %}
+                    {% set retiredate_format = 'Y' %}
+                {% endif %}
+            {% else %}
+                {% set retiredate_format = 'm/d/Y' %}
+            {% endif %}
+
+            <td>{{ entity.uretiredate is empty ? "" : entity.uretiredate|date(retiredate_format) }}</td>
         </tr>
         {% if entity.deceasedate %}
         <tr>
