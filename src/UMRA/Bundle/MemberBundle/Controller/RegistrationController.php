@@ -80,6 +80,9 @@ class RegistrationController extends Controller
                     $pmtMethod = 'CHECK';
                 }
 
+                // TODO: Payment
+
+                // TODO: After return from payment processor. Probably will get moved
                 $this->processMembershipTransactions(
                     $em, $member, $membershipStatus, $pmtMethod,
                     $formData['membershipType'], $formData['luncheonPreorder']
@@ -121,6 +124,9 @@ class RegistrationController extends Controller
                     $pmtMethod = 'CHECK';
                 }
 
+                // TODO: Payment
+
+                // TODO: After return from payment processor. Probably will get moved
                 $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType'], $formData['luncheonPreorder']);
 
                 return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
