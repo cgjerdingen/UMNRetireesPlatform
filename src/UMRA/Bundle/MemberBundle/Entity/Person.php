@@ -94,11 +94,39 @@ class Person extends BaseUser
     private $ustartdate;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="UStartDayIndeter", type="boolean", nullable=true)
+     */
+    private $ustartDayIndeterminate = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="UStartMonthIndeter", type="boolean", nullable=true)
+     */
+    private $ustartMonthIndeterminate = false;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="URetiredate", type="date", nullable=true)
      */
     private $uretiredate;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="URetireDayIndeter", type="boolean", nullable=true)
+     */
+    private $uretireDayIndeterminate = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="URetireMonthIndeter", type="boolean", nullable=true)
+     */
+    private $uretireMonthIndeterminate = false;
 
     /**
      * @var \DateTime
@@ -549,6 +577,50 @@ class Person extends BaseUser
     }
 
     /**
+     * Set ustartDayIndeterminate
+     *
+     * @return Person
+     */
+    public function setUstartDayIndeterminate($ustartDayIndeterminate)
+    {
+        $this->ustartDayIndeterminate = $ustartDayIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is ustartDayIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isUstartDayIndeterminate()
+    {
+        return $this->ustartDayIndeterminate;
+    }
+
+    /**
+     * Set ustartMonthIndeterminate
+     *
+     * @return Person
+     */
+    public function setUstartMonthIndeterminate($ustartMonthIndeterminate)
+    {
+        $this->ustartMonthIndeterminate = $ustartMonthIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is ustartMonthIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isUstartMonthIndeterminate()
+    {
+        return $this->ustartMonthIndeterminate;
+    }
+
+    /**
      * Set uretiredate
      *
      * @param \DateTime $uretiredate
@@ -569,6 +641,50 @@ class Person extends BaseUser
     public function getUretiredate()
     {
         return $this->uretiredate;
+    }
+
+    /**
+     * Set uretireDayIndeterminate
+     *
+     * @return Person
+     */
+    public function setUretireDayIndeterminate($uretireDayIndeterminate)
+    {
+        $this->uretireDayIndeterminate = $uretireDayIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is uretireDayIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isUretireDayIndeterminate()
+    {
+        return $this->uretireDayIndeterminate;
+    }
+
+    /**
+     * Set uretireMonthIndeterminate
+     *
+     * @return Person
+     */
+    public function setUretireMonthIndeterminate($uretireMonthIndeterminate)
+    {
+        $this->uretireMonthIndeterminate = $uretireMonthIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is uretireMonthIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isUretireMonthIndeterminate()
+    {
+        return $this->uretireMonthIndeterminate;
     }
 
     /**
