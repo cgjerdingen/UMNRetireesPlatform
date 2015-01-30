@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use UMRA\Bundle\MemberBundle\Form\EventListener\IndeterminateDateSubscriber;
+
 class PersonType extends AbstractType
 {
     /**
@@ -66,14 +68,18 @@ class PersonType extends AbstractType
                     'years' => range(1910, date('Y')),
                     'label' => 'University Start Date',
                     'required' => false,
-                    'empty_value' => ''
+                    'empty_value' => array('year' => 'Year', 'month' => '', 'day' => '')
                 ))
+            ->add('ustartDayIndeterminate', 'hidden')
+            ->add('ustartMonthIndeterminate', 'hidden')
             ->add('uretiredate', 'date', array(
                     'years' => range(1910, date('Y')),
                     'label' => 'University Retire Date',
                     'required' => false,
-                    'empty_value' => ''
+                    'empty_value' => array('year' => 'Year', 'month' => '', 'day' => '')
                 ))
+            ->add('uretireDayIndeterminate', 'hidden')
+            ->add('uretireMonthIndeterminate', 'hidden')
             ->add('deceasedate', 'date', array(
                     'years' => range(1910, date('Y')),
                     'label' => 'Deceased Date',
@@ -106,7 +112,7 @@ class PersonType extends AbstractType
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Confirm Password')
                 ))
-
+            ->addEventSubscriber(new IndeterminateDateSubscriber())
             ->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) {
                 $person = $event->getData();
 

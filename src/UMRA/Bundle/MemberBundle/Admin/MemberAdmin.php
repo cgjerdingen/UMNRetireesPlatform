@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+use UMRA\Bundle\MemberBundle\Form\EventListener\IndeterminateDateSubscriber;
+
 class MemberAdmin extends Admin
 {
     protected $baseRouteName = 'admin_umra_member';
@@ -76,11 +78,15 @@ class MemberAdmin extends Admin
                         'label' => 'University Start Date',
                         'required' => false
                     ))
+                ->add('ustartDayIndeterminate', 'hidden')
+                ->add('ustartMonthIndeterminate', 'hidden')
                 ->add('uretiredate', 'date', array(
                         'years' => range(1910, date('Y')),
                         'label' => 'University Retire Date',
                         'required' => false
                     ))
+                ->add('uretireDayIndeterminate', 'hidden')
+                ->add('uretireMonthIndeterminate', 'hidden')
             ->end()
             ->with('UMRA Information')
                 ->add('membersince', 'date', array(
@@ -110,6 +116,8 @@ class MemberAdmin extends Admin
             ->with('Phones')
                 ->add('phones')
             ->end()
+        ->getFormBuilder()
+        ->addEventSubscriber(new IndeterminateDateSubscriber())
         ;
     }
 
