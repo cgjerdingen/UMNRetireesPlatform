@@ -176,7 +176,19 @@ class MemberAdmin extends Admin
             ->add('firstname', null, array('label' => 'First Name'))
             ->add('utopunit', null, array('label' => 'University Unit'))
             ->add('udeptequiv', null, array('label' => 'University Department'))
-            ->add('uempltype', null, array('label' => 'Employment Type'))
+            ->add('uempltype', 'doctrine_orm_choice', array('label' => 'Employment Type'), 'choice', array(
+                    'choices' => array(
+                        'faculty' => 'Faculty',
+                        'acad_prof' => 'Academic Professional',
+                        'acad_adm' => 'Academic Administrator',
+                        'civ_srv' => 'Civil Service',
+                        'afscme_cler' => 'AFSCME Clerical',
+                        'afscme_tech' => 'AFSCME Technical',
+                        'teamster' => 'Teamster'
+                    ),
+                    'label' => 'Employment Type',
+                    'required' => false
+                ))
             ->add('membersince', 'doctrine_orm_date', array('label' => 'Member Since', 'format' => 'm/d/Y'),
                 null, array('required' => false, 'attr' => array('class' => 'datepicker')))
             ->add('activenow', null, array('label' => 'Active'))
