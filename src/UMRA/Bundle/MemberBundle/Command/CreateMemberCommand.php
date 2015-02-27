@@ -86,7 +86,6 @@ EOT
         $nameTokens = explode(" ", $fullname);
 
         $user->setFullname($fullname);
-        $user->setPostalname($fullname);
         $user->setFirstname($nameTokens[0]);
         $user->setNickname($nameTokens[0]);
         $user->setNametagname($nameTokens[0]);
