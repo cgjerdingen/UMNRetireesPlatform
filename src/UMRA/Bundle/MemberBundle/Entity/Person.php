@@ -136,6 +136,13 @@ class Person extends BaseUser
     private $deceasedate;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Spouse", type="boolean", nullable=false)
+     */
+    private $spouse = false;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="Activenow", type="boolean", nullable=true)
@@ -708,6 +715,29 @@ class Person extends BaseUser
     public function getDeceasedate()
     {
         return $this->deceasedate;
+    }
+
+    /**
+     * Set spouse
+     *
+     * @param boolean $spouse
+     * @return Person
+     */
+    public function setSpouse($spouse)
+    {
+        $this->spouse = $spouse;
+
+        return $this;
+    }
+
+    /**
+     * Get spouse
+     *
+     * @return boolean
+     */
+    public function isSpouse()
+    {
+        return $this->spouse;
     }
 
     /**
