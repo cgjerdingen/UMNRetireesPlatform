@@ -85,8 +85,12 @@ class PersonType extends AbstractType
                     'label' => 'Deceased Date',
                     'required' => false
                 ))
+            ->add('spouse', 'checkbox', array(
+                    'label' => 'Spouse/Secondary Member',
+                    'required' => false
+                ))
             ->add('activenow', 'checkbox', array(
-                    'label' => 'Active',
+                    'label' => 'Active Membership',
                     'required' => false
                 ))
             ->add('newsPref', 'choice', array(
