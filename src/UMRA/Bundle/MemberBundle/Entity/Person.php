@@ -968,4 +968,24 @@ class Person extends BaseUser
     {
         return sprintf("https://gravatar.com/avatar/%s", md5($this->emailCanonical));
     }
+
+    public function setExpiresAt(\DateTime $expiresAt) {
+        $this->expiresAt = $expiresAt;
+
+        return $this;
+    }
+
+    public function getExpiresAt() {
+        return $this->expiresAt;
+    }
+
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt) {
+        $this->credentialsExpireAt = $credentialsExpireAt;
+
+        return $this;
+    }
+
+    public function getCredentialsExpireAt() {
+        return $this->credentialsExpireAt;
+    }
 }
