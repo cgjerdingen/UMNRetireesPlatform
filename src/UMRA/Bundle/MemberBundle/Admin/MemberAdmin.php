@@ -94,8 +94,12 @@ class MemberAdmin extends Admin
                         'label' => 'UMRA Member Since',
                         'required' => false
                     ))
+                ->add('spouse', 'checkbox', array(
+                        'label' => 'Spouse/Secondary Member',
+                        'required' => false
+                    ))
                 ->add('activenow', 'checkbox', array(
-                        'label' => 'Active',
+                        'label' => 'Active Membership',
                         'required' => false
                     ))
                 ->add('newsPref', 'choice', array(
@@ -152,6 +156,7 @@ class MemberAdmin extends Admin
             ->end()
             ->with('UMRA Information')
                 ->add('membersince', null, array('label' => 'UMRA Member Since'))
+                ->add('spouse', null, array('label' => 'Spouse/Secondary Member'))
                 ->add('activenow', null, array('label' => 'Active'))
                 ->add('newsPref', null, array('label' => 'Newsletter Preference'))
             ->end()
@@ -191,6 +196,7 @@ class MemberAdmin extends Admin
                 ))
             ->add('membersince', 'doctrine_orm_date', array('label' => 'Member Since', 'format' => 'm/d/Y'),
                 null, array('required' => false, 'attr' => array('class' => 'datepicker')))
+            ->add('spouse', null, array('label' => 'Spouse/Secondary Member'))
             ->add('activenow', null, array('label' => 'Active'))
             ->add('locked')
         ;
@@ -203,7 +209,8 @@ class MemberAdmin extends Admin
             ->addIdentifier('fullname', null, array('label' => 'Full Name'))
             ->add('membersince', 'date', array('label' => 'Member Since', 'format' => 'm/d/Y'))
             ->add('emailCanonical', null, array('label' => 'Login Email'))
-            ->add('activenow', null, array('label' => 'Active'))
+            ->add('activenow', null, array('label' => 'Active Member'))
+            ->add('spouse', null, array('label' => 'Spouse/Secondary'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
