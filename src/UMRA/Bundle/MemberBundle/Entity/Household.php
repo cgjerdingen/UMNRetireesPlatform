@@ -35,14 +35,14 @@ class Household
     private $postalname;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Residence
+     * @var Residence
      *
      * @ORM\OneToMany(targetEntity="Residence", mappedBy="household", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $residences;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     * @var Person
      *
      * @ORM\OneToMany(targetEntity="Person", mappedBy="household", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -138,10 +138,10 @@ class Household
     /**
      * Add residence
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Household $residence
+     * @param Residence $residence
      * @return Residence
      */
-    public function addResidence(\UMRA\Bundle\MemberBundle\Entity\Household $residence)
+    public function addResidence(Residence $residence)
     {
         $this->residences[] = $residences;
 
@@ -151,9 +151,9 @@ class Household
     /**
      * Remove residence
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Household $residences
+     * @param Residence $residences
      */
-    public function removeResidence(\UMRA\Bundle\MemberBundle\Entity\Household $residence)
+    public function removeResidence(Residence $residence)
     {
         $this->residences->removeElement($residence);
     }
@@ -171,10 +171,10 @@ class Household
     /**
      * Add person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
+     * @param Person $person
      * @return Residence
      */
-    public function addPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person)
+    public function addPerson(Person $person)
     {
         $this->persons[] = $persons;
 
@@ -184,9 +184,9 @@ class Household
     /**
      * Remove person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $persons
+     * @param Person $persons
      */
-    public function removePerson(\UMRA\Bundle\MemberBundle\Entity\Person $person)
+    public function removePerson(Person $person)
     {
         $this->persons->removeElement($person);
     }
