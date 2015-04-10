@@ -66,6 +66,7 @@
 						<div class="row">
 							<div class="col-sm-4">
 								{{ form_row(member.newsPref) }}
+								{{ form_row(member.spouse) }}
 							</div>
 							{% if loop.index == 1 %}
 							<div class="col-sm-4">
@@ -356,7 +357,10 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
-
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.spouse) }}
+					{{ form_widget(form.members.vars.prototype.spouse) }}
+				</div>
 			</div>
 			<div class="col-sm-8">
 
