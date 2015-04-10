@@ -58,6 +58,7 @@ class Household
     private $id;
 
     public function __construct() {
+        $this->persons = new ArrayCollection();
         $this->residences = new ArrayCollection();
     }
 
