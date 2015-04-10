@@ -118,7 +118,8 @@ class PersonType extends AbstractType
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Confirm Password')
                 ))
-            ->addEventSubscriber(new IndeterminateDateSubscriber())
+            ->addEventSubscriber(new IndeterminateDateSubscriber('ustartdate', 'ustartMonthIndeterminate', 'ustartDayIndeterminate'))
+            ->addEventSubscriber(new IndeterminateDateSubscriber('uretiredate', 'uretireMonthIndeterminate', 'uretireDayIndeterminate'))
             ->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) {
                 $person = $event->getData();
 

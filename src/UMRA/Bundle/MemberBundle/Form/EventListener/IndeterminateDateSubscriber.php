@@ -7,6 +7,31 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class IndeterminateDateSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var string
+     * Name of date field to treat as indeterminate
+     */
+    private $dateField;
+
+    /**
+     * @var string
+     * Name of boolean field to store indeterminate state of dateField's month.
+     */
+    private $monthIndeterminateField;
+
+    /**
+     * @var string
+     * Name of boolean field to store indeterminate state of dateField's day.
+     */
+    private $dayIndeterminateField;
+
+    public function __construct($dateField, $monthIndeterminateField, $dayIndeterminateField)
+    {
+        $this->dateField = $dateField;
+        $this->monthIndeterminateField = $monthIndeterminateField;
+        $this->dayIndeterminateField = $dayIndeterminateField;
+    }
+
     public static function getSubscribedEvents()
     {
         // Tells the dispatcher that you want to listen on the form.pre_bind
@@ -18,36 +43,21 @@ class IndeterminateDateSubscriber implements EventSubscriberInterface
     {
         $person = $event->getData();
 
-        if (empty($person['ustartdate']['day'])) {
-            // Default to 1 of the month for storage
-            $person['ustartdate']['day'] = 1;
-            $person['ustartDayIndeterminate'] = true;
+        if (!empty($person[$this->dateField]['year']) && empty($person[$this->dateField]['day'])) {
+            // Default to 1st the month for storage
+            $person[$this->dateField]['day'] = 1;
+            $person[$this->dayIndeterminateField] = true;
 
-            if (empty($person['ustartdate']['month'])) {
+            if (empty($person[$this->dateField]['month'])) {
                 // Default to january for storage
-                $person['ustartdate']['month'] = 1;
-                $person['ustartMonthIndeterminate'] = true;
+                $person[$this->dateField]['month'] = 1;
+                $person[$this->monthIndeterminateField] = true;
             } else {
-                $person['ustartMonthIndeterminate'] = false;
+                $person[$this->monthIndeterminateField] = false;
             }
         } else {
-            $person['ustartDayIndeterminate'] = false;
-            $person['ustartMonthIndeterminate'] = false;
-        }
-
-        if (empty($person['uretiredate']['day'])) {
-            $person['uretiredate']['day'] = 1;
-            $person['uretireDayIndeterminate'] = true;
-
-            if (empty($person['uretiredate']['month'])) {
-                $person['uretiredate']['month'] = 1;
-                $person['uretireMonthIndeterminate'] = true;
-            } else {
-                $person['uretireMonthIndeterminate'] = false;
-            }
-        } else {
-            $person['uretireDayIndeterminate'] = false;
-            $person['uretireMonthIndeterminate'] = false;
+            $person[$this->dayIndeterminateField] = false;
+            $person[$this->monthIndeterminateField] = false;
         }
 
         $event->setData($person);
