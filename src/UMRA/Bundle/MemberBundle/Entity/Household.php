@@ -16,14 +16,14 @@ class Household
     /**
      * @var string
      *
-     * @ORM\Column(name="Lastname", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Lastname", type="string", length=30, nullable=false)
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Firstname", type="string", length=20, nullable=false)
+     * @ORM\Column(name="Firstname", type="string", length=30, nullable=false)
      */
     private $firstname;
 
