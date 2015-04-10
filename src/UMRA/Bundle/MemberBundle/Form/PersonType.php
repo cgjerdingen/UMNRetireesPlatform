@@ -38,7 +38,7 @@ class PersonType extends AbstractType
                 ))
             ->add('membersince', 'date', array(
                     'years' => range(1910, date('Y')),
-                    'label' => 'UMRA Member Since',
+                    'label' => 'UMRA Member Since (Year - Month - Day)',
                     'required' => false
                 ))
             ->add('utopunit', 'text', array(
@@ -68,23 +68,23 @@ class PersonType extends AbstractType
                 ))
             ->add('ustartdate', 'date', array(
                     'years' => range(1910, date('Y')),
-                    'label' => 'University Start Date',
+                    'label' => 'University Start Date (Year - Month - Day)',
                     'required' => false,
-                    'empty_value' => array('year' => 'Year', 'month' => '', 'day' => '')
+                    'placeholder' => array('year' => '', 'month' => '', 'day' => '')
                 ))
             ->add('ustartDayIndeterminate', 'hidden')
             ->add('ustartMonthIndeterminate', 'hidden')
             ->add('uretiredate', 'date', array(
                     'years' => range(1910, date('Y')),
-                    'label' => 'University Retire Date',
+                    'label' => 'University Retire Date (Year - Month - Day)',
                     'required' => false,
-                    'empty_value' => array('year' => 'Year', 'month' => '', 'day' => '')
+                    'placeholder' => array('year' => '', 'month' => '', 'day' => '')
                 ))
             ->add('uretireDayIndeterminate', 'hidden')
             ->add('uretireMonthIndeterminate', 'hidden')
             ->add('deceasedate', 'date', array(
                     'years' => range(1910, date('Y')),
-                    'label' => 'Deceased Date',
+                    'label' => 'Deceased Date (Year - Month - Day)',
                     'required' => false
                 ))
             ->add('spouse', 'checkbox', array(
