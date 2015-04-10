@@ -263,7 +263,8 @@
 					{{ form_widget(form.payCheck) }}
 				</div>
 			</div>
-		{{ form_end(form) }}
+			{{ form_widget(form._token) }}
+		{{ form_end(form, {'render_rest': false}) }}
 		</div>
 		<div class="col-sm-4">
 			<h4 class="text-muted">Instructions</h4>
@@ -275,7 +276,9 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
 
+{% block javascripts %}
 <script id="tpl-members-group" type="text/ng-template">
 	<div class="list-group-item">
 		<h5>Retiree __num__</h5>
@@ -450,9 +453,7 @@
 		</div>
 	</div>
 </script>
-{% endblock %}
 
-{% block javascripts %}
 <script type="text/javascript">
 	// Todo: Angularize Me
 	jQuery(document).ready(function() {
