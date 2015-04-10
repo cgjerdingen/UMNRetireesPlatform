@@ -26,13 +26,15 @@ class PersonType extends AbstractType
                     'label' => 'First Name'
                 ))
             ->add('nickname', 'text', array(
-                    'label' => 'Nickname'
+                    'label' => 'Nickname',
+                    'required' => false
                 ))
             ->add('fullname', 'text', array(
                     'label' => 'Full Name'
                 ))
             ->add('nametagname', 'text', array(
-                    'label' => 'Nametag Name'
+                    'label' => 'Nametag Name',
+                    'required' => false
                 ))
             ->add('membersince', 'date', array(
                     'years' => range(1910, date('Y')),
