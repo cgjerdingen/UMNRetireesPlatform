@@ -24,6 +24,25 @@ a {
 	background-color: #fefefe;
 }
 
+.btn, .form-control, .panel-heading, .panel-footer {
+	border-radius: 2px;
+}
+
+.btn-primary,
+.panel-primary .panel-heading {
+	background-color: #7a0019;
+}
+
+.btn-primary,
+.panel-primary,
+.panel-primary > .panel-heading {
+	border-color: #690008;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary.active {
+	background-color: #580007;
+}
+
 .sonata-ba-filter .col-xs-3 {
 	width: 100%;
 }
