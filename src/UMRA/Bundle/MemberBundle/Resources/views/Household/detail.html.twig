@@ -73,6 +73,7 @@
         <thead>
             <th>Full Name</th>
             <th>UMRA Status</th>
+            <th>Spouse/Non-Primary Member</th>
             <th>Member Since</th>
             <th>Email Addresses</th>
             <th>Phone Numbers</th>
@@ -84,6 +85,11 @@
                 <td>
                 {% if person.activenow %}
                     <span class="label label-success">Active</span>
+                {% endif %}
+                </td>
+                <td>
+                {% if person.spouse %}
+                    <span class="label label-success">Yes</span>
                 {% endif %}
                 </td>
                 <td>{{ person.membersince is empty ? "" : person.membersince|date('m/d/Y') }}</td>
