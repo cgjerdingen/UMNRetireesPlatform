@@ -58,8 +58,13 @@
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>
+                        <a href="{{ path('UMRA_Household') }}">
+                            Manage Members
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ path('sonata_admin_redirect') }}">
-                            Membership Administration
+                            Advanced Membership Administration
                         </a>
                     </li>
                     {% endif %}

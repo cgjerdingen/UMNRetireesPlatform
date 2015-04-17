@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
@@ -20,11 +21,22 @@ class HouseholdController extends Controller
      *
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $securityContext = $this->get('security.context');
+        $authedUser = $securityContext->getToken()->getUser();
+
+        if (!$securityContext->isGranted('ROLE_CAN_VIEW_OTHER_HOUSEHOLD')) {
+            throw new AccessDeniedException('You do not have access to this page. Either you are not logged in or you do not have permissions to view this page');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UMRAMemberBundle:Household')->findAll();
+        $query = $em->createQuery('SELECT h FROM UMRAMemberBundle:Household h ORDER BY h.lastname');
+
+        $paginator  = $this->get('knp_paginator');
+
+        $entities = $paginator->paginate($query, $request->query->get('page', 1), 50);
 
         return array(
             'entities' => $entities,

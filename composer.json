@@ -23,7 +23,8 @@
         "symfony/icu": "1.0.*",
         "friendsofsymfony/user-bundle": "~1.3",
         "sonata-project/admin-bundle": "~2.3",
-        "sonata-project/doctrine-orm-admin-bundle": "~2.3"
+        "sonata-project/doctrine-orm-admin-bundle": "~2.3",
+        "knplabs/knp-paginator-bundle": "~2.4"
     },
     "scripts": {
         "post-install-cmd": [
