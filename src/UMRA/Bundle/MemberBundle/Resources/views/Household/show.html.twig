@@ -10,9 +10,15 @@
 
     <ul class="list-inline">
         <li>
+            {% if is_granted('ROLE_ADMIN') and entity.id != app.user.household.id %}
+            <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
+                Back to Member List
+            </a>
+            {% else %}
             <a class="btn btn-default" href="{{ path('UMRA_Person_Profile') }}">
                 Back to my profile
             </a>
+            {% endif %}
         </li>
         <li>
             <a class="btn btn-primary" href="{{ path('UMRA_Household_edit', { 'id': entity.id }) }}">
