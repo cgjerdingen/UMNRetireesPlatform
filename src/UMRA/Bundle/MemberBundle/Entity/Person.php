@@ -63,14 +63,14 @@ class Person extends BaseUser
      *
      * @ORM\Column(name="memSinceDayIndeter", type="boolean", nullable=true)
      */
-    private $membersinceDayIndeterminate = false;
+    private $memSinceDayIndeterminate = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="memSinceMonthIndeter", type="boolean", nullable=true)
      */
-    private $membersinceMonthIndeterminate = false;
+    private $memSinceMonthIndeterminate = false;
 
     /**
      * @var string
