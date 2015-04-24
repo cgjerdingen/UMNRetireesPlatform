@@ -42,6 +42,8 @@ class PersonType extends AbstractType
                     'label' => 'UMRA Member Since (Year - Month - Day)',
                     'required' => false
                 ))
+            ->add('membersinceDayIndeterminate', 'hidden')
+            ->add('membersinceMonthIndeterminate', 'hidden')
             ->add('utopunit', 'text', array(
                     'label' => 'University Unit',
                     'required' => false
@@ -122,6 +124,7 @@ class PersonType extends AbstractType
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Confirm Password')
                 ))
+            ->addEventSubscriber(new IndeterminateDateSubscriber('membersince', 'membersinceMonthIndeterminate', 'membersinceDayIndeterminate'))
             ->addEventSubscriber(new IndeterminateDateSubscriber('ustartdate', 'ustartMonthIndeterminate', 'ustartDayIndeterminate'))
             ->addEventSubscriber(new IndeterminateDateSubscriber('uretiredate', 'uretireMonthIndeterminate', 'uretireDayIndeterminate'))
             ->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) {

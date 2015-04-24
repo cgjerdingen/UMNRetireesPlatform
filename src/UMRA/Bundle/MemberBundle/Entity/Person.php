@@ -59,6 +59,20 @@ class Person extends BaseUser
     private $membersince;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="memSinceDayIndeter", type="boolean", nullable=true)
+     */
+    private $membersinceDayIndeterminate = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="memSinceMonthIndeter", type="boolean", nullable=true)
+     */
+    private $membersinceMonthIndeterminate = false;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="UTopUnit", type="string", length=35, nullable=true)
@@ -466,6 +480,50 @@ class Person extends BaseUser
     public function getMembersince()
     {
         return $this->membersince;
+    }
+
+    /**
+     * Set memSinceDayIndeterminate
+     *
+     * @return Person
+     */
+    public function setMemberSinceDayIndeterminate($memSinceDayIndeterminate)
+    {
+        $this->memSinceDayIndeterminate = $memSinceDayIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is memSinceDayIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isMemberSinceDayIndeterminate()
+    {
+        return $this->memSinceDayIndeterminate;
+    }
+
+    /**
+     * Set memSinceMonthIndeterminate
+     *
+     * @return Person
+     */
+    public function setMemberSinceMonthIndeterminate($memSinceMonthIndeterminate)
+    {
+        $this->memSinceMonthIndeterminate = $memSinceMonthIndeterminate;
+
+        return $this;
+    }
+
+    /**
+     * Is memSinceMonthIndeterminate?
+     *
+     * @return boolean
+     */
+    public function isMemberSinceMonthIndeterminate()
+    {
+        return $this->memSinceMonthIndeterminate;
     }
 
     /**
