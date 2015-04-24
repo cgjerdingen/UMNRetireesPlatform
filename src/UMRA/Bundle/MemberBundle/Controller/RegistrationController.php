@@ -18,14 +18,13 @@ class RegistrationController extends Controller
 
     public function registerAction(Request $request)
     {
+        $logger = $this->get('logger');
         $em = $this->getDoctrine()->getManager();
         $household = new Household();
-        $email = new Email();
-        $email->setPreferred(true);
+
         $form = $this->createForm(new RegistrationFormType(), array(
             'household' => $household,
             'members' => array(new Person()),
-            'primaryEmail' => $email,
             'residences' => array(new Residence())
         ));
 
@@ -45,17 +44,37 @@ class RegistrationController extends Controller
                 $em->persist($household);
                 $em->flush();
 
+                $memberEmails = array();
+
                 // Persist each user.
                 foreach ($formData['members'] as $key => $member) {
-                    if ($key === 0) {
-                        $member->setConfirmationToken($tokenGenerator->generateToken());
-                        $member->setEmailCanonical($email->getEmail());
+                    $emailCanonical = $member->getEmailCanonical();
+
+                    if (!empty($emailCanonical)) {
+                        $email = new Email();
+                        $email->setPreferred(true);
                         $email->setPerson($member);
+                        $email->setEmail($emailCanonical);
                         $em->persist($email);
+
+                        $member->setEmailCanonical($emailCanonical);
+                        $member->setConfirmationToken($tokenGenerator->generateToken());
+
+                        $memberEmails[] = $emailCanonical;
                     }
-                    // This is getting hashed, so it's okay to use mt_rand, despite its shortcomings.
-                    $member->setPlainPassword(uniqid(mt_rand()))
-                           ->setHousehold($household)
+
+                    if (function_exists("openssl_random_pseudo_bytes")) {
+                        $member->setPlainPassword(openssl_random_pseudo_bytes(12));
+                    } else {
+                        // Less than secure randomized password generation
+                        // Luckily, plainPassword gets bcrypt()'d
+                        $logger->warning("OpenSSL extension not loaded." .
+                                         "Falling back to using uniqid() for ranomized plain-text password generation." .
+                                         "Password will still be hashed.")
+                        $member->setPlainPassword(uniqid(mt_rand()));
+                    }
+
+                    $member->setHousehold($household)
                            ->setActivenow(false)
                     ;
                     $userManager->updateUser($member, true);
@@ -88,9 +107,10 @@ class RegistrationController extends Controller
                     $formData['membershipType'], $formData['luncheonPreorder']
                 );
 
-                $primaryUser = $userManager->findUserByEmail($email->getEmail());
-
-                $userMailer->sendResettingEmailMessage($primaryUser);
+                for ($i = 0; $i < count($memberEmails); $i++) {
+                    $user = $userManager->findUserByEmail($memberEmails[$i]);
+                    $userMailer->sendResettingEmailMessage($user);
+                }
 
                 return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
             }
@@ -116,7 +136,6 @@ class RegistrationController extends Controller
             $formData = $form->getData();
 
             if ($form->isValid()) {
-
                 // Determine payment method.
                 if ($form->get('payCreditCard')->isClicked()) {
                     $pmtMethod = 'CREDIT_CARD';
