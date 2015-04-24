@@ -138,9 +138,9 @@ class Person extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Spouse", type="boolean", nullable=false)
+     * @ORM\Column(name="Secondary", type="boolean", nullable=false)
      */
-    private $spouse = false;
+    private $secondary = false;
 
     /**
      * @var string
@@ -718,26 +718,26 @@ class Person extends BaseUser
     }
 
     /**
-     * Set spouse
+     * Set secondary
      *
-     * @param boolean $spouse
+     * @param boolean $secondary
      * @return Person
      */
-    public function setSpouse($spouse)
+    public function setSecondary($secondary)
     {
-        $this->spouse = $spouse;
+        $this->secondary = $secondary;
 
         return $this;
     }
 
     /**
-     * Get spouse
+     * Get secondary
      *
      * @return boolean
      */
-    public function isSpouse()
+    public function isSecondary()
     {
-        return $this->spouse;
+        return $this->secondary;
     }
 
     /**
