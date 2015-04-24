@@ -13,6 +13,10 @@ class RegistrationPersonType extends PersonType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+        $builder->add('emailCanonical', 'email', array(
+                'label' => 'Email',
+                'required' => false
+            ));
         $builder->remove('deceasedate');
         $builder->remove('activenow');
         $builder->remove('plainPassword');
