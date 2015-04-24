@@ -70,7 +70,7 @@ class RegistrationController extends Controller
                         // Luckily, plainPassword gets bcrypt()'d
                         $logger->warning("OpenSSL extension not loaded." .
                                          "Falling back to using uniqid() for ranomized plain-text password generation." .
-                                         "Password will still be hashed.")
+                                         "Password will still be hashed.");
                         $member->setPlainPassword(uniqid(mt_rand()));
                     }
 
