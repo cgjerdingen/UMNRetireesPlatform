@@ -3,6 +3,7 @@
 namespace UMRA\Bundle\MemberBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -87,9 +88,12 @@ class PersonType extends AbstractType
                     'label' => 'Deceased Date (Year - Month - Day)',
                     'required' => false
                 ))
-            ->add('secondary', 'checkbox', array(
-                    'label' => 'Secondary Member',
-                    'required' => false
+            ->add('secondary', 'choice', array(
+                    'choice_list' => new ChoiceList(array(true, false), array('Yes', 'No')),
+                    'expanded' => true,
+                    'label' => 'University Retiree?',
+                    'required' => true,
+                    'empty_data' => null,
                 ))
             ->add('activenow', 'checkbox', array(
                     'label' => 'Active Membership',
