@@ -25,7 +25,6 @@
 						firstname: '{{ member.firstname.vars.value }}',
 						lastname: '{{ member.lastname.vars.value }}'
 					}">
-						<h5>Retiree {{ loop.index }} {% if loop.index == 1 %}(Primary Member){% endif %}</h5>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ form_row(member.firstname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].firstname' }}) }}
@@ -44,6 +43,25 @@
 								{{ form_row(member.membersince, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].membersince' }}) }}
 							</div>
 						</div>
+						{{ form_row(member.weburl) }}
+						<div class="row">
+							<div class="col-sm-4">
+								{{ form_row(member.newsPref) }}
+							</div>
+							<div class="col-sm-8">
+								{{ form_row(member.emailCanonical) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-4">
+								{{ form_row(member.secondary) }}
+							</div>
+							<div class="col-sm-8">
+								<p class="text-muted">
+									The following fields are for University Retirees only.
+								</p>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ form_row(member.ustartdate) }}
@@ -52,8 +70,14 @@
 								{{ form_row(member.uretiredate) }}
 							</div>
 						</div>
-						{{ form_row(member.utopunit) }}
-						{{ form_row(member.udeptequiv) }}
+						<div class="row">
+							<div class="col-sm-6">
+								{{ form_row(member.utopunit) }}
+							</div>
+							<div class="col-sm-6">
+								{{ form_row(member.udeptequiv) }}
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-6">
 								{{ form_row(member.utitle) }}
@@ -61,22 +85,6 @@
 							<div class="col-sm-6">
 								{{ form_row(member.uempltype) }}
 							</div>
-						</div>
-						{{ form_row(member.weburl) }}
-						<div class="row">
-							<div class="col-sm-4">
-								{{ form_row(member.newsPref) }}
-								{{ form_row(member.secondary) }}
-							</div>
-							{% if loop.index == 1 %}
-							<div class="col-sm-4">
-								{{ form_row(form.primaryEmail.email) }}
-							</div>
-							<div class="col-sm-4">
-								{{ form_row(form.primaryEmail.type) }}
-								{{ form_widget(form.primaryEmail.preferred, { type: 'hidden' }) }}
-							</div>
-							{% endif %}
 						</div>
 					</div>
 					{% endfor %}
@@ -280,8 +288,8 @@
 
 {% block javascripts %}
 <script id="tpl-members-group" type="text/ng-template">
-	<div class="list-group-item">
-		<h5>Retiree __num__</h5>
+	<div class="list-group-item" ng-if="household.members[__index__] = {
+			firstname: '', lastname: '' }">
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
@@ -318,6 +326,35 @@
 				</div>
 			</div>
 		</div>
+		<div class="form-group">
+			{{ form_label(form.members.vars.prototype.weburl) }}
+			{{ form_widget(form.members.vars.prototype.weburl) }}
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.newsPref) }}
+					{{ form_widget(form.members.vars.prototype.newsPref) }}
+				</div>
+			</div>
+			<div class="col-sm-8">
+				{{ form_label(form.members.vars.prototype.emailCanonical) }}
+				{{ form_widget(form.members.vars.prototype.emailCanonical) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.secondary) }}
+					{{ form_widget(form.members.vars.prototype.secondary) }}
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<p class="text-muted">
+					The following fields are for University Retirees only.
+				</p>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
@@ -332,13 +369,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			{{ form_label(form.members.vars.prototype.utopunit) }}
-			{{ form_widget(form.members.vars.prototype.utopunit) }}
-		</div>
-		<div class="form-group">
-			{{ form_label(form.members.vars.prototype.udeptequiv) }}
-			{{ form_widget(form.members.vars.prototype.udeptequiv) }}
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.utopunit) }}
+					{{ form_widget(form.members.vars.prototype.utopunit) }}
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					{{ form_label(form.members.vars.prototype.udeptequiv) }}
+					{{ form_widget(form.members.vars.prototype.udeptequiv) }}
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
@@ -353,25 +396,6 @@
 					{{ form_widget(form.members.vars.prototype.uempltype) }}
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			{{ form_label(form.members.vars.prototype.weburl) }}
-			{{ form_widget(form.members.vars.prototype.weburl) }}
-		</div>
-		<div class="row">
-			<div class="col-sm-4">
-				<div class="form-group">
-					{{ form_label(form.members.vars.prototype.secondary) }}
-					{{ form_widget(form.members.vars.prototype.secondary) }}
-				</div>
-			</div>
-			<div class="col-sm-8">
-
-			</div>
-		</div>
-		<div class="form-group">
-			{{ form_label(form.members.vars.prototype.newsPref) }}
-			{{ form_widget(form.members.vars.prototype.newsPref) }}
 		</div>
 	</div>
 </script>
@@ -479,7 +503,7 @@
 
 			// Replace '__name__' in the prototype's HTML to
 			// instead be a number based on how many items we have
-			var newForm = prototype.replace(/__name__/g, index).replace(/__num__/g, index+1);
+			var newForm = prototype.replace(/__name__/g, index).replace(/__index__/g, index);
 
 			// increase the index with one for the next item
 			$personCollectionHolder.data('index', index + 1);
@@ -509,7 +533,7 @@
 
 			// Replace '__name__' in the prototype's HTML to
 			// instead be a number based on how many items we have
-			var newForm = prototype.replace(/__name__/g, index).replace(/__num__/g, index+1);
+			var newForm = prototype.replace(/__name__/g, index).replace(/__num__/g, index+1).replace(/__index__/g, index);
 
 			// increase the index with one for the next item
 			$resCollectionHolder.data('index', index + 1);
