@@ -36,10 +36,12 @@ class IndeterminateDateSubscriber implements EventSubscriberInterface
     {
         // Tells the dispatcher that you want to listen on the form.pre_bind
         // event and that the preBind method should be called.
-        return array(FormEvents::PRE_BIND => 'preBind');
+        return array(
+            FormEvents::PRE_SUBMIT => 'preSubmit'
+        );
     }
 
-    public function preBind(FormEvent $event)
+    public function preSubmit(FormEvent $event)
     {
         $person = $event->getData();
 
