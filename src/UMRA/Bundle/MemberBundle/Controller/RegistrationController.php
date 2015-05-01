@@ -14,7 +14,8 @@ use UMRA\Bundle\MemberBundle\Form\RenewalType;
 
 class RegistrationController extends Controller
 {
-    const LUNCHEON_COUNT = 7;
+    const LUNCHEON_P_BEGIN = "first day of September";
+    const LUNCHEON_P_END = "first day of April next year";
 
     public function registerAction(Request $request)
     {
@@ -52,6 +53,7 @@ class RegistrationController extends Controller
 
                     if (!empty($emailCanonical)) {
                         $email = new Email();
+                        $email->setType("personal");
                         $email->setPreferred(true);
                         $email->setPerson($member);
                         $email->setEmail($emailCanonical);
@@ -169,17 +171,27 @@ class RegistrationController extends Controller
         ;
         $em->persist($membershipTrans);
 
-        $singleLuncheonCost = (float) $luncheonCost / self::LUNCHEON_COUNT;
+
+        $luncheonPeriodBegin = new \DateTime(self::LUNCHEON_P_BEGIN);
+        $luncheonPeriodEnd = new \DateTime(self::LUNCHEON_P_END);
+
+        $luncheonCount = $luncheonPeriodEnd->diff($luncheonPeriodBegin)
+                                                ->format("%m");
+
+        $singleLuncheonCost = (float) $luncheonCost / $luncheonCount;
+
+
+        $luncheonPeriod = new \DatePeriod($luncheonPeriodBegin, new \DateInterval('P1M'), $luncheonPeriodEnd);
 
         // Create a transaction for each luncheon
-        for ($i = 0; $i < self::LUNCHEON_COUNT; $i++) {
+        foreach($luncheonPeriod as $luncheonMonth) {
             $trans = new Trans();
             $trans->setPerson($member)
                   ->setTrantype("LUNCHEON_FEE")
                   ->setTrandate(new \DateTime("now"))
                   ->setPmtmethod($pmtMethod)
                   ->setAmount($singleLuncheonCost)
-                  ->setNotes(sprintf("%d/%d prepaid luncheon fee", $i+1, self::LUNCHEON_COUNT))
+                  ->setDateFor($luncheonMonth)
             ;
             $em->persist($trans);
         }
