@@ -4,6 +4,7 @@ namespace UMRA\Bundle\MemberBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Trans
@@ -82,6 +83,14 @@ class Trans
      */
     private $reconciledDate;
 
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_for", type="date", nullable=true)
+     */
+    private $dateFor;
+
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
@@ -109,6 +118,43 @@ class Trans
         $tranType = strlen($this->trantype) > 0 ? $this->trantype : "NEW";
         $pmtMethod = strlen($this->pmtmethod) > 0 ? " ($this->pmtmethod)" : "";
         return sprintf("%s - %s - $%.2f%s", $tranDateStr, $tranType, $this->amount, $pmtMethod);
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->getTrantype() === "LUNCHEON_FEE") {
+            if ($this->getDateFor() === null) {
+                $context->buildViolation('Luncheon transactions must have a date associated with them.')
+                        ->atPath('dateFor')
+                        ->addViolation();
+            }
+        }
+    }
+
+    /**
+     * Set dateFor
+     *
+     * @param \DateTime $dateFor
+     * @return Trans
+     */
+    public function setDateFor($dateFor)
+    {
+        $this->dateFor = $dateFor;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFor
+     *
+     * @return \DateTime
+     */
+    public function getDateFor()
+    {
+        return $this->dateFor;
     }
 
     /**
