@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Person
@@ -316,6 +317,32 @@ class Person extends BaseUser
 
     public function __toString() {
         return $this->getFullname() . " (" . $this->getEmailCanonical() . ")";
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (!$this->isSecondary()) {
+            if (empty($this->getEmailCanonical())) {
+                $context->buildViolation('An email is required for UMRA members registering online')
+                        ->atPath('emailCanonical')
+                        ->addViolation();
+            }
+
+            if (empty($this->getUstartdate())) {
+                $context->buildViolation('A University Start Date is required for UMRA members')
+                    ->atPath('ustartdate')
+                    ->addViolation();
+            }
+
+            if (empty($this->getUretiredate())) {
+                $context->buildViolation('A University Retire Date is required for UMRA members')
+                        ->atPath('uretiredate')
+                        ->addViolation();
+            }
+        }
     }
 
     /**

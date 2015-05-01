@@ -91,11 +91,11 @@ class PersonType extends AbstractType
                     'required' => false
                 ))
             ->add('secondary', 'choice', array(
-                    'choice_list' => new ChoiceList(array(true, false), array('Yes', 'No')),
+                    'choice_list' => new ChoiceList(array(false, true), array('Yes', 'No')),
                     'expanded' => true,
                     'label' => 'University Retiree?',
                     'required' => true,
-                    'empty_data' => null,
+                    'placeholder' => false
                 ))
             ->add('activenow', 'checkbox', array(
                     'label' => 'Active Membership',
