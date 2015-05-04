@@ -15,149 +15,15 @@
 				'ng-value': 'household.members[0].lastname'}
 				})
 			}}
-			<h4 class="text-muted">
-				Member(s)
-			</h4>
-			<div class="panel panel-default">
-				<div class="list-group" id="members-list-group">
-					{% for member in form.members %}
-					<div class="list-group-item" ng-init="household.members[{{loop.index0}}] = {
-						firstname: '{{ member.firstname.vars.value }}',
-						lastname: '{{ member.lastname.vars.value }}'
-					}">
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(member.firstname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].firstname' }}) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(member.lastname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].lastname' }}) }}
-							</div>
-						</div>
-						{{ form_row(member.fullname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].fullname' }}) }}
-						{{ form_row(member.nametagname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].nametagname' }}) }}
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(member.nickname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].nickname' }}) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(member.membersince, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].membersince' }}) }}
-							</div>
-						</div>
-						{{ form_row(member.weburl) }}
-						<div class="row">
-							<div class="col-sm-4">
-								{{ form_row(member.newsPref) }}
-							</div>
-							<div class="col-sm-8">
-								{{ form_row(member.emailCanonical) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">
-								{{ form_row(member.secondary) }}
-							</div>
-							<div class="col-sm-8">
-								<p class="text-muted">
-									The following fields are for University Retirees only.
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(member.ustartdate) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(member.uretiredate) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(member.utopunit) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(member.udeptequiv) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(member.utitle) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(member.uempltype) }}
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-				<div class="panel-footer">
-					<button id="person-add" type="button" class="btn btn-primary" collection-add="#tpl-members-group">
-						<span class="fa fa-plus"></span> Another Person
-					</button>
-				</div>
-			</div>
-			<h4 class="text-muted">
-				Residence(s)
-			</h4>
-			<div class="panel panel-default">
-				<div class="list-group" id="res-list-group">
-					{% for residence in form.residences %}
-					<div class="list-group-item">
-						{% if loop.index == 1 %}
-							{{ form_row(form.household.postalname, { attr: { 'ng-model': 'household.postalname' }}) }}
-						{% endif %}
-						<h5>Residence {{ loop.index }}</h5>
-						{{ form_row(residence.address1) }}
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(residence.address2) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(residence.address3) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(residence.city)}}
-							</div>
-							<div class="col-sm-3">
-								{{ form_row(residence.state) }}
-							</div>
-							<div class="col-sm-3">
-								{{ form_row(residence.zip) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-6">
-								{{ form_row(residence.legdistrict) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(residence.country) }}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-1">
-								<div class="form-group">
-									{{ form_label(residence.primary) }}
-									{{ form_widget(residence.primary) }}
-									{{ form_errors(residence.primary) }}
-								</div>
-							</div>
-							<div class="col-xs-11 col-sm-5">
-								{{ form_row(residence.forseason) }}
-							</div>
-							<div class="col-sm-6">
-								{{ form_row(residence.since) }}
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-				<div class="panel-footer">
-					<button type="button" class="btn btn-primary" id="res-add">
-						<span class="fa fa-plus"></span> Another Residence
-					</button>
-				</div>
-			</div>
+			{% include 'UMRAMemberBundle:Person:_form_full.html.twig' with {
+				'members': form.members,
+				'allow_add': true
+			} %}
+			{{ form_row(form.household.postalname, { attr: { 'ng-model': 'household.postalname' }}) }}
+			{% include 'UMRAMemberBundle:Residence:_form_full.html.twig' with {
+				'residences': form.residences,
+				'allow_add': true
+			} %}
 
 			<div class="panel panel-default">
 				<div class="panel-body">

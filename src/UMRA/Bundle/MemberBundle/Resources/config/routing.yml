@@ -34,6 +34,10 @@ UMRA_Household_edit:
     pattern:  /household/{id}/edit
     defaults: { _controller: UMRAMemberBundle:Household:edit }
     methods: [GET]
+UMRA_Household_edit_full:
+    pattern:  /household/{id}/edit/full
+    defaults: { _controller: UMRAMemberBundle:Household:editFull }
+    methods: [GET, PUT]
 UMRA_Household_Person_new:
     pattern:  /household/{householdId}/person/new
     defaults: { _controller: UMRAMemberBundle:Person:new }

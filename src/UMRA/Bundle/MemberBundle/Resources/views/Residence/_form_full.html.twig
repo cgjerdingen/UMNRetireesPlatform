@@ -1,0 +1,64 @@
+<h4 class="text-muted">
+    Residence(s)
+</h4>
+<div class="panel panel-default">
+    <div class="list-group" id="res-list-group">
+        {% for residence in residences %}
+        <div class="list-group-item">
+            <h4>
+                <span class="label label-success">Residence {{ loop.index }}</span>
+            </h4>
+            {{ form_row(residence.address1) }}
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(residence.address2) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_row(residence.address3) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(residence.city)}}
+                </div>
+                <div class="col-sm-3">
+                    {{ form_row(residence.state) }}
+                </div>
+                <div class="col-sm-3">
+                    {{ form_row(residence.zip) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(residence.legdistrict) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_row(residence.country) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-1">
+                    <div class="form-group">
+                        {{ form_label(residence.primary) }}
+                        {{ form_widget(residence.primary) }}
+                        {{ form_errors(residence.primary) }}
+                    </div>
+                </div>
+                <div class="col-xs-11 col-sm-5">
+                    {{ form_row(residence.forseason) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_row(residence.since) }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if allow_add is defined and allow_add %}
+    <div class="panel-footer">
+        <button type="button" class="btn btn-primary" id="res-add">
+            <span class="fa fa-plus"></span> Another Residence
+        </button>
+    </div>
+    {% endif %}
+</div>

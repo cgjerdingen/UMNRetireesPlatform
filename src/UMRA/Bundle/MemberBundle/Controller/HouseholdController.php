@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
 use UMRA\Bundle\MemberBundle\Form\HouseholdType;
+use UMRA\Bundle\MemberBundle\Form\FullHouseholdType;
 
 /**
  * Household controller.
@@ -214,6 +215,47 @@ class HouseholdController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Edits an existing Household entity, but with everything on one form.
+     *
+     * @Template("UMRAMemberBundle:Household:edit_full.html.twig")
+     */
+    public function editFullAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UMRAMemberBundle:Household')->find($id);
+
+        if (!$entity instanceof Household) {
+            throw $this->createNotFoundException('Unable to find Household entity.');
+        }
+
+        $form = $this->createForm(new FullHouseholdType(), $entity, array(
+                'action' => $this->generateUrl('UMRA_Household_edit_full', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            ))
+            ->add('submit', 'submit', array(
+                'label' => 'Save Changes',
+                'attr' => array('class' => 'btn btn-primary'))
+            );
+
+
+        if ($request->getMethod() === 'PUT') {
+            $form->handleRequest($request);
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('UMRA_Household_edit', array('id' => $id)));
+        }
+
+        return array(
+            'entity'   => $entity,
+            'form'     => $form->createView(),
+            'referrer' => $request->server->get('HTTP_REFERER')
+        );
+    }
+
     /**
      * Deletes a Household entity.
      *
