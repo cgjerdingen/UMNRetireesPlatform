@@ -32,13 +32,28 @@ class HouseholdController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->createQuery('SELECT h FROM UMRAMemberBundle:Household h ORDER BY h.lastname');
+        $hhRepo = $em->getRepository('UMRAMemberBundle:Household');
+
+        $query = $em->createQueryBuilder()
+                    ->select('h')
+                    ->from('UMRAMemberBundle:Household', 'h');
+
+        if ($name = $request->query->get('name', null)) {
+            $query = $hhRepo->queryBuilderFindByName($query, $name);
+        }
+
+        if (($active = $request->query->getInt('active', -1)) > -1) {
+            $query = $hhRepo->queryBuilderFindByActive($query, $active);
+        }
+
+        $query->orderBy('h.lastname', 'ASC');
 
         $paginator  = $this->get('knp_paginator');
 
         $entities = $paginator->paginate($query, $request->query->get('page', 1), 50);
 
         return array(
+            'name' => $name,
             'entities' => $entities,
         );
     }

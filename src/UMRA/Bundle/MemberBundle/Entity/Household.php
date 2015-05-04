@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Household
  *
  * @ORM\Table(name="household")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UMRA\Bundle\MemberBundle\Entity\HouseholdRepository")
  */
 class Household
 {
