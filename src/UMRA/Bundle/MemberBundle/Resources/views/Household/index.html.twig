@@ -17,10 +17,10 @@
                 </label>
                 <div>
                     <label class="radio-inline">
-                        <input type="radio" name="active" value="1"> Yes
+                        <input type="radio" name="active" value="1" {% if active == 1 %}checked{% endif %}> Yes
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="active" value="0"> No
+                        <input type="radio" name="active" value="0" {% if active == 0 %}checked{% endif %}> No
                     </label>
                 </div>
             </div>

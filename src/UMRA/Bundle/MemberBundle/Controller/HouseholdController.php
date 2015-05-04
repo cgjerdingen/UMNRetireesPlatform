@@ -55,6 +55,7 @@ class HouseholdController extends Controller
 
         return array(
             'name' => $name,
+            'active' => $active,
             'entities' => $entities,
         );
     }
