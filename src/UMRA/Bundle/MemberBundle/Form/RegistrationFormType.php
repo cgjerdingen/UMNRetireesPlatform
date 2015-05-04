@@ -21,7 +21,6 @@ class RegistrationFormType extends AbstractType
 					'allow_add' => true,
 					'by_reference' => false
 				))
-				->add('primaryEmail', new EmailType())
 				->add('membershipStatus', 'choice', array(
 					'choices' => array('new' => 'New Member', 'renew' => 'Renewing Member'),
 					'expanded' => true
