@@ -325,19 +325,22 @@ class Person extends BaseUser
     public function validate(ExecutionContextInterface $context)
     {
         if (!$this->isSecondary()) {
-            if (empty($this->getEmailCanonical())) {
+            $emailCanonical = $this->getEmailCanonical();
+            if (empty($emailCanonical)) {
                 $context->buildViolation('An email is required for UMRA members registering online')
                         ->atPath('emailCanonical')
                         ->addViolation();
             }
 
-            if (empty($this->getUstartdate())) {
+            $ustartdate = $this->getUstartdate();
+            if (empty($ustartdate)) {
                 $context->buildViolation('A University Start Date is required for UMRA members')
                     ->atPath('ustartdate')
                     ->addViolation();
             }
 
-            if (empty($this->getUretiredate())) {
+            $uretiredate = $this->getUretiredate();
+            if (empty($uretiredate)) {
                 $context->buildViolation('A University Retire Date is required for UMRA members')
                         ->atPath('uretiredate')
                         ->addViolation();
