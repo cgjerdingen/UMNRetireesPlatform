@@ -1,0 +1,118 @@
+<script id="tpl-members-group" type="text/ng-template">
+    <div class="list-group-item" ng-if="household.members[__index__] = {
+            firstname: '', lastname: '' }">
+        <h4 class="clearfix">
+            <span class="label label-info">Person __num__</span>
+            <button class="btn-person-del close pull-right" type="button" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.firstname) }}
+                    {{ form_widget(form.members.vars.prototype.firstname) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.lastname) }}
+                    {{ form_widget(form.members.vars.prototype.lastname) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.members.vars.prototype.fullname) }}
+            {{ form_widget(form.members.vars.prototype.fullname) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.members.vars.prototype.nametagname) }}
+            {{ form_widget(form.members.vars.prototype.nametagname) }}
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.nickname) }}
+                    {{ form_widget(form.members.vars.prototype.nickname) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.membersince) }}
+                    {{ form_widget(form.members.vars.prototype.membersince) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.members.vars.prototype.weburl) }}
+            {{ form_widget(form.members.vars.prototype.weburl) }}
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.newsPref) }}
+                    {{ form_widget(form.members.vars.prototype.newsPref) }}
+                </div>
+            </div>
+            <div class="col-sm-8">
+                {{ form_label(form.members.vars.prototype.emailCanonical) }}
+                {{ form_widget(form.members.vars.prototype.emailCanonical) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.secondary) }}
+                    {{ form_widget(form.members.vars.prototype.secondary) }}
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <p class="text-muted">
+                    The following fields are for University Retirees only.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.ustartdate) }}
+                    {{ form_widget(form.members.vars.prototype.ustartdate) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.uretiredate) }}
+                    {{ form_widget(form.members.vars.prototype.uretiredate) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.utopunit) }}
+                    {{ form_widget(form.members.vars.prototype.utopunit) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.udeptequiv) }}
+                    {{ form_widget(form.members.vars.prototype.udeptequiv) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.utitle) }}
+                    {{ form_widget(form.members.vars.prototype.utitle) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(form.members.vars.prototype.uempltype) }}
+                    {{ form_widget(form.members.vars.prototype.uempltype) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
