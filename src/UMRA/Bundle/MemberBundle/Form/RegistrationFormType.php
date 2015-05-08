@@ -14,11 +14,13 @@ class RegistrationFormType extends AbstractType
 				->add('members', 'collection', array(
 					'type' => new RegistrationPersonType(),
 					'allow_add' => true,
+					'allow_delete' => true,
 					'by_reference' => false
 				))
 				->add('residences', 'collection', array(
 					'type' => new ResidenceType(),
 					'allow_add' => true,
+					'allow_delete' => true,
 					'by_reference' => false
 				))
 				->add('membershipStatus', 'choice', array(
