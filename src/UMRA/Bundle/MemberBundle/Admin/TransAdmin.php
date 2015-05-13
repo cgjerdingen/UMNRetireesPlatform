@@ -22,6 +22,7 @@ class TransAdmin extends Admin
             ->add('pmtmethod', 'doctrine_orm_choice', array('label' => 'Payment Method'), 'choice', array(
                 'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other')
             ))
+            ->add('procTranId', null, array('label' => 'Processor Transaction ID'))
             ->add('status', 'doctrine_orm_choice', array('label' => 'Transaction Status'), 'choice', array(
                 'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
             ))
@@ -46,7 +47,7 @@ class TransAdmin extends Admin
             ->add('pmtmethod', null, array('label' => 'Payment Method'))
             ->add('dateFor', null, array(
                 'label' => 'Date For (Event Date, etc.)',
-                'format' => 'M, Y'
+                'format' => 'M Y'
             ))
             ->add('person')
             ->add('_action', 'actions', array(
@@ -75,6 +76,7 @@ class TransAdmin extends Admin
                 'label' => 'Payment Method',
                 'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
                 ))
+            ->add('procTranId', null, array('label' => 'Processor Transaction ID'))
             ->add('servicechg', null, array('label' => 'Service Charge'))
             ->add('status', 'choice', array(
                 'label' => 'Transaction Type',
@@ -98,6 +100,7 @@ class TransAdmin extends Admin
             ->add('trantype', null, array('label' => 'Transaction Type'))
             ->add('amount')
             ->add('pmtmethod', null, array('label' => 'Payment Method'))
+            ->add('procTranId', null, array('label' => 'Processor Transaction ID'))
             ->add('servicechg', null, array('label' => 'Service Charge'))
             ->add('status')
             ->add('doneby', null, array('label' => 'Done By'))

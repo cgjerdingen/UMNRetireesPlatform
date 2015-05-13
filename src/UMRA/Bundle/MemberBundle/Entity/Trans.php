@@ -92,6 +92,13 @@ class Trans
     private $dateFor;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ProcTranID", type="string", length=255, nullable=true)
+     */
+    private $procTranId;
+
+    /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
      * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person", inversedBy="transactions")
@@ -385,6 +392,29 @@ class Trans
     public function getReconciledDate()
     {
         return $this->reconciledDate;
+    }
+
+    /**
+     * Set ProcTranID
+     *
+     * @param string $procTranId
+     * @return Trans
+     */
+    public function setProcTranId($procTranId)
+    {
+        $this->procTranId = $procTranId;
+
+        return $this;
+    }
+
+    /**
+     * Get ProcTranID
+     *
+     * @return string
+     */
+    public function getProcTranId()
+    {
+        return $this->procTranId;
     }
 
     /**
