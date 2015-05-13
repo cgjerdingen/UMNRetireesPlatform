@@ -19,9 +19,11 @@ UMRA_Email_delete:
     defaults: { _controller: UMRAMemberBundle:Email:delete }
     methods: [DELETE]
 UMRA_Household:
-    pattern:  /households
-    defaults: { _controller: UMRAMemberBundle:Household:index }
+    pattern:  /households.{_format}
+    defaults: { _controller: UMRAMemberBundle:Household:index, _format: html }
     methods: [GET]
+    requirements:
+        _format: "html|csv"
 UMRA_Household_new:
     pattern:  /household/new
     defaults: { _controller: UMRAMemberBundle:Household:new }

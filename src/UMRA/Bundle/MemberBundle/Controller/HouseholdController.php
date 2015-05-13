@@ -50,6 +50,30 @@ class HouseholdController extends Controller
 
         $query->orderBy('h.lastname', 'ASC');
 
+        $format = $request->getRequestFormat();
+
+        if ($format === "csv") {
+            $entities = $query->getQuery()->getResult();
+
+            $filename = "umra_members_".date("Y_m_d_His").".csv";
+
+            $response = $this->render('UMRAMemberBundle:Household:index.csv.twig', array('entities' => $entities));
+
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Description', 'UMRA Members Export');
+            $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            $response->prepare($request);
+            $response->sendHeaders();
+            $response->sendContent();
+
+            return $response;
+        }
+
         $paginator  = $this->get('knp_paginator');
 
         $entities = $paginator->paginate($query, $request->query->get('page', 1), 50);

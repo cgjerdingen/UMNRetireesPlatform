@@ -70,9 +70,18 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('UMRA_Household_new') }}">
-        <span class="glyphicon glyphicon-plus"></span> Add
-    </a>
+    <div class="btn-toolbar">
+        <div class="btn-group pull-right">
+            <a class="btn btn-default" href="{{ path('UMRA_Household', { _format: 'csv' }) }}?{{ app.request.queryString }}">
+                <span class="fa fa-save"></span> Export as CSV
+            </a>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{{ path('UMRA_Household_new') }}">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </a>
+        </div>
+    </div>
 
     <div class="navigation">
         {{ knp_pagination_render(entities) }}
