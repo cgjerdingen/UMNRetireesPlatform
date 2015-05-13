@@ -2,6 +2,7 @@
 
 namespace UMRA\Bundle\MemberBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -232,6 +233,12 @@ class HouseholdController extends Controller
             throw $this->createNotFoundException('Unable to find Household entity.');
         }
 
+        $originalMembers = new ArrayCollection();
+
+        foreach ($entity->getPersons() as $person) {
+            $originalMembers->add($person);
+        }
+
         $form = $this->createForm(new FullHouseholdType(), $entity, array(
                 'action' => $this->generateUrl('UMRA_Household_edit_full', array('id' => $entity->getId())),
                 'method' => 'PUT',
@@ -245,9 +252,21 @@ class HouseholdController extends Controller
         if ($request->getMethod() === 'PUT') {
             $form->handleRequest($request);
 
-            $em->flush();
+            if ($form->isValid()) {
+                // Remove any members not PUT back.
+                foreach ($originalMembers as $person) {
+                    if (false === $entity->getPersons()->contains($person)) {
+                        $entity->getPersons()->removeElement($person);
+                        $em->persist($entity);
+                        $em->remove($person);
+                    }
+                }
 
-            return $this->redirect($this->generateUrl('UMRA_Household_edit', array('id' => $id)));
+                $em->persist($entity);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('UMRA_Household_edit_full', array('id' => $id)));
+            }
         }
 
         return array(

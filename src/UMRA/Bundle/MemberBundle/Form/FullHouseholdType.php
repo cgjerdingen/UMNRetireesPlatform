@@ -18,11 +18,13 @@ class FullHouseholdType extends AbstractType
             ->add('persons', 'collection', array(
                 'type' => new PersonType(),
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false
             ))
             ->add('residences', 'collection', array(
                 'type' => new ResidenceType(),
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false
             ))
         ;

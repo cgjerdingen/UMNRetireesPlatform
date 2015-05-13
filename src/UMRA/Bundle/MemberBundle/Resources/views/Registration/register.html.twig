@@ -155,8 +155,8 @@
 {% endblock %}
 
 {% block javascripts %}
-{% include 'UMRAMemberBundle:Person:_form_prototype.html.twig' with { 'form': form } %}
-{% include 'UMRAMemberBundle:Residence:_form_prototype.html.twig' with { 'form': form } %}
+{% include 'UMRAMemberBundle:Person:_form_prototype.html.twig' with { 'persons': form.members } %}
+{% include 'UMRAMemberBundle:Residence:_form_prototype.html.twig' with { 'residences': form.residences } %}
 <script type="text/javascript" src="{{ asset('js/umramember.jquery.personcollection.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/umramember.jquery.residencecollection.js') }}"></script>
 {% endblock %}

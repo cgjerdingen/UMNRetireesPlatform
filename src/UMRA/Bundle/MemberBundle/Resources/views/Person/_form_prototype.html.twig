@@ -1,5 +1,5 @@
 <script id="tpl-members-group" type="text/ng-template">
-    <div class="list-group-item" ng-if="household.members[__index__] = {
+    <div class="list-group-item" ng-init="household.members[__index__] = {
             firstname: '', lastname: '' }">
         <h4 class="clearfix">
             <span class="label label-info">Person __num__</span>
@@ -10,60 +10,62 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.firstname) }}
-                    {{ form_widget(form.members.vars.prototype.firstname) }}
+                    {{ form_label(persons.vars.prototype.firstname) }}
+                    {{ form_widget(persons.vars.prototype.firstname, { attr: {'ng-model': 'household.members[__index__].firstname' }}) }}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.lastname) }}
-                    {{ form_widget(form.members.vars.prototype.lastname) }}
+                    {{ form_label(persons.vars.prototype.lastname) }}
+                    {{ form_widget(persons.vars.prototype.lastname, { attr: {'ng-model': 'household.members[__index__].lastname' }}) }}
                 </div>
             </div>
         </div>
         <div class="form-group">
-            {{ form_label(form.members.vars.prototype.fullname) }}
-            {{ form_widget(form.members.vars.prototype.fullname) }}
+            {{ form_label(persons.vars.prototype.fullname) }}
+            {{ form_widget(persons.vars.prototype.fullname, { attr: {'ng-model': 'household.members[__index__].fullname' }}) }}
         </div>
         <div class="form-group">
-            {{ form_label(form.members.vars.prototype.nametagname) }}
-            {{ form_widget(form.members.vars.prototype.nametagname) }}
+            {{ form_label(persons.vars.prototype.nametagname) }}
+            {{ form_widget(persons.vars.prototype.nametagname, { attr: {'ng-model': 'household.members[__index__].nametagname' }}) }}
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.nickname) }}
-                    {{ form_widget(form.members.vars.prototype.nickname) }}
+                    {{ form_label(persons.vars.prototype.nickname) }}
+                    {{ form_widget(persons.vars.prototype.nickname, { attr: {'ng-model': 'household.members[__index__].nickname' }}) }}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.membersince) }}
-                    {{ form_widget(form.members.vars.prototype.membersince) }}
+                    {{ form_label(persons.vars.prototype.membersince) }}
+                    {{ form_widget(persons.vars.prototype.membersince) }}
                 </div>
             </div>
         </div>
         <div class="form-group">
-            {{ form_label(form.members.vars.prototype.weburl) }}
-            {{ form_widget(form.members.vars.prototype.weburl) }}
+            {{ form_label(persons.vars.prototype.weburl) }}
+            {{ form_widget(persons.vars.prototype.weburl) }}
         </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.newsPref) }}
-                    {{ form_widget(form.members.vars.prototype.newsPref) }}
+                    {{ form_label(persons.vars.prototype.newsPref) }}
+                    {{ form_widget(persons.vars.prototype.newsPref) }}
                 </div>
             </div>
+            {% if persons.vars.prototype.emailCanonical is defined %}
             <div class="col-sm-8">
-                {{ form_label(form.members.vars.prototype.emailCanonical) }}
-                {{ form_widget(form.members.vars.prototype.emailCanonical) }}
+                {{ form_label(persons.vars.prototype.emailCanonical) }}
+                {{ form_widget(persons.vars.prototype.emailCanonical) }}
             </div>
+            {% endif %}
         </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.secondary) }}
-                    {{ form_widget(form.members.vars.prototype.secondary) }}
+                    {{ form_label(persons.vars.prototype.secondary) }}
+                    {{ form_widget(persons.vars.prototype.secondary) }}
                 </div>
             </div>
             <div class="col-sm-8">
@@ -75,42 +77,42 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.ustartdate) }}
-                    {{ form_widget(form.members.vars.prototype.ustartdate) }}
+                    {{ form_label(persons.vars.prototype.ustartdate) }}
+                    {{ form_widget(persons.vars.prototype.ustartdate) }}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.uretiredate) }}
-                    {{ form_widget(form.members.vars.prototype.uretiredate) }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.utopunit) }}
-                    {{ form_widget(form.members.vars.prototype.utopunit) }}
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.udeptequiv) }}
-                    {{ form_widget(form.members.vars.prototype.udeptequiv) }}
+                    {{ form_label(persons.vars.prototype.uretiredate) }}
+                    {{ form_widget(persons.vars.prototype.uretiredate) }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.utitle) }}
-                    {{ form_widget(form.members.vars.prototype.utitle) }}
+                    {{ form_label(persons.vars.prototype.utopunit) }}
+                    {{ form_widget(persons.vars.prototype.utopunit) }}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    {{ form_label(form.members.vars.prototype.uempltype) }}
-                    {{ form_widget(form.members.vars.prototype.uempltype) }}
+                    {{ form_label(persons.vars.prototype.udeptequiv) }}
+                    {{ form_widget(persons.vars.prototype.udeptequiv) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(persons.vars.prototype.utitle) }}
+                    {{ form_widget(persons.vars.prototype.utitle) }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(persons.vars.prototype.uempltype) }}
+                    {{ form_widget(persons.vars.prototype.uempltype) }}
                 </div>
             </div>
         </div>

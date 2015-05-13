@@ -11,8 +11,16 @@
 		{{ form_start(form) }}
 			{{ form_widget(form._token) }}
 
-			{% include 'UMRAMemberBundle:Person:_form_full.html.twig' with { 'members': form.persons } %}
-			{% include 'UMRAMemberBundle:Residence:_form_full.html.twig' with { 'residences': form.residences } %}
+			{% include 'UMRAMemberBundle:Person:_form_full.html.twig' with {
+				'members': form.persons,
+				'allow_add': true,
+				'allow_delete': true
+			} %}
+			{% include 'UMRAMemberBundle:Residence:_form_full.html.twig' with {
+				'residences': form.residences,
+				'allow_add': true,
+				'allow_delete': true
+			} %}
 
 			<a class="btn btn-default" href="{{ referrer ? referrer : path('UMRA_Household') }}">
 				Back to list
@@ -22,4 +30,11 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+{% include 'UMRAMemberBundle:Person:_form_prototype.html.twig' with { 'persons': form.persons } %}
+{% include 'UMRAMemberBundle:Residence:_form_prototype.html.twig' with { 'residences': form.residences } %}
+<script type="text/javascript" src="{{ asset('js/umramember.jquery.personcollection.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/umramember.jquery.residencecollection.js') }}"></script>
 {% endblock %}
