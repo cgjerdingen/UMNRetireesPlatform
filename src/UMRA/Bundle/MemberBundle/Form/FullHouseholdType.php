@@ -16,7 +16,7 @@ class FullHouseholdType extends AbstractType
     {
         $builder
             ->add('persons', 'collection', array(
-                'type' => new PersonType(),
+                'type' => new HouseholdPersonType(),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false
