@@ -258,9 +258,14 @@ class HouseholdController extends Controller
         }
 
         $originalMembers = new ArrayCollection();
+        $originalResidences = new ArrayCollection();
 
         foreach ($entity->getPersons() as $person) {
             $originalMembers->add($person);
+        }
+
+        foreach ($entity->getResidences() as $res) {
+            $originalResidences->add($res);
         }
 
         $form = $this->createForm(new FullHouseholdType(), $entity, array(
@@ -283,6 +288,15 @@ class HouseholdController extends Controller
                         $entity->getPersons()->removeElement($person);
                         $em->persist($entity);
                         $em->remove($person);
+                    }
+                }
+
+                // Remove any residences not PUT back.
+                foreach ($originalResidences as $res) {
+                    if (false === $entity->getResidences()->contains($res)) {
+                        $entity->getResidences()->removeElement($res);
+                        $em->persist($entity);
+                        $em->remove($res);
                     }
                 }
 
