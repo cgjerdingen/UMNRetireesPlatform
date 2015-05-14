@@ -38,8 +38,6 @@ class PersonCreateHandler
 
             $member->setEmailCanonical($emailCanonical);
             $member->setConfirmationToken($this->tokenGenerator->generateToken());
-
-            $memberEmails[] = $emailCanonical;
         }
 
         $member->setActivenow(false);
