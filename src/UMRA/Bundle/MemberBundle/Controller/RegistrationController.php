@@ -47,39 +47,16 @@ class RegistrationController extends Controller
 
                 $memberEmails = array();
 
+                $personCreateHandler = $this->container->get('umra_member.handlers.person_create');
+
                 // Persist each user.
-                foreach ($formData['members'] as $key => $member) {
-                    $emailCanonical = $member->getEmailCanonical();
+                foreach ($formData['members'] as $member) {
+                    $procMember = $personCreateHandler->process($member, true, $household);
+                    $procEmailCanonical = $procMember->getEmailCanonical();
 
-                    if (!empty($emailCanonical)) {
-                        $email = new Email();
-                        $email->setType("personal");
-                        $email->setPreferred(true);
-                        $email->setPerson($member);
-                        $email->setEmail($emailCanonical);
-                        $em->persist($email);
-
-                        $member->setEmailCanonical($emailCanonical);
-                        $member->setConfirmationToken($tokenGenerator->generateToken());
-
-                        $memberEmails[] = $emailCanonical;
+                    if (!empty($procEmailCanonical)) {
+                        $memberEmails[] = $procEmailCanonical;
                     }
-
-                    if (function_exists("openssl_random_pseudo_bytes")) {
-                        $member->setPlainPassword(openssl_random_pseudo_bytes(12));
-                    } else {
-                        // Less than secure randomized password generation
-                        // Luckily, plainPassword gets bcrypt()'d
-                        $logger->warning("OpenSSL extension not loaded." .
-                                         "Falling back to using uniqid() for ranomized plain-text password generation." .
-                                         "Password will still be hashed.");
-                        $member->setPlainPassword(uniqid(mt_rand()));
-                    }
-
-                    $member->setHousehold($household)
-                           ->setActivenow(false)
-                    ;
-                    $userManager->updateUser($member, true);
                 }
 
                 // Persist each residence

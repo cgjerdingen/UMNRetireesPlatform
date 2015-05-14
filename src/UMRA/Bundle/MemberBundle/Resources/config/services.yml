@@ -40,3 +40,13 @@ services:
         arguments: [~, UMRA\Bundle\MemberBundle\Entity\Trans, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: "UMRA Transactions", label: Transaction}
+
+    umra_member.handlers.person_create:
+        class: UMRA\Bundle\MemberBundle\Handlers\PersonCreateHandler
+        arguments: ["@doctrine.orm.default_entity_manager", "@fos_user.user_manager", "@fos_user.util.token_generator", "@logger"]
+
+    umra_member.listeners.person_ensure_password:
+        class: UMRA\Bundle\MemberBundle\EventListeners\PersonEnsurePasswordListener
+        arguments: ["@logger"]
+        tags:
+            - { name: doctrine.event_subscriber, priority: 10 }
