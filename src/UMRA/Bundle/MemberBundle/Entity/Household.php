@@ -143,7 +143,7 @@ class Household
      */
     public function addResidence(Residence $residence)
     {
-        $this->residences[] = $residences;
+        $this->residences[] = $residence;
 
         return $this;
     }
@@ -176,7 +176,7 @@ class Household
      */
     public function addPerson(Person $person)
     {
-        $this->persons[] = $persons;
+        $this->persons[] = $person;
 
         return $this;
     }
@@ -184,7 +184,7 @@ class Household
     /**
      * Remove person
      *
-     * @param Person $persons
+     * @param Person $person
      */
     public function removePerson(Person $person)
     {
