@@ -300,6 +300,16 @@ class HouseholdController extends Controller
                     }
                 }
 
+                // Set household relation on people.
+                foreach($entity->getPersons() as $person) {
+                    $person->setHousehold($entity);
+                }
+
+                // Set household relation on residences.
+                foreach($entity->getResidences() as $res) {
+                    $res->setHousehold($entity);
+                }
+
                 $em->persist($entity);
                 $em->flush();
 
