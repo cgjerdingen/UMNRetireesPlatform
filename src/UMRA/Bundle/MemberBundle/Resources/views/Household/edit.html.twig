@@ -10,8 +10,8 @@
 
         <ul class="list-inline">
             <li>
-                <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
-                    Back to the list
+                <a class="btn btn-default" href="{{ path('UMRA_Household_edit_full', { 'id': entity.id }) }}">
+                    Back
                 </a>
             </li>
             <li>{{ form(delete_form) }}</li>

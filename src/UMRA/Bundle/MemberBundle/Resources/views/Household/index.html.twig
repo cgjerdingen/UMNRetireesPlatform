@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group pull-right">
             <button type="submit" class="btn btn-primary btn-lg">
                 <span class="fa fa-search"></span>
                 Search
@@ -54,16 +54,14 @@
                 <td>{{ entity.postalname }}</td>
                 <td>{{ entity.id }}</td>
                 <td>
-                <ul class="list-inline">
-                    <li>
-                        <a class="btn btn-primary btn-sm" href="{{ path('UMRA_Household_show', { 'id': entity.id }) }}">View</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-default btn-sm" href="{{ path('UMRA_Household_edit_full', { 'id': entity.id }) }}">
-                            Full Edit
+                    <div class="btn-group">
+                        <a class="btn btn-primary btn-sm" href="{{ path('UMRA_Household_show', { 'id': entity.id }) }}">
+                            <span class="fa fa-eye"></span> View
                         </a>
-                    </li>
-                </ul>
+                        <a class="btn btn-default btn-sm" href="{{ path('UMRA_Household_edit_full', { 'id': entity.id }) }}">
+                            <span class="fa fa-pencil"></span> Edit
+                        </a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
