@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>{{ entity.luncheonDate|date('Y-m') }} Luncheon</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Price</th>
+                <td>{{ entity.price }}</td>
+            </tr>
+            <tr>
+                <th>Registration Open</th>
+                <td>{{ entity.registrationOpen ? "Yes" : "No" }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('UMRA_Luncheon') }}" class="btn btn-default">
+                Back to Luncheons
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('UMRA_Luncheon_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+                <span class="fa fa-pencil"></span> Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

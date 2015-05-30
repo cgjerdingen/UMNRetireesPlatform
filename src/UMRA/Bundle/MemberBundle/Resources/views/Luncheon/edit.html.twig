@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {{ form(edit_form) }}
+
+    <ul class="list-inline">
+    <li>
+        <a href="{{ path('UMRA_Luncheon') }}" class="btn btn-default">
+            Back to Luncheon list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

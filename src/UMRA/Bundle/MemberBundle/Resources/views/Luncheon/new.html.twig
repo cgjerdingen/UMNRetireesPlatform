@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Creating a New Luncheon</h1>
+
+    {{ form(form) }}
+
+    <a href="{{ path('UMRA_Luncheon') }}" class="btn btn-default">
+        Back to the list
+    </a>
+{% endblock %}

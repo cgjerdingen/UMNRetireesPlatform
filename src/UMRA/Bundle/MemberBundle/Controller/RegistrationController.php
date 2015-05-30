@@ -148,27 +148,17 @@ class RegistrationController extends Controller
         ;
         $em->persist($membershipTrans);
 
+        $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
+                        ->findLatestLuncheons(7, true, new \DateTime("now"));
 
-        $luncheonPeriodBegin = new \DateTime(self::LUNCHEON_P_BEGIN);
-        $luncheonPeriodEnd = new \DateTime(self::LUNCHEON_P_END);
-
-        $luncheonCount = $luncheonPeriodEnd->diff($luncheonPeriodBegin)
-                                                ->format("%m");
-
-        $singleLuncheonCost = (float) $luncheonCost / $luncheonCount;
-
-
-        $luncheonPeriod = new \DatePeriod($luncheonPeriodBegin, new \DateInterval('P1M'), $luncheonPeriodEnd);
-
-        // Create a transaction for each luncheon
-        foreach($luncheonPeriod as $luncheonMonth) {
+        foreach ($luncheons as $luncheon) {
             $trans = new Trans();
             $trans->setPerson($member)
                   ->setTrantype("LUNCHEON_FEE")
                   ->setTrandate(new \DateTime("now"))
                   ->setPmtmethod($pmtMethod)
-                  ->setAmount($singleLuncheonCost)
-                  ->setDateFor($luncheonMonth)
+                  ->setAmount($luncheon->getPrice())
+                  ->setLuncheon($luncheon)
             ;
             $em->persist($trans);
         }

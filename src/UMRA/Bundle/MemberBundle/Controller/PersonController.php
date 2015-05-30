@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
+use UMRA\Bundle\MemberBundle\Form\LuncheonRegistrationType;
 
 /**
  * Person controller.
@@ -231,12 +232,19 @@ class PersonController extends Controller
 
         $profileForm = $this->get('fos_user.profile.form');
         $changePasswordForm = $this->get('fos_user.change_password.form');
+        $luncheonForm = $form = $this->createForm(new LuncheonRegistrationType(), null,
+            array(
+                'household' => $user->getHousehold(),
+                'action'    => $this->generateUrl('UMRA_Luncheon_register')
+            )
+        );
         $renewalForm = $this->createForm(new RenewalType());
 
         return array(
             'user' => $user,
             'profileForm' => $profileForm->createView(),
             'changePasswordForm' => $changePasswordForm->createView(),
+            'luncheonForm' => $luncheonForm->createView(),
             'renewalForm' => $renewalForm->createView()
         );
     }

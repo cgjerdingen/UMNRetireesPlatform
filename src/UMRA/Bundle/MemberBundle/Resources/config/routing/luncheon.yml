@@ -1,0 +1,34 @@
+UMRA_Luncheon:
+    path:     /
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:index" }
+
+UMRA_Luncheon_show:
+    path:     /{id}/show
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:show" }
+
+UMRA_Luncheon_new:
+    path:     /new
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:new" }
+
+UMRA_Luncheon_create:
+    path:     /create
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:create" }
+    methods:  POST
+
+UMRA_Luncheon_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:edit" }
+
+UMRA_Luncheon_update:
+    path:     /{id}/update
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:update" }
+    methods:  [POST, PUT]
+
+UMRA_Luncheon_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:delete" }
+    methods:  [POST, DELETE]
+UMRA_Luncheon_register:
+    path:     /register
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:register" }
+    methods:  [GET, POST]

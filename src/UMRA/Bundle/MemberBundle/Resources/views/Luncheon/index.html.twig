@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Luncheons</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Luncheon Date</th>
+                <th>Price</th>
+                <th>Registration Open</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                    <a href="{{ path('UMRA_Luncheon_show', { 'id': entity.id }) }}">
+                        {{ entity.luncheonDate|date('F Y') }}
+                    </a>
+                </td>
+                <td>${{ entity.price }}</td>
+                <td>
+                {% if entity.registrationOpen %}
+                    <span class="label label-success">OPEN</span>
+                {% else %}
+                    <span class="label label-danger">CLOSED</span>
+                {% endif %}
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{{ path('UMRA_Luncheon_show', { 'id': entity.id }) }}" class="btn btn-default">
+                            <span class="fa fa-eye"></span> Show
+                        </a>
+                        <a href="{{ path('UMRA_Luncheon_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+                            <span class="fa fa-pencil"></span> Edit
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('UMRA_Luncheon_new') }}" class="btn btn-primary">
+        <span class="fa fa-plus"></span> Add New Luncheon
+    </a>
+{% endblock %}

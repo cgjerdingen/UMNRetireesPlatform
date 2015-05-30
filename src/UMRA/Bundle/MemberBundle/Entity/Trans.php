@@ -83,14 +83,6 @@ class Trans
      */
     private $reconciledDate;
 
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_for", type="date", nullable=true)
-     */
-    private $dateFor;
-
     /**
      * @var string
      *
@@ -107,6 +99,16 @@ class Trans
      * })
      */
     private $person;
+
+    /**
+     *
+     *
+     * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Luncheon", inversedBy="transactions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="LuncheonID", referencedColumnName="id")
+     * })
+     */
+    private $luncheon;
 
     /**
      * @var integer
@@ -133,35 +135,18 @@ class Trans
     public function validate(ExecutionContextInterface $context)
     {
         if ($this->getTrantype() === "LUNCHEON_FEE") {
-            if ($this->getDateFor() === null) {
-                $context->buildViolation('Luncheon transactions must have a date associated with them.')
-                        ->atPath('dateFor')
+            if ($this->getLuncheon() === null) {
+                $context->buildViolation('Luncheon transactions must have a luncheon associated with them.')
+                        ->atPath('luncheon')
+                        ->addViolation();
+            }
+        } else {
+            if ($this->getLuncheon() !== null) {
+                $context->buildViolation('Only luncheon transactions can have a luncheon associated with them.')
+                        ->atPath('luncheon')
                         ->addViolation();
             }
         }
-    }
-
-    /**
-     * Set dateFor
-     *
-     * @param \DateTime $dateFor
-     * @return Trans
-     */
-    public function setDateFor($dateFor)
-    {
-        $this->dateFor = $dateFor;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFor
-     *
-     * @return \DateTime
-     */
-    public function getDateFor()
-    {
-        return $this->dateFor;
     }
 
     /**
@@ -346,6 +331,29 @@ class Trans
     public function getPerson()
     {
         return $this->person;
+    }
+
+    /**
+     * Set luncheon
+     *
+     * @param \UMRA\Bundle\MemberBundle\Entity\Luncheon $luncheon
+     * @return Trans
+     */
+    public function setLuncheon(\UMRA\Bundle\MemberBundle\Entity\Luncheon $luncheon = null)
+    {
+        $this->luncheon = $luncheon;
+
+        return $this;
+    }
+
+    /**
+     * Get luncheon
+     *
+     * @return \UMRA\Bundle\MemberBundle\Entity\Luncheon
+     */
+    public function getLuncheon()
+    {
+        return $this->luncheon;
     }
 
     /**

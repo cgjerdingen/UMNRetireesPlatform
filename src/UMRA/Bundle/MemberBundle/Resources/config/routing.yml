@@ -76,6 +76,9 @@ UMRA_Household_delete:
     pattern:  /household/{id}
     defaults: { _controller: UMRAMemberBundle:Household:delete }
     methods: [DELETE]
+UMRA_Luncheon:
+    resource: "@UMRAMemberBundle/Resources/config/routing/luncheon.yml"
+    prefix:   /luncheon
 UMRA_Person:
     pattern:  /persons
     defaults: { _controller: UMRAMemberBundle:Person:index, _format: json }
