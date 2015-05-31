@@ -14,9 +14,6 @@ use UMRA\Bundle\MemberBundle\Form\RenewalType;
 
 class RegistrationController extends Controller
 {
-    const LUNCHEON_P_BEGIN = "first day of September";
-    const LUNCHEON_P_END = "first day of April next year";
-
     public function registerAction(Request $request)
     {
         $logger = $this->get('logger');
