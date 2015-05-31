@@ -28,7 +28,7 @@ class TransAdmin extends Admin
             ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
             ->add('doneby', null, array('label' => 'Done By'))
-            ->add('dateFor', null, array('label' => 'Date For (Event Date, etc.)'))
+            ->add('luncheon', null, array('label' => 'Luncheon'))
             ->add('person')
             ->add('id')
         ;
@@ -45,9 +45,8 @@ class TransAdmin extends Admin
             ->add('status', null, array('label' => 'Transaction Status'))
             ->add('amount')
             ->add('pmtmethod', null, array('label' => 'Payment Method'))
-            ->add('dateFor', null, array(
-                'label' => 'Date For (Event Date, etc.)',
-                'format' => 'M Y'
+            ->add('luncheon', null, array(
+                'label' => 'Luncheon'
             ))
             ->add('person')
             ->add('_action', 'actions', array(
@@ -83,7 +82,7 @@ class TransAdmin extends Admin
                 'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
                 ))
             ->add('doneby')
-            ->add('dateFor', null, array('label' => 'Date For (Event Date, etc.)'))
+            ->add('luncheon', null, array('label' => 'Luncheon'))
             ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
             ->add('notes')
             ->add('person')
@@ -105,9 +104,8 @@ class TransAdmin extends Admin
             ->add('status')
             ->add('doneby', null, array('label' => 'Done By'))
             ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
-            ->add('dateFor', null, array(
-                'label' => 'Date For (Event Date, etc.)',
-                'format' => 'F, Y'
+            ->add('luncheon', null, array(
+                'label' => 'Luncheon'
             ))
             ->add('person')
             ->add('notes')
