@@ -28,6 +28,8 @@ class LuncheonRepository extends EntityRepository
         }
 
         return $qb->orderBy('l.luncheonDate', 'ASC')
-                  ->setMaxResult($count);
+                  ->setMaxResults($count)
+                  ->getQuery()
+                  ->getResult();
     }
 }
