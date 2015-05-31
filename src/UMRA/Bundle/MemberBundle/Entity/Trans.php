@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Trans
  *
  * @ORM\Table(name="trans")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UMRA\Bundle\MemberBundle\Entity\TransRepository")
  */
 class Trans
 {

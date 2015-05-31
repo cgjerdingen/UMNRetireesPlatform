@@ -1,0 +1,48 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
+            {% if show_luncheons is defined and show_luncheons %}
+            <th>Luncheon</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.trandate|date('m-d-Y') }}</td>
+            <td>
+            {% if entity.status == "PROCESSING" %}
+                <span class="label label-danger">
+                    PROCESSING
+                </span>
+            {% elseif entity.status == "PROCESSED" %}
+                <span class="label label-success">
+                    PROCESSED
+                </span>
+            {% else %}
+                <span class="label label-warning">
+                    AWAITING PROCESS
+                </span>
+            {% endif %}
+            </td>
+            <td>${{ entity.amount + entity.servicechg }}</td>
+            <td>
+            {% if entity.pmtmethod == "CREDIT_CARD" %}
+                Credit Card / PayPal
+            {% elseif entity.pmtmethod == "CHECK" %}
+                Check
+            {% else %}
+                Other
+            {% endif %}
+            </td>
+            {% if show_luncheons is defined and show_luncheons %}
+            <td>{{ entity.luncheon }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

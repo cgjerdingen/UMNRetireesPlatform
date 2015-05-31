@@ -240,12 +240,21 @@ class PersonController extends Controller
         );
         $renewalForm = $this->createForm(new RenewalType());
 
+        $em = $this->getDoctrine()->getManager();
+
+        $transRepo = $em->getRepository('UMRAMemberBundle:Trans');
+
+        $memberFees = $transRepo->findLatestMembershipFees($user);
+        $luncheonRegs = $transRepo->findLatestLuncheonFees($user);
+
         return array(
             'user' => $user,
             'profileForm' => $profileForm->createView(),
             'changePasswordForm' => $changePasswordForm->createView(),
             'luncheonForm' => $luncheonForm->createView(),
-            'renewalForm' => $renewalForm->createView()
+            'renewalForm' => $renewalForm->createView(),
+            'memberFees' => $memberFees,
+            'luncheonRegs' => $luncheonRegs
         );
     }
 
