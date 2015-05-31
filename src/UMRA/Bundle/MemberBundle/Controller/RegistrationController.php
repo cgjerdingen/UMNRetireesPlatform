@@ -140,6 +140,7 @@ class RegistrationController extends Controller
         $membershipTrans->setPerson($member)
                         ->setTrantype($tranType)
                         ->setTrandate(new \DateTime("now"))
+                        ->setStatus("AWAITING_PROCESS")
                         ->setPmtmethod($pmtMethod)
                         ->setAmount((float) $membershipCost)
         ;
@@ -153,6 +154,7 @@ class RegistrationController extends Controller
             $trans->setPerson($member)
                   ->setTrantype("LUNCHEON_FEE")
                   ->setTrandate(new \DateTime("now"))
+                  ->setStatus("AWAITING_PROCESS")
                   ->setPmtmethod($pmtMethod)
                   ->setAmount($luncheon->getPrice())
                   ->setLuncheon($luncheon)
