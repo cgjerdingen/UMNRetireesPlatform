@@ -56,23 +56,31 @@
                             My Membership
                         </a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %}
+
+                    {% if is_granted('ROLE_CAN_EDIT_OTHER_HOUSEHOLD') %}
                     <li>
                         <a href="{{ path('UMRA_Household') }}">
-                            Manage Members
+                            Members
                         </a>
                     </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_CAN_EDIT_LUNCHEON') %}
                     <li>
                         <a href="{{ path('UMRA_Luncheon') }}">
-                            Manage Luncheons
+                            Luncheons
                         </a>
                     </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('sonata_admin_redirect') }}">
                             Administration
                         </a>
                     </li>
                     {% endif %}
+
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
                             Logout
