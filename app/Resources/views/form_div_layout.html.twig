@@ -144,13 +144,13 @@
         {{ block('form_widget_simple') }}
     {% else %}
         <div class="row" {{ block('widget_container_attributes') }}>
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 {{ form_widget(form.year) }}
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 {{ form_widget(form.month) }}
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-4">
                 {{ form_widget(form.day) }}
             </div>
         </div>
