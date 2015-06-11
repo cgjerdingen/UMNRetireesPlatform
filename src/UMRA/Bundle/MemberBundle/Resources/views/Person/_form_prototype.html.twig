@@ -57,7 +57,12 @@
             {% if persons.vars.prototype.emailCanonical is defined %}
             <div class="col-sm-8">
                 {{ form_label(persons.vars.prototype.emailCanonical) }}
-                {{ form_widget(persons.vars.prototype.emailCanonical) }}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-envelope-o"></span>
+                    </span>
+                    {{ form_widget(persons.vars.prototype.emailCanonical) }}
+                </div>
             </div>
             {% endif %}
         </div>
