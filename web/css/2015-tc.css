@@ -68,7 +68,7 @@ body { margin: 0; }
 @media all and (max-width: 380px) { #umnhf-m-search .mobile { position: absolute; top: 13px; right: 10px; left: auto; width: auto; height: auto; -moz-border-radius: 4px; border-radius: 4px; }
   #umnhf-m-search { right: 10px; } }
 /* Alternate Header Styles */
-#umnhf-alt.umnhf { min-height: 184px; }
+#umnhf-alt.umnhf { padding-bottom: 45px; }
 #umnhf-alt.umnhf #umnhf-alt-sn { float: left; }
 
 #umnhf-alt-sn { width: 70%; padding-left: 128px; }
