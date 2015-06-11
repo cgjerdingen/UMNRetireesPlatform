@@ -28,6 +28,10 @@ a {
 	border-radius: 2px;
 }
 
+.form-control, .panel-heading, .panel-footer {
+	border-color: #aaa;
+}
+
 .btn-primary,
 .panel-primary .panel-heading {
 	background-color: #7a0019;

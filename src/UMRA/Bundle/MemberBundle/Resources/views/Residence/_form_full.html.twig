@@ -37,6 +37,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(residence.since) }}
+                </div>
                 <div class="col-xs-1">
                     <div class="form-group">
                         {{ form_label(residence.primary) }}
@@ -47,9 +50,6 @@
                 <div class="col-xs-11 col-sm-5">
                     {{ form_row(residence.forseason) }}
                 </div>
-                <div class="col-sm-6">
-                    {{ form_row(residence.since) }}
-                </div>
             </div>
         </div>
         {% endfor %}
@@ -57,7 +57,7 @@
     {% if allow_add is defined and allow_add %}
     <div class="panel-footer">
         <button type="button" class="btn btn-primary" id="res-add">
-            <span class="fa fa-plus"></span> Another Residence
+            <span class="fa fa-plus"></span> Add Another Residence
         </button>
     </div>
     {% endif %}

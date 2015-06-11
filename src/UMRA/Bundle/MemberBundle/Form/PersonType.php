@@ -21,20 +21,20 @@ class PersonType extends AbstractType
     {
         $builder
             ->add('lastname', 'text', array(
-                    'label' => 'Last Name'
+                    'label' => 'Family (Last) Name'
                 ))
             ->add('firstname', 'text', array(
-                    'label' => 'First Name'
+                    'label' => 'Given (First) Name'
                 ))
             ->add('nickname', 'text', array(
                     'label' => 'Nickname',
                     'required' => false
                 ))
             ->add('fullname', 'text', array(
-                    'label' => 'Full Name'
+                    'label' => 'Full Name (e.g. as in your signature)'
                 ))
             ->add('nametagname', 'text', array(
-                    'label' => 'Nametag Name',
+                    'label' => 'Nametag Name (First & Last)',
                     'required' => false
                 ))
             ->add('membersince', 'date', array(
@@ -45,7 +45,7 @@ class PersonType extends AbstractType
             ->add('membersinceDayIndeterminate', 'hidden')
             ->add('membersinceMonthIndeterminate', 'hidden')
             ->add('utopunit', 'text', array(
-                    'label' => 'University Unit',
+                    'label' => 'Major University Unit',
                     'required' => false
                 ))
             ->add('udeptequiv', 'text', array(
@@ -62,11 +62,11 @@ class PersonType extends AbstractType
                         'afscme_tech' => 'AFSCME Technical',
                         'teamster' => 'Teamster'
                     ),
-                    'label' => 'Employment Type',
+                    'label' => 'Select Employment Type',
                     'required' => false
                 ))
             ->add('utitle', 'text', array(
-                    'label' => 'Title',
+                    'label' => 'Job Title (Most recent)',
                     'required' => false
                 ))
             ->add('ustartdate', 'date', array(

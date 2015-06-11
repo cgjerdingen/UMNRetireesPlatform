@@ -1,6 +1,3 @@
-<h4 class="text-muted">
-    Member(s)
-</h4>
 <div class="panel panel-default">
     <div class="list-group" id="members-list-group">
         {% for member in members %}
@@ -12,7 +9,7 @@
             nametagname: '{{ member.nametagname.vars.value }}'
         }">
             <h4 class="clearfix">
-                <span class="label label-info">Person {{ loop.index }}</span>
+                <span class="label label-info">Member {{ loop.index }}</span>
                 {% if allow_delete is defined and allow_delete %}
                 <button class="btn-person-del close pull-right" type="button" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -44,7 +41,13 @@
                 </div>
                 {% if member.emailCanonical is defined %}
                 <div class="col-sm-4">
-                    {{ form_row(member.emailCanonical) }}
+                    {{ form_label(member.emailCanonical) }}
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-envelope-o"></span>
+                        </span>
+                        {{ form_widget(member.emailCanonical) }}
+                    </div>
                 </div>
                 {% endif %}
                 {% if member.activenow is defined %}
@@ -96,7 +99,7 @@
     {% if allow_add is defined and allow_add %}
     <div class="panel-footer">
         <button id="person-add" type="button" class="btn btn-primary" collection-add="#tpl-members-group">
-            <span class="fa fa-plus"></span> Another Person
+            <span class="fa fa-plus"></span> Add Another Person
         </button>
     </div>
     {% endif %}

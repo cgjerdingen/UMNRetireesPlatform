@@ -39,7 +39,7 @@ class ResidenceType extends AbstractType
                     'attr' => array('placeholder' => 'e.g. 55455')
                 ))
             ->add('legdistrict', 'text', array(
-                    'label' => 'Legislative District',
+                    'label' => 'Minnesota Legislative District',
                     'required' => false
                 ))
             ->add('country', 'country', array(
@@ -47,7 +47,7 @@ class ResidenceType extends AbstractType
                 ))
             ->add('since', 'date', array(
                     'years' => range(1910, date('Y')),
-                    'label' => 'Since',
+                    'label' => 'Lived Here Since',
                     'required' => false,
                     'empty_value' => array('year'=>'Year', 'month'=> 'Month', 'day' => 'Day')
                 ))

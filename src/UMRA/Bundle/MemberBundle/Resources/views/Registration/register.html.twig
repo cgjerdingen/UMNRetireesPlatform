@@ -3,6 +3,10 @@
 {% block title %}UMRA Membership Registration{% endblock %}
 
 {% block body %}
+<div class="page-header">
+	<h2>Membership Application</h2>
+</div>
+
 <div id="page-content-container" ng-controller="RegistrationCtrl">
 	<div class="row">
 		<div class="col-sm-8">
@@ -36,39 +40,24 @@
 							{% do form.membershipStatus.setRendered %}
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="register[membershipStatus]" ng-model="memberStatus" value="new" /> New Member
-								</label>
-							</div>
-							<div class="radio-inline">
-								<label>
-									<input type="radio" name="register[membershipStatus]" ng-model="memberStatus" value="renew" /> Renewing Member
+									<input type="radio" name="register[membershipStatus]" value="new" checked disabled /> New Member
 								</label>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label">Membership Type</label>
+						<label class="control-label">Membership Fees</label>
 						<div>
 							{# Corresponds to membershipType field in RegistrationFormType with the addition of ng-model & ng-if attributes that were not possible through the Twig generated HTML elements. #}
 							{% do form.membershipType.setRendered %}
-							<div class="radio-inline" ng-if="memberStatus === 'new'">
+							<div class="radio-inline">
 								<label>
 									<input type="radio" name="register[membershipType]" ng-model="costs.member" value="10" /> Single ($10)
 								</label>
 							</div>
-							<div class="radio-inline" ng-if="memberStatus === 'new'">
+							<div class="radio-inline">
 								<label>
 									<input type="radio" name="register[membershipType]" ng-model="costs.member" value="15" /> Couple ($15)
-								</label>
-							</div>
-							<div class="radio-inline" ng-if="memberStatus === 'renew'">
-								<label>
-									<input type="radio" name="register[membershipType]" ng-model="costs.member" value="25" /> Single ($25)
-								</label>
-							</div>
-							<div class="radio-inline" ng-if="memberStatus === 'renew'">
-								<label>
-									<input type="radio" name="register[membershipType]" ng-model="costs.member" value="35" /> Couple ($35)
 								</label>
 							</div>
 						</div>
@@ -95,9 +84,14 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label">Please send me discount parking coupons with my membership card</label>
+						<label class="control-label">Please send me free discount parking coupons with my membership card</label>
 						<div>
 							{% do form.parkingCoupon.setRendered %}
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="register[parkingCoupon]" ng-model="counts.parkingCoupons" value="0" /> 0
+								</label>
+							</div>
 							<div class="radio-inline">
 								<label>
 									<input type="radio" name="register[parkingCoupon]" ng-model="counts.parkingCoupons" value="1" /> 1

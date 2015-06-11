@@ -24,19 +24,34 @@ class RegistrationFormType extends AbstractType
 					'by_reference' => false
 				))
 				->add('membershipStatus', 'choice', array(
-					'choices' => array('new' => 'New Member', 'renew' => 'Renewing Member'),
+					'choices' => array(
+						'new' => 'New Member'
+					),
 					'expanded' => true
 				))
 				->add('membershipType', 'choice', array(
-					'choices' => array('10' => 'Single ($10)', '15' => 'Couple ($15)', '20' => 'Single ($20)', '25' => 'Couple ($25)'),
+					'choices' => array(
+						'10' => 'Single ($10)',
+						'15' => 'Couple ($15)'
+					),
 					'expanded' => true
 				))
 				->add('luncheonPreorder', 'choice', array(
-					'choices' => array('112' => 'Single ($112)', '224' => 'Couple ($224)', '0' => 'Do not pre-purchase'),
+					'choices' => array(
+						'112' => 'Single ($112)',
+						'224' => 'Couple ($224)',
+						'0' => 'Do not pre-purchase'
+					),
 					'expanded' => true
 				))
 				->add('parkingCoupon', 'choice', array(
-					'choices' => array('1'=> '1', '3' => '3', '6' => '6', '9' => '9'),
+					'choices' => array(
+						'0' => '0',
+						'1' => '1',
+						'3' => '3',
+						'6' => '6',
+						'9' => '9'
+					),
 					'expanded' => true
 				))
 				->add('payCreditCard', 'submit', array(

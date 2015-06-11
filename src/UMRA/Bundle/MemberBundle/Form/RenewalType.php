@@ -11,15 +11,28 @@ class RenewalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('membershipType', 'choice', array(
-                    'choices' => array('20' => 'Single ($20)', '25' => 'Couple ($25)'),
+                    'choices' => array(
+                        '20' => 'Single ($20)',
+                        '25' => 'Couple ($25)'
+                    ),
                     'expanded' => true
                 ))
                 ->add('luncheonPreorder', 'choice', array(
-                    'choices' => array('112' => 'Single ($112)', '224' => 'Couple ($224)', '0' => 'Do not pre-purchase'),
+                    'choices' => array(
+                        '112' => 'Single ($112)',
+                        '224' => 'Couple ($224)',
+                        '0' => 'Do not pre-purchase'
+                    ),
                     'expanded' => true
                 ))
                 ->add('parkingCoupon', 'choice', array(
-                    'choices' => array('1'=> '1', '3' => '3', '6' => '6', '9' => '9'),
+                    'choices' => array(
+                        '0' => '0',
+                        '1' => '1',
+                        '3' => '3',
+                        '6' => '6',
+                        '9' => '9'
+                    ),
                     'expanded' => true
                 ))
                 ->add('payCreditCard', 'submit', array(
