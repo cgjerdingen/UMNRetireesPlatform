@@ -1,0 +1,12 @@
+UMRA_ContentBlock:
+    path:     /
+    defaults: { _controller: "UMRAMemberBundle:ContentBlock:index" }
+
+UMRA_ContentBlock_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UMRAMemberBundle:ContentBlock:edit" }
+
+UMRA_ContentBlock_update:
+    path:     /{id}/update
+    defaults: { _controller: "UMRAMemberBundle:ContentBlock:update" }
+    methods:  [POST, PUT]

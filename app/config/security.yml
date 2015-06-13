@@ -32,6 +32,7 @@ security:
         - { path: ^/transactions, role: ROLE_ADMIN }
         - { path: ^/household/new, role: ROLE_CAN_EDIT_OTHER_HOUSEHOLD }
         - { path: ^/transaction/new, role: ROLE_CAN_EDIT_OTHER_TRANSACTION }
+        - { path: ^/content_blocks, role: ROLE_ADMIN }
         - { path: ^/role/, role: ROLE_ADMIN }
         - { path: ^/transaction/, role: ROLE_CAN_VIEW_OWN_TRANSACTION }
         - { path: ^/profile, role: ROLE_USER }

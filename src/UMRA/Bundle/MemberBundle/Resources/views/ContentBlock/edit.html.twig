@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>{{ entity.name }} Content Block</h1>
+
+    {{ form(edit_form) }}
+
+    <a href="{{ path('UMRA_ContentBlock') }}" class="btn btn-default">
+        Back to the list
+    </a>
+{% endblock %}
+
+{% block javascripts -%}
+<script type="text/javascript" src="{{ asset('js/bootstrap3-wysihtml5.all.min.js') }}"></script>
+<script type="text/javascript">
+$('textarea').wysihtml5();
+</script>
+{% endblock %}
