@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
 use UMRA\Bundle\MemberBundle\Form\HouseholdType;
+use UMRA\Bundle\MemberBundle\Form\HouseholdFilterType;
 use UMRA\Bundle\MemberBundle\Form\FullHouseholdType;
 
 /**
@@ -34,25 +35,28 @@ class HouseholdController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $hhRepo = $em->getRepository('UMRAMemberBundle:Household');
+        $form = $this->get('form.factory')->create(new HouseholdFilterType());
 
-        $query = $em->createQueryBuilder()
-                    ->select('h')
-                    ->from('UMRAMemberBundle:Household', 'h');
+        if ($request->query->has($form->getName())) {
+            // manually bind values from the request
+            $form->submit($request->query->get($form->getName()));
 
-        if ($name = $request->query->get('name', null)) {
-            $query = $hhRepo->queryBuilderFindByName($query, $name);
+            // initialize a query builder
+            $filterBuilder = $em->getRepository('UMRAMemberBundle:Household')
+                                ->createQueryBuilder('h');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+
+            // now look at the DQL =)
+            $query = $filterBuilder->getQuery();
+            $dql = $filterBuilder->getDql();
+        } else {
+            $query = $em->getRepository('UMRAMemberBundle:Household')->findAll();
+            $dql = "";
         }
 
-        if (($active = $request->query->getInt('active', -1)) > -1) {
-            $query = $hhRepo->queryBuilderFindByActive($query, $active);
-        }
-
-        $query->orderBy('h.lastname', 'ASC');
-
-        $format = $request->getRequestFormat();
-
-        if ($format === "csv") {
+        if ($request->getRequestFormat() === "csv") {
             $entities = $query->getQuery()->getResult();
 
             $filename = "umra_members_".date("Y_m_d_His").".csv";
@@ -79,8 +83,8 @@ class HouseholdController extends Controller
         $entities = $paginator->paginate($query, $request->query->get('page', 1), 50);
 
         return array(
-            'name' => $name,
-            'active' => $active,
+            'form' => $form->createView(),
+            'dql' => $dql,
             'entities' => $entities,
         );
     }

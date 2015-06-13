@@ -3,36 +3,19 @@
 {% block modulecontent -%}
     <h3>Households</h3>
 
-    <form action="{{ path('UMRA_Household') }}" method="GET" class="row">
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label class="control-label">Find by Name</label>
-                <input class="form-control" type="search" name="name" value="{{ name }}" />
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label class="control-label">
-                    Current UMRA Member?
-                </label>
-                <div>
-                    <label class="radio-inline">
-                        <input type="radio" name="active" value="1" {% if active == 1 %}checked{% endif %}> Yes
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="active" value="0" {% if active == 0 %}checked{% endif %}> No
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group pull-right">
-            <button type="submit" class="btn btn-primary btn-lg">
-                <span class="fa fa-search"></span>
-                Search
-            </button>
-        </div>
+    <form method="get" action="{{ path('UMRA_Household') }}">
+        {{ form_rest(form) }}
+        <button type="submit" name="submit-filter" value="filter" class="btn btn-primary btn-lg">
+            <span class="fa fa-search"></span>
+            Search
+        </button>
     </form>
+
+    <hr />
+
+    <pre>
+        {{ dql }}
+    </pre>
 
     <hr />
 
