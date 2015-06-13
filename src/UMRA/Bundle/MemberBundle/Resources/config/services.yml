@@ -50,3 +50,10 @@ services:
         arguments: ["@logger"]
         tags:
             - { name: doctrine.event_subscriber, priority: 10 }
+
+    umra_member.twig_extensions:
+        class: UMRA\Bundle\MemberBundle\Services\TwigExtensions
+        arguments: ["@doctrine.orm.default_entity_manager"]
+        public: false
+        tags:
+            - { name: twig.extension }
