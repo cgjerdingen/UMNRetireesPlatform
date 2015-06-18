@@ -76,6 +76,14 @@
 
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>
+                        <a href="{{ path('UMRA_ContentBlock') }}">
+                            Content Blocks
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li>
                         <a href="{{ path('sonata_admin_redirect') }}">
                             Administration
                         </a>
