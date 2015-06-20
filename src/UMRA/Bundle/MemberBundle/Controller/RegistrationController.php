@@ -78,7 +78,7 @@ class RegistrationController extends Controller
                 // TODO: Payment
 
                 // TODO: After return from payment processor. Probably will get moved
-                $this->processMembershipTransactions(
+                $transactions = $this->processMembershipTransactions(
                     $em, $member, $membershipStatus, $pmtMethod,
                     $formData['membershipType'], $formData['luncheonPreorder']
                 );
@@ -88,7 +88,9 @@ class RegistrationController extends Controller
                     $userMailer->sendResettingEmailMessage($user);
                 }
 
-                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
+                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+                    'transactions' => $transactions
+                ));
             }
         }
 
@@ -122,9 +124,11 @@ class RegistrationController extends Controller
                 // TODO: Payment
 
                 // TODO: After return from payment processor. Probably will get moved
-                $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType'], $formData['luncheonPreorder']);
+                $transactions = $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType'], $formData['luncheonPreorder']);
 
-                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array());
+                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+                    'transactions' => $transactions
+                ));
             }
         }
 
@@ -135,6 +139,8 @@ class RegistrationController extends Controller
 
     private function processMembershipTransactions($em, Person $member, $tranType, $pmtMethod, $membershipCost, $luncheonCost)
     {
+        $transactions = array();
+
         // Create tranaction for membership fee.
         $membershipTrans = new Trans();
         $membershipTrans->setPerson($member)
@@ -145,6 +151,7 @@ class RegistrationController extends Controller
                         ->setAmount((float) $membershipCost)
         ;
         $em->persist($membershipTrans);
+        $transactions[] = $membershipTrans;
 
         $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
                         ->findLatestLuncheons(7, true, new \DateTime("now"));
@@ -160,8 +167,12 @@ class RegistrationController extends Controller
                   ->setLuncheon($luncheon)
             ;
             $em->persist($trans);
+
+            $transactions[] = $trans;
         }
 
         $em->flush();
+
+        return $transactions;
     }
 }
