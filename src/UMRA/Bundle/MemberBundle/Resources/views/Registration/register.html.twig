@@ -11,6 +11,8 @@
 	<div class="row">
 		<div class="col-sm-8">
 		{{ form_start(form, { action: path('UMRA_register') }) }}
+			{{ form_errors(form) }}
+
 			{{ form_widget(form.household.firstname, { type: 'hidden', attr: {
 				'ng-value': 'household.members[0].firstname'}
 				})

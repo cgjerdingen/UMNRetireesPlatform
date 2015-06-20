@@ -8,6 +8,9 @@
             <h4>
                 <span class="label label-success">Residence {{ loop.index }}</span>
             </h4>
+
+            {{ form_errors(residence) }}
+
             {{ form_row(residence.address1) }}
             <div class="row">
                 <div class="col-sm-6">

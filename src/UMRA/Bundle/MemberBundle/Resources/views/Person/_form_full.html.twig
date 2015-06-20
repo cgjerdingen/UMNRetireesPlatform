@@ -16,6 +16,7 @@
                 </button>
                 {% endif %}
             </h4>
+            {{ form_errors(member) }}
             <div class="row">
                 <div class="col-sm-6">
                     {{ form_row(member.firstname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].firstname' }}) }}
