@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Table(name="person", indexes={@ORM\Index(name="HouseholdID", columns={"HouseholdID"})})
  * @ORM\Entity(repositoryClass="UMRA\Bundle\MemberBundle\Entity\PersonRepository")
+ * @UniqueEntity("emailCanonical")
  */
 class Person extends BaseUser
 {
@@ -221,6 +222,7 @@ class Person extends BaseUser
     /**
      * @var string
      *
+     * @Assert\Email()
      */
     protected $email;
 
@@ -228,6 +230,7 @@ class Person extends BaseUser
      * @var string
      *
      * @ORM\Column(name="email_canonical", type="string", length=255, nullable=True, unique=True)
+     * @Assert\Email()
      */
     protected $emailCanonical;
 
