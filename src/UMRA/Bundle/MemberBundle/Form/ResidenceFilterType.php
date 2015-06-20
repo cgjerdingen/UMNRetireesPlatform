@@ -12,6 +12,7 @@ class ResidenceFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('address1', 'filter_text', array(
+            'label' => 'Address 1',
             'condition_pattern' => FilterOperands::STRING_BOTH
         ));
 

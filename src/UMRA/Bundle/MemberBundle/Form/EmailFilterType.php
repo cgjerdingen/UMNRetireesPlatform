@@ -12,6 +12,7 @@ class EmailFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email', 'filter_text', array(
+            'label' => 'Email Address',
             'condition_pattern' => FilterOperands::STRING_BOTH
         ));
     }

@@ -14,9 +14,9 @@ class MemberFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstname', 'filter_text');
-        $builder->add('lastname', 'filter_text');
-        $builder->add('activenow', 'filter_boolean');
+        $builder->add('firstname', 'filter_text', array('label' => 'First Name'));
+        $builder->add('lastname', 'filter_text', array('label' => 'Last Name'));
+        $builder->add('activenow', 'filter_boolean', array('label' => 'Active UMRA Member?'));
         $builder->add('newsPref', 'filter_choice', array(
             'choices' => array(
                 'postal' => 'Postal Mail',
