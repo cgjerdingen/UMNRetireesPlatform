@@ -74,6 +74,14 @@
                     </li>
                     {% endif %}
 
+                    {% if is_granted('ROLE_CAN_EDIT_OTHER_TRANSACTION') %}
+                    <li>
+                        <a href="{{ path('UMRA_Trans') }}">
+                            Transactions
+                        </a>
+                    </li>
+                    {% endif %}
+
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('UMRA_ContentBlock') }}">
