@@ -271,6 +271,7 @@ class TransController extends Controller
 
         $entity->setDoneBy($authedUser);
         $entity->setStatus("PROCESSED");
+        $entity->setReconciledDate(new \DateTime("now"));
         $em->persist($entity);
         $em->flush();
 
