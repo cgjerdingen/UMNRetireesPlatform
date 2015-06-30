@@ -20,11 +20,15 @@ class TransController extends Controller
      *
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UMRAMemberBundle:Trans')->findAll();
+        $query = $em->getRepository('UMRAMemberBundle:Trans')->queryAll();
+
+        $paginator  = $this->get('knp_paginator');
+
+        $entities = $paginator->paginate($query, $request->query->get('page', 1), 25);
 
         return array(
             'entities' => $entities,

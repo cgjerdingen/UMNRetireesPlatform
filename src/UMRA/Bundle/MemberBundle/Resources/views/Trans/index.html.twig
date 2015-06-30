@@ -1,53 +1,103 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Trans list</h1>
+    <h1>
+        Transactions
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Trandate</th>
-                <th>Trantype</th>
-                <th>Amount</th>
-                <th>Pmtmethod</th>
-                <th>Servicechg</th>
-                <th>Doneby</th>
-                <th>Notes</th>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('UMRA_Trans_show', { 'id': entity.id }) }}">{{ entity.trandate|date('Y-m-d H:i:s') }}</a></td>
-                <td>{{ entity.trantype }}</td>
-                <td>{{ entity.amount }}</td>
-                <td>{{ entity.pmtmethod }}</td>
-                <td>{{ entity.servicechg }}</td>
-                <td>{{ entity.doneby }}</td>
-                <td>{{ entity.notes }}</td>
-                <td>{{ entity.id }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('UMRA_Trans_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('UMRA_Trans_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <a class="btn btn-primary" href="{{ path('UMRA_Trans_new') }}">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </a>
+    </h1>
 
-        <ul>
-        <li>
-            <a href="{{ path('UMRA_Trans_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+    <div class="panel panel-default">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Status</th>
+                    <th>Reconciled by</th>
+                    <th>Processor Transaction ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <a href="{{ path('UMRA_Trans_show', { 'id': entity.id }) }}">
+                            {{ entity.trandate|date('Y-m-d') }}
+                        </a>
+                    </td>
+                    <td>
+                    {% if entity.trantype == 'MEMBERSHIP_NEW' %}
+                        New Member
+                    {% elseif entity.trantype == 'MEMBERSHIP_RENEW' %}
+                        Renewal
+                    {% elseif entity.trantype == 'LUNCHEON_FEE' %}
+                        Luncheon Fee
+                    {% else %}
+                        {{ entity.trantype }}
+                    {% endif %}
+                    </td>
+                    <td>${{ entity.amount + entity.servicechg }}</td>
+                    <td>
+                    {% if entity.pmtmethod == 'CREDIT_CARD' %}
+                        <span class="fa fa-credit-card"></span> Credit Card
+                    {% elseif entity.pmtmethod == 'CHECK' %}
+                        <span class="fa fa-bank"></span> Check
+                    {% else %}
+                        <span class="fa fa-money"></span> Other
+                    {% endif %}
+                    </td>
+                    <td class="row-status" data-trans-id="{{ entity.id }}">
+                    {% if entity.status == "PROCESSING" %}
+                        <span class="label label-danger">
+                            PROCESSING
+                        </span>
+                    {% elseif entity.status == "PROCESSED" %}
+                        <span class="label label-success">
+                            PROCESSED
+                        </span>
+                    {% else %}
+                        <span class="label label-warning">
+                            AWAITING PROCESS
+                        </span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if entity.doneby %}
+                        {{ entity.doneby.fullname }}
+                    {% endif %}
+                    </td>
+                    <td>{{ entity.procTranId }}</td>
+                    <td>
+                        <ul class="list-inline">
+                            {% if not entity.doneBy %}
+                            <li>
+                                <button type="button" class="btn btn-sm btn-success js-mark-reconciled" data-trans-id="{{ entity.id }}">
+                                    <span class="fa fa-check"></span>
+                                Mark as Reconciled
+                                </button>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a href="{{ path('UMRA_Trans_edit', { 'id': entity.id }) }}" class="btn btn-sm btn-default">
+                                    <span class="fa fa-pencil"></span>
+                                    Edit
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(entities) }}
+    </div>
+{% endblock %}

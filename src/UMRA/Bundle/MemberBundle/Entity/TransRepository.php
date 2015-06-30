@@ -12,6 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class TransRepository extends EntityRepository
 {
+    public function queryAll()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('t')
+            ->from('UMRAMemberBundle:Trans', 't')
+            ->orderBy('t.trandate', 'DESC')
+            ->getQuery();
+    }
+
     public function findLatestLuncheonFees($person, $count = 5)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
