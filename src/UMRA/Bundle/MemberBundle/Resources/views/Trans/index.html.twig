@@ -101,3 +101,37 @@
         {{ knp_pagination_render(entities) }}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(".js-mark-reconciled").click(function () {
+        var $reconcileButton = $(this);
+        $reconcileButton.attr('disabled', true);
+        $reconcileButton.children('.fa').removeClass('fa-check').addClass('fa-spin fa-spinner');
+        var id = $reconcileButton.data('transId');
+
+        $.ajax("{{ path('UMRA_Trans_reconcile') }}", {
+            type: 'PUT',
+            data: { id: id }
+        }).success(function (response) {
+            var successHtml =
+                '<span class="text-success">' +
+                    '<span class="fa fa-check"></span> ' +
+                    'Reconciled!' +
+                '</span>';
+
+            $reconcileButton.replaceWith(successHtml);
+
+            $('.row-status[data-trans-id='+id+']')
+                .children('.label')
+                .removeClass('label-danger')
+                .removeClass('label-warning')
+                .addClass('label-success')
+                .text('PROCESSED');
+        }).error(function (data) {
+            $reconcileButton.children('.fa').removeClass('fa-spin fa-spinner').addClass('fa-check');
+            $reconcileButton.attr('disabled', false);
+        });
+    });
+</script>
+{% endblock %}

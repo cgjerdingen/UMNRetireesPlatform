@@ -3,6 +3,8 @@
 namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
@@ -81,8 +83,6 @@ class TransController extends Controller
     /**
      * Displays a form to create a new Trans entity.
      *
-     * @Route("/new", name="UMRA_Trans_new")
-     * @Method("GET")
      * @Template()
      */
     public function newAction()
@@ -232,5 +232,36 @@ class TransController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger')))
             ->getForm()
         ;
+    }
+
+    public function reconcileAction(Request $request) {
+        $securityContext = $this->get('security.context');
+
+        if (!$securityContext->isGranted('ROLE_CAN_EDIT_OTHER_TRANSACTION')) {
+            throw new AccessDeniedException('You do not have access to this page. Either you are not logged in or you do not have permissions to view this page');
+        }
+
+        $authedUser = $securityContext->getToken()->getUser();
+
+        $id = $request->request->getInt('id');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UMRAMemberBundle:Trans')->find($id);
+
+        if (!$entity instanceof Trans) {
+            throw $this->createNotFoundException('Unable to find transaction.');
+        }
+
+        $entity->setDoneBy($authedUser);
+        $entity->setStatus("PROCESSED");
+        $em->persist($entity);
+        $em->flush();
+
+        $response = new JsonResponse();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setStatusCode(Response::HTTP_NO_CONTENT);
+        $response->prepare($request);
+        return $response->send();
     }
 }
