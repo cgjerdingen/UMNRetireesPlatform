@@ -10,9 +10,19 @@ class TransFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('trandate', 'filter_date_range', array(
-            'label' => 'Transaction Date'
-        ));
+        $builder
+            ->add('trandate', 'filter_date_range', array(
+                'label' => 'Transaction Date'
+            ))
+            ->add('trantype', 'filter_choice', array(
+                'label' => 'Transaction Type',
+                'choices' => array('MEMBERSHIP_NEW' => 'New Membership', 'MEMBERSHIP_RENEW' => 'Membership Renewal', 'LUNCHEON_FEE' => 'Luncheon Fee', 'OTHER' => 'Other'),
+            ))
+            ->add('status', 'filter_choice', array(
+                'label' => 'Transaction Type',
+                'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
+            ))
+        ;
     }
 
     public function getName()
