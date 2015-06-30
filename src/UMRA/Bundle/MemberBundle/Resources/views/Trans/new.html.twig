@@ -1,15 +1,15 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Trans creation</h1>
+    <h1>Creating a Transaction</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Trans') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('UMRA_Trans') }}" class="btn btn-default">
+                Back to the list
+            </a>
+        </li>
+    </ul>
 {% endblock %}
