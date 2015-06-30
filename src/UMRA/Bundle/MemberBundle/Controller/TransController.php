@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
+use UMRA\Bundle\MemberBundle\Form\TransFilterType;
 use UMRA\Bundle\MemberBundle\Form\TransType;
 
 /**
@@ -26,7 +27,21 @@ class TransController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $query = $em->getRepository('UMRAMemberBundle:Trans')->queryAll();
+        $form = $this->get('form.factory')->create(new TransFilterType());
+
+        if ($request->query->has($form->getName())) {
+            $form->submit($request->query->get($form->getName()));
+
+            $filterBuilder = $em->getRepository('UMRAMemberBundle:Trans')
+                                ->createQueryBuilder('t')
+                                ->orderBy('t.trandate', 'DESC');
+
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+
+            $query = $filterBuilder->getQuery();
+        } else {
+            $query = $em->getRepository('UMRAMemberBundle:Trans')->queryAll();
+        }
 
         $paginator  = $this->get('knp_paginator');
 
@@ -34,6 +49,7 @@ class TransController extends Controller
 
         return array(
             'entities' => $entities,
+            'form' => $form->createView(),
         );
     }
     /**

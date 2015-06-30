@@ -1,13 +1,27 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>
+    <h3>
         Transactions
 
         <a class="btn btn-primary" href="{{ path('UMRA_Trans_new') }}">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
-    </h1>
+    </h3>
+
+    <form method="get" action="{{ path('UMRA_Trans') }}">
+        {{ form_rest(form) }}
+        <button type="submit" name="submit-filter" value="filter" class="btn btn-primary btn-lg">
+            <span class="fa fa-search"></span>
+            Search
+        </button>
+        <a href="{{ path('UMRA_Trans') }}" class="btn btn-default btn-lg">
+            <span class="fa fa-undo"></span>
+            Reset
+        </a>
+    </form>
+
+    <hr />
 
     <div class="panel panel-default">
         <table class="table table-hover">
