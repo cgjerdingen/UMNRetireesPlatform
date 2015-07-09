@@ -11,6 +11,16 @@ use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\RegistrationFormType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
+use UMRA\Bundle\MemberBundle\Services\PayPalApiContextService;
+
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
 
 class RegistrationController extends Controller
 {
@@ -68,29 +78,93 @@ class RegistrationController extends Controller
                     $membershipStatus = "MEMBERSHIP_RENEW";
                 }
 
-                // Determine payment method.
-                if ($form->get('payCreditCard')->isClicked()) {
-                    $pmtMethod = 'CREDIT_CARD';
-                } else {
-                    $pmtMethod = 'CHECK';
-                }
-
-                // TODO: Payment
-
-                // TODO: After return from payment processor. Probably will get moved
-                $transactions = $this->processMembershipTransactions(
-                    $em, $member, $membershipStatus, $pmtMethod,
-                    $formData['membershipType'], $formData['luncheonPreorder']
-                );
-
                 for ($i = 0; $i < count($memberEmails); $i++) {
                     $user = $userManager->findUserByEmail($memberEmails[$i]);
                     $userMailer->sendResettingEmailMessage($user);
                 }
 
-                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
-                    'transactions' => $transactions
-                ));
+                // Determine payment method.
+                if ($form->get('payCreditCard')->isClicked()) {
+                    $pmtMethod = 'CREDIT_CARD';
+                } else {
+                    $pmtMethod = 'CHECK';
+
+                    // TODO: Move this?
+                    $transactions = $this->processMembershipTransactions(
+                        $em, $member, $membershipStatus, $pmtMethod,
+                        $formData['membershipType']
+                    );
+
+                    return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+                        'transactions' => $transactions
+                    ));
+                }
+
+                $config = array(
+                    'client_id'     => $this->container->getParameter('paypal_client_id'),
+                    'client_secret' => $this->container->getParameter('paypal_client_secret'),
+                    'environment'   => $this->container->getParameter('paypal_environment')
+                );
+
+                $apiContext = PayPalApiContextService::getApiContext($config);
+
+                $membershipCost = $formData['membershipType'];
+
+                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
+
+                if ($formData["luncheonPreorder"] == "112") {
+                    $luncheonPeopleCount = 1;
+                } elseif ($formData["luncheonPreorder"] == "224") {
+                    $luncheonPeopleCount = 2;
+                } else {
+                    $luncheonPeopleCount = 0;
+                }
+
+                $couponCount = (int) $formData["parkingCoupon"];
+
+                $payer = new Payer();
+                $payer->setPaymentMethod("paypal");
+
+                $items = $this->buildPaypalItems($em, $membershipCost, $isLuncheonPreorder, $luncheonPeopleCount, $couponCount, "MEMBERSHIP_NEW");
+
+                $itemList = new ItemList();
+                $itemList->setItems($items);
+
+                $totalCost = ((float) $membershipCost) + ((float) $formData["luncheonPreorder"]);
+
+                $amount = new Amount();
+                $amount->setCurrency("USD")
+                       ->setTotal($totalCost);
+
+                $transaction = new Transaction();
+                $transaction->setAmount($amount)
+                            ->setItemList($itemList)
+                            ->setDescription("UMRA Membership")
+                            ->setInvoiceNumber(uniqid());
+
+                $baseUrl = $request->getBasePath();
+                $redirectUrls = new RedirectUrls();
+                $redirectUrls
+                  ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
+                  ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
+
+                $payment = new Payment();
+                $payment->setIntent("sale")
+                        ->setPayer($payer)
+                        ->setRedirectUrls($redirectUrls)
+                        ->setTransactions(array($transaction));
+
+                try {
+                    $payment->create($apiContext);
+                } catch (\Exception $ex) {
+                    $json = $ex->getData();
+                    print_r(json_decode($json));
+                    exit(1);
+                }
+
+                $approvalUrl = $payment->getApprovalLink();
+
+                return $this->redirect($approvalUrl);
             }
         }
 
@@ -124,7 +198,7 @@ class RegistrationController extends Controller
                 // TODO: Payment
 
                 // TODO: After return from payment processor. Probably will get moved
-                $transactions = $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType'], $formData['luncheonPreorder']);
+                $transactions = $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType']);
 
                 return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
                     'transactions' => $transactions
@@ -137,7 +211,50 @@ class RegistrationController extends Controller
         ));
     }
 
-    private function processMembershipTransactions($em, Person $member, $tranType, $pmtMethod, $membershipCost, $luncheonCost)
+    private function buildPaypalItems($em, $membershipCost, $isLuncheonPreorder, $luncheonPeopleCount, $couponCount, $tranType)
+    {
+        $items = array();
+        $membershipFee = new Item();
+        $membershipFee->setName('UMRA Membership - 1 Year')
+                      ->setCurrency('USD')
+                      ->setQuantity(1)
+                      ->setSku($tranType)
+                      ->setPrice((float) $membershipCost);
+        $items[] = $membershipFee;
+
+        if ($isLuncheonPreorder)
+        {
+            $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
+                            ->findLatestLuncheons(7, true, new \DateTime("now"));
+
+            foreach ($luncheons as $luncheon)
+            {
+                $luncheonFee = new Item();
+                $luncheonFee->setName((string) $luncheon)
+                            ->setCurrency('USD')
+                            ->setQuantity($luncheonPeopleCount)
+                            ->setSku("LUNCHEON_FEE")
+                            ->setPrice((float) $luncheon->getPrice());
+
+                $items[] = $luncheonFee;
+            }
+        }
+
+        if ($couponCount > 0) {
+            $coupons = new Item();
+            $coupons->setName('Free Parking Coupons')
+                    ->setCurrency('USD')
+                    ->setSku("OTHER")
+                    ->setQuantity($couponCount)
+                    ->setPrice(0);
+
+            $items[] = $coupons;
+        }
+
+        return $items;
+    }
+
+    private function processMembershipTransactions($em, Person $member, $tranType, $pmtMethod, $membershipCost)
     {
         $transactions = array();
 

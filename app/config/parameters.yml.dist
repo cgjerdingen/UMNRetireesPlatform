@@ -13,3 +13,7 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    paypal_environment: sandbox
+    paypal_client_id: ~
+    paypal_secret: ~
