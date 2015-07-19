@@ -16,4 +16,4 @@ parameters:
 
     paypal_environment: sandbox
     paypal_client_id: ~
-    paypal_secret: ~
+    paypal_client_secret: ~
