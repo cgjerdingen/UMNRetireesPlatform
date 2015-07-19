@@ -36,11 +36,6 @@ class PayPalApiService
             $transType = $trans->getTranType();
             $item = new Item();
 
-            // Add transaction ID to postback data collection
-            $nvp = new NameValuePair();
-            $nvp->setName("transactionId");
-            $nvp->setValue($trans->getId());
-
             if ($transType === "MEMBERSHIP_NEW" ||
                 $transType === "MEMBERSHIP_RENEW")
             {
@@ -48,7 +43,6 @@ class PayPalApiService
                      ->setCurrency('USD')
                      ->setQuantity(1)
                      ->setPrice((float) $trans->getAmount())
-                     ->addPostbackData($nvp);
                 ;
             }
             elseif ($transType === "LUNCHEON_FEE")
@@ -59,7 +53,6 @@ class PayPalApiService
                      ->setCurrency('USD')
                      ->setQuantity($luncheonPeopleCount)
                      ->setPrice((float) $luncheon->getPrice())
-                     ->addPostbackData($nvp);
                 ;
             }
             else
@@ -97,8 +90,6 @@ class PayPalApiService
 
     public static function getIdsFromTransaction($transaction)
     {
-
-        var_dump($transaction->getInvoiceNumber());
         $transIdsStr = base64_decode($transaction->getInvoiceNumber());
         $transIds = explode(";", $transIdsStr);
 
