@@ -351,4 +351,8 @@ class TransController extends Controller
         ));
     }
 
+    public function paypalCallbackCancelAction()
+    {
+        return $this->render('UMRAMemberBundle:Registration:canceled.html.twig');
+    }
 }
