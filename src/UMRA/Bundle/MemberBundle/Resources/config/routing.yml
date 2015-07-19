@@ -210,6 +210,10 @@ UMRA_Trans:
     pattern:  /transactions
     defaults: { _controller: UMRAMemberBundle:Trans:index }
     methods: [GET]
+UMRA_Trans_paypal_callback_success:
+    pattern: /transaction/paypal/callback/success
+    defaults: { _controller: UMRAMemberBundle:Trans:paypalCallbackSuccess }
+    methods: [GET]
 UMRA_Trans_reconcile:
     pattern: /transaction/reconcile
     defaults: { _controller: UMRAMemberBundle:Trans:reconcile }

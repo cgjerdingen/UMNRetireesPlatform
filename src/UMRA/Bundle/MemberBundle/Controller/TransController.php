@@ -10,6 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\TransFilterType;
 use UMRA\Bundle\MemberBundle\Form\TransType;
+use UMRA\Bundle\MemberBundle\Services\PayPalApiService;
+
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
 
 /**
  * Trans controller.
@@ -281,4 +286,69 @@ class TransController extends Controller
         $response->prepare($request);
         return $response->send();
     }
+
+    public function paypalCallbackSuccessAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $config = array(
+            'client_id'     => $this->container->getParameter('paypal_client_id'),
+            'client_secret' => $this->container->getParameter('paypal_client_secret'),
+            'environment'   => $this->container->getParameter('paypal_environment')
+        );
+
+        $apiContext = PayPalApiService::getApiContext($config);
+
+        $paymentId = $request->query->get('paymentId');
+        $payerId = $request->query->get('PayerID');
+
+        $payment = Payment::get($paymentId, $apiContext);
+
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
+
+        $result = $payment->execute($execution, $apiContext);
+
+        $payment = Payment::get($paymentId, $apiContext);
+
+        $ppTrans = $payment->getTransactions();
+
+        $transactions = array();
+
+        foreach ($ppTrans as $ppTran)
+        {
+            $transIds = PayPalApiService::getIdsFromTransaction($ppTran);
+
+            foreach ($transIds as $transId)
+            {
+                $trans = $em->getRepository("UMRAMemberBundle:Trans")
+                            ->find($transId);
+
+                if (!$trans instanceof Trans) {
+                    throw new \Exception("Could not find tranasction referenced by PayPal tranasction");
+                }
+
+                $procId = $result
+                  ->getTransactions()[0]
+                  ->getRelatedResources()[0]
+                  ->getSale()
+                  ->getId();
+
+                $trans->setProcTranId($procId)
+                      ->setStatus("PROCESSED")
+                      ->setReconciledDate(new \DateTime("now"));
+
+                $em->persist($trans);
+
+                $transactions[] = $trans;
+            }
+        }
+
+        $em->flush();
+
+        return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+            'transactions' => $transactions
+        ));
+    }
+
 }
