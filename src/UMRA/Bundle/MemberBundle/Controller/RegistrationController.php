@@ -11,7 +11,7 @@ use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\RegistrationFormType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
-use UMRA\Bundle\MemberBundle\Services\PayPalApiContextService;
+use UMRA\Bundle\MemberBundle\Services\PayPalApiService;
 
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
@@ -72,29 +72,50 @@ class RegistrationController extends Controller
                     $em->persist($res);
                 }
 
-                if ($formData['membershipStatus'] === "new") {
-                    $membershipStatus = "MEMBERSHIP_NEW";
-                } else {
-                    $membershipStatus = "MEMBERSHIP_RENEW";
-                }
-
+                // Send out password reset email
                 for ($i = 0; $i < count($memberEmails); $i++) {
                     $user = $userManager->findUserByEmail($memberEmails[$i]);
                     $userMailer->sendResettingEmailMessage($user);
                 }
 
-                // Determine payment method.
-                if ($form->get('payCreditCard')->isClicked()) {
-                    $pmtMethod = 'CREDIT_CARD';
+                $pmtMethod = $form->get('payCreditCard')->isClicked()
+                    ? "CREDIT_CARD"
+                    : "CHECK";
+                $membershipCost = $formData['membershipType'];
+                $membershipStatus = $formData['membershipStatus'] === "new"
+                    ? "MEMBERSHIP_NEW"
+                    : "MEMBERSHIP_RENEW";
+                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
+                $couponCount = (int) $formData["parkingCoupon"];
+
+                if ($formData["luncheonPreorder"] == "112") {
+                    $luncheonPeopleCount = 1;
+                } elseif ($formData["luncheonPreorder"] == "224") {
+                    $luncheonPeopleCount = 2;
                 } else {
-                    $pmtMethod = 'CHECK';
+                    $luncheonPeopleCount = 0;
+                }
 
-                    // TODO: Move this?
-                    $transactions = $this->processMembershipTransactions(
-                        $em, $member, $membershipStatus, $pmtMethod,
-                        $formData['membershipType']
-                    );
+                $transOptions = array(
+                    "pmtMethod" => $pmtMethod,
+                    "membership" => array(
+                        "cost" => $membershipCost,
+                        "type" => $membershipStatus
+                    ),
+                    "luncheons" => array(
+                        "isPreorder" => $isLuncheonPreorder,
+                        "attendeeCount" => $luncheonPeopleCount
+                    ),
+                    "couponCount" => $couponCount
+                );
 
+                $transactions = $this->processMembershipTransactions(
+                    $em, $member, $transOptions
+                );
+
+                // If it's a check, let's stop here.
+                if ($pmtMethod === "CHECK")
+                {
                     return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
                         'transactions' => $transactions
                     ));
@@ -106,27 +127,13 @@ class RegistrationController extends Controller
                     'environment'   => $this->container->getParameter('paypal_environment')
                 );
 
-                $apiContext = PayPalApiContextService::getApiContext($config);
-
-                $membershipCost = $formData['membershipType'];
-
-                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
-
-                if ($formData["luncheonPreorder"] == "112") {
-                    $luncheonPeopleCount = 1;
-                } elseif ($formData["luncheonPreorder"] == "224") {
-                    $luncheonPeopleCount = 2;
-                } else {
-                    $luncheonPeopleCount = 0;
-                }
-
-                $couponCount = (int) $formData["parkingCoupon"];
+                $apiContext = PayPalApiService::getApiContext($config);
 
                 $payer = new Payer();
                 $payer->setPaymentMethod("paypal");
 
-                $items = $this->buildPaypalItems($em, $membershipCost, $isLuncheonPreorder, $luncheonPeopleCount, $couponCount, "MEMBERSHIP_NEW");
-
+                // Build out PayPal ItemList from transactions
+                $items = PayPalApiService::getItemsFromTransactions($transactions, $couponCount, $luncheonPeopleCount);
                 $itemList = new ItemList();
                 $itemList->setItems($items);
 
@@ -136,11 +143,13 @@ class RegistrationController extends Controller
                 $amount->setCurrency("USD")
                        ->setTotal($totalCost);
 
-                $transaction = new Transaction();
-                $transaction->setAmount($amount)
-                            ->setItemList($itemList)
-                            ->setDescription("UMRA Membership")
-                            ->setInvoiceNumber(uniqid());
+                $invoiceId = PayPalApiService::generateInvoiceId($transactions);
+
+                $ppTransaction = new Transaction();
+                $ppTransaction->setAmount($amount)
+                              ->setItemList($itemList)
+                              ->setDescription("UMRA Membership")
+                              ->setInvoiceNumber($invoiceId);
 
                 $baseUrl = $request->getBasePath();
                 $redirectUrls = new RedirectUrls();
@@ -152,7 +161,7 @@ class RegistrationController extends Controller
                 $payment->setIntent("sale")
                         ->setPayer($payer)
                         ->setRedirectUrls($redirectUrls)
-                        ->setTransactions(array($transaction));
+                        ->setTransactions(array($ppTransaction));
 
                 try {
                     $payment->create($apiContext);
@@ -211,81 +220,64 @@ class RegistrationController extends Controller
         ));
     }
 
-    private function buildPaypalItems($em, $membershipCost, $isLuncheonPreorder, $luncheonPeopleCount, $couponCount, $tranType)
-    {
-        $items = array();
-        $membershipFee = new Item();
-        $membershipFee->setName('UMRA Membership - 1 Year')
-                      ->setCurrency('USD')
-                      ->setQuantity(1)
-                      ->setSku($tranType)
-                      ->setPrice((float) $membershipCost);
-        $items[] = $membershipFee;
-
-        if ($isLuncheonPreorder)
-        {
-            $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
-                            ->findLatestLuncheons(7, true, new \DateTime("now"));
-
-            foreach ($luncheons as $luncheon)
-            {
-                $luncheonFee = new Item();
-                $luncheonFee->setName((string) $luncheon)
-                            ->setCurrency('USD')
-                            ->setQuantity($luncheonPeopleCount)
-                            ->setSku("LUNCHEON_FEE")
-                            ->setPrice((float) $luncheon->getPrice());
-
-                $items[] = $luncheonFee;
-            }
-        }
-
-        if ($couponCount > 0) {
-            $coupons = new Item();
-            $coupons->setName('Free Parking Coupons')
-                    ->setCurrency('USD')
-                    ->setSku("OTHER")
-                    ->setQuantity($couponCount)
-                    ->setPrice(0);
-
-            $items[] = $coupons;
-        }
-
-        return $items;
-    }
-
-    private function processMembershipTransactions($em, Person $member, $tranType, $pmtMethod, $membershipCost)
+    private function processMembershipTransactions($em, Person $member, array $options)
     {
         $transactions = array();
+
+        $pmtMethod = $options["pmtMethod"];
+        $membershipType = $options["membership"]["type"];
+        $membershipCost = (float) $options["membership"]["cost"];
+        $isLuncheonPreorder = (bool) $options["luncheons"]["isPreorder"];
+        $attendeeCount = (int) $options["luncheons"]["attendeeCount"];
+        $couponCount = (int) $options["couponCount"];
 
         // Create tranaction for membership fee.
         $membershipTrans = new Trans();
         $membershipTrans->setPerson($member)
-                        ->setTrantype($tranType)
+                        ->setTrantype($membershipType)
                         ->setTrandate(new \DateTime("now"))
                         ->setStatus("AWAITING_PROCESS")
                         ->setPmtmethod($pmtMethod)
-                        ->setAmount((float) $membershipCost)
+                        ->setAmount($membershipCost)
         ;
         $em->persist($membershipTrans);
         $transactions[] = $membershipTrans;
 
-        $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
-                        ->findLatestLuncheons(7, true, new \DateTime("now"));
+        if ($isLuncheonPreorder) {
+            $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
+                            ->findLatestLuncheons(7, true, new \DateTime("now"));
 
-        foreach ($luncheons as $luncheon) {
-            $trans = new Trans();
-            $trans->setPerson($member)
-                  ->setTrantype("LUNCHEON_FEE")
-                  ->setTrandate(new \DateTime("now"))
-                  ->setStatus("AWAITING_PROCESS")
-                  ->setPmtmethod($pmtMethod)
-                  ->setAmount($luncheon->getPrice())
-                  ->setLuncheon($luncheon)
+            // Create transactions for luncheons
+            foreach ($luncheons as $luncheon) {
+                $trans = new Trans();
+                $trans->setPerson($member)
+                      ->setTrantype("LUNCHEON_FEE")
+                      ->setTrandate(new \DateTime("now"))
+                      ->setStatus("AWAITING_PROCESS")
+                      ->setPmtmethod($pmtMethod)
+                      ->setAmount($luncheon->getPrice() * $attendeeCount)
+                      ->setLuncheon($luncheon)
+                      ->setNotes("$attendeeCount attendees")
+                ;
+                $em->persist($trans);
+
+                $transactions[] = $trans;
+            }
+        }
+
+        if ($couponCount > 0) {
+            $couponTrans = new Trans();
+            $couponTrans->setPerson($member)
+                        ->setTrantype("OTHER")
+                        ->setTrandate(new \DateTime("now"))
+                        ->setStatus("AWAITING_PROCESS")
+                        ->setPmtmethod("OTHER")
+                        ->setAmount(0)
+                        ->setNotes("$couponCount free parking coupons")
             ;
-            $em->persist($trans);
+            $em->persist($couponTrans);
 
-            $transactions[] = $trans;
+            $transactions[] = $couponTrans;
         }
 
         $em->flush();
