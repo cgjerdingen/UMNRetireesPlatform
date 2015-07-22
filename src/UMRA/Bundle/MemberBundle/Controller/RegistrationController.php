@@ -170,8 +170,9 @@ class RegistrationController extends Controller
                     $payment->create($apiContext);
                 } catch (\Exception $ex) {
                     $json = $ex->getData();
-                    print_r(json_decode($json));
-                    exit(1);
+                    $logger->error(json_decode($json));
+
+                    return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
                 }
 
                 $approvalUrl = $payment->getApprovalLink();
