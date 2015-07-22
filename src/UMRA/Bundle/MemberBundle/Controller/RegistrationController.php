@@ -208,14 +208,101 @@ class RegistrationController extends Controller
                     $pmtMethod = 'CHECK';
                 }
 
-                // TODO: Payment
+                $pmtMethod = $form->get('payCreditCard')->isClicked()
+                    ? "CREDIT_CARD"
+                    : "CHECK";
+                $membershipCost = $formData['membershipType'];
+                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
+                $couponCount = (int) $formData["parkingCoupon"];
 
-                // TODO: After return from payment processor. Probably will get moved
-                $transactions = $this->processMembershipTransactions($em, $user, "MEMBERSHIP_RENEW", $pmtMethod, $formData['membershipType']);
+                if ($formData["luncheonPreorder"] == "112") {
+                    $luncheonPeopleCount = 1;
+                } elseif ($formData["luncheonPreorder"] == "224") {
+                    $luncheonPeopleCount = 2;
+                } else {
+                    $luncheonPeopleCount = 0;
+                }
 
-                return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
-                    'transactions' => $transactions
-                ));
+                $invoiceId = Uuid::uuid1()->toString();
+
+                $transOptions = array(
+                    "pmtMethod" => $pmtMethod,
+                    "membership" => array(
+                        "cost" => $membershipCost,
+                        "type" => "MEMBERSHIP_RENEW"
+                    ),
+                    "luncheons" => array(
+                        "isPreorder" => $isLuncheonPreorder,
+                        "attendeeCount" => $luncheonPeopleCount
+                    ),
+                    "couponCount" => $couponCount,
+                    "invoiceId" => $invoiceId
+                );
+
+                $transactions = $this->processMembershipTransactions(
+                    $em, $user, $transOptions
+                );
+
+                // If it's a check, let's stop here.
+                if ($pmtMethod === "CHECK")
+                {
+                    return $this->render('UMRAMemberBundle:Registration:renew_thanks.html.twig', array(
+                        'transactions' => $transactions
+                    ));
+                }
+
+                $config = array(
+                    'client_id'     => $this->container->getParameter('paypal_client_id'),
+                    'client_secret' => $this->container->getParameter('paypal_client_secret'),
+                    'environment'   => $this->container->getParameter('paypal_environment')
+                );
+
+                $apiContext = PayPalApiService::getApiContext($config);
+
+                $payer = new Payer();
+                $payer->setPaymentMethod("paypal");
+
+                // Build out PayPal ItemList from transactions
+                $items = PayPalApiService::getItemsFromTransactions($transactions, $couponCount, $luncheonPeopleCount);
+                $itemList = new ItemList();
+                $itemList->setItems($items);
+
+                $totalCost = ((float) $membershipCost) + ((float) $formData["luncheonPreorder"]);
+
+                $amount = new Amount();
+                $amount->setCurrency("USD")
+                       ->setTotal($totalCost);
+
+                $ppTransaction = new Transaction();
+                $ppTransaction->setAmount($amount)
+                              ->setItemList($itemList)
+                              ->setDescription("UMRA Membership")
+                              ->setInvoiceNumber($invoiceId);
+
+                $baseUrl = $request->getBasePath();
+                $redirectUrls = new RedirectUrls();
+                $redirectUrls
+                  ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
+                  ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
+
+                $payment = new Payment();
+                $payment->setIntent("sale")
+                        ->setPayer($payer)
+                        ->setRedirectUrls($redirectUrls)
+                        ->setTransactions(array($ppTransaction));
+
+                try {
+                    $payment->create($apiContext);
+                } catch (\Exception $ex) {
+                    $json = $ex->getData();
+                    $logger->error(json_decode($json));
+
+                    return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
+                }
+
+                $approvalUrl = $payment->getApprovalLink();
+
+                return $this->redirect($approvalUrl);
             }
         }
 
