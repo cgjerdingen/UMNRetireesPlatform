@@ -22,6 +22,8 @@ use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 
+use Ramsey\Uuid\Uuid;
+
 class RegistrationController extends Controller
 {
     public function registerAction(Request $request)
@@ -96,6 +98,8 @@ class RegistrationController extends Controller
                     $luncheonPeopleCount = 0;
                 }
 
+                $invoiceId = Uuid::uuid1()->toString();
+
                 $transOptions = array(
                     "pmtMethod" => $pmtMethod,
                     "membership" => array(
@@ -106,7 +110,8 @@ class RegistrationController extends Controller
                         "isPreorder" => $isLuncheonPreorder,
                         "attendeeCount" => $luncheonPeopleCount
                     ),
-                    "couponCount" => $couponCount
+                    "couponCount" => $couponCount,
+                    "invoiceId" => $invoiceId
                 );
 
                 $transactions = $this->processMembershipTransactions(
@@ -142,8 +147,6 @@ class RegistrationController extends Controller
                 $amount = new Amount();
                 $amount->setCurrency("USD")
                        ->setTotal($totalCost);
-
-                $invoiceId = PayPalApiService::generateInvoiceId($transactions);
 
                 $ppTransaction = new Transaction();
                 $ppTransaction->setAmount($amount)
@@ -230,6 +233,7 @@ class RegistrationController extends Controller
         $isLuncheonPreorder = (bool) $options["luncheons"]["isPreorder"];
         $attendeeCount = (int) $options["luncheons"]["attendeeCount"];
         $couponCount = (int) $options["couponCount"];
+        $invoiceId = $option["invoiceId"];
 
         // Create tranaction for membership fee.
         $membershipTrans = new Trans();
@@ -239,6 +243,7 @@ class RegistrationController extends Controller
                         ->setStatus("AWAITING_PROCESS")
                         ->setPmtmethod($pmtMethod)
                         ->setAmount($membershipCost)
+                        ->setInvoiceId($invoiceId)
         ;
         $em->persist($membershipTrans);
         $transactions[] = $membershipTrans;
@@ -258,6 +263,7 @@ class RegistrationController extends Controller
                       ->setAmount($luncheon->getPrice() * $attendeeCount)
                       ->setLuncheon($luncheon)
                       ->setNotes("$attendeeCount attendees")
+                      ->setInvoiceId($invoiceId)
                 ;
                 $em->persist($trans);
 
@@ -274,6 +280,7 @@ class RegistrationController extends Controller
                         ->setPmtmethod("OTHER")
                         ->setAmount(0)
                         ->setNotes("$couponCount free parking coupons")
+                        ->setInvoiceId($invoiceId)
             ;
             $em->persist($couponTrans);
 

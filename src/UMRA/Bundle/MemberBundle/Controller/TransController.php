@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\TransFilterType;
 use UMRA\Bundle\MemberBundle\Form\TransType;
@@ -22,7 +23,6 @@ use PayPal\Api\PaymentExecution;
  */
 class TransController extends Controller
 {
-
     /**
      * Lists all Trans entities.
      *
@@ -317,22 +317,29 @@ class TransController extends Controller
 
         foreach ($ppTrans as $ppTran)
         {
-            $transIds = PayPalApiService::getIdsFromTransaction($ppTran);
+            $umraTrans = $em->getRepository("UMRAMemberBundle:Trans")
+                            ->findBy(array("invoiceId" => $ppTran->getInvoiceNumber()));
 
-            foreach ($transIds as $transId)
+            foreach ($umraTrans as $trans)
             {
-                $trans = $em->getRepository("UMRAMemberBundle:Trans")
-                            ->find($transId);
-
-                if (!$trans instanceof Trans) {
-                    throw new \Exception("Could not find tranasction referenced by PayPal tranasction");
-                }
-
                 $procId = $result
                   ->getTransactions()[0]
                   ->getRelatedResources()[0]
                   ->getSale()
                   ->getId();
+
+                $transType = $trans->getTrantype();
+
+                // If membership renewal, update activenow
+                if ($transType === "MEMBERSHIP_NEW" || $transType === "MEMBERSHIP_RENEW")
+                {
+                    $person = $trans->getPerson();
+
+                    if ($person instanceof Person) {
+                        $person->setActivenow(true);
+                        $em->persist($person);
+                    }
+                }
 
                 $trans->setProcTranId($procId)
                       ->setStatus("PROCESSED")
