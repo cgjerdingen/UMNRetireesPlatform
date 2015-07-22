@@ -39,7 +39,7 @@ class TransController extends Controller
 
             $filterBuilder = $em->getRepository('UMRAMemberBundle:Trans')
                                 ->createQueryBuilder('t')
-                                ->orderBy('t.trandate', 'DESC');
+                                ->orderBy('t.id', 'DESC');
 
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
 
