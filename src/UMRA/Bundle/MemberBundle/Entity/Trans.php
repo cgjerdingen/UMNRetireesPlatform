@@ -91,6 +91,13 @@ class Trans
     private $procTranId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="InvoiceID", type="string", length=255, nullable=true, options={"comment":"Invoice ID for tracking transactions with a payment processor"})
+     */
+    private $invoiceId;
+
+    /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Person
      *
      * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person", inversedBy="transactions")
@@ -165,7 +172,7 @@ class Trans
     /**
      * Get trandate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTrandate()
     {
@@ -188,7 +195,7 @@ class Trans
     /**
      * Get trantype
      *
-     * @return string 
+     * @return string
      */
     public function getTrantype()
     {
@@ -234,7 +241,7 @@ class Trans
     /**
      * Get pmtmethod
      *
-     * @return string 
+     * @return string
      */
     public function getPmtmethod()
     {
@@ -257,7 +264,7 @@ class Trans
     /**
      * Get servicechg
      *
-     * @return string 
+     * @return string
      */
     public function getServicechg()
     {
@@ -303,7 +310,7 @@ class Trans
     /**
      * Get notes
      *
-     * @return string 
+     * @return string
      */
     public function getNotes()
     {
@@ -372,7 +379,7 @@ class Trans
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -395,7 +402,7 @@ class Trans
     /**
      * Get reconciledDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getReconciledDate()
     {
@@ -426,9 +433,32 @@ class Trans
     }
 
     /**
+     * Set invoiceId
+     *
+     * @param string $invoiceId
+     * @return Trans
+     */
+    public function setInvoiceId($invoiceId)
+    {
+        $this->invoiceId = $invoiceId;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceId
+     *
+     * @return string
+     */
+    public function getInvoiceId()
+    {
+        return $this->invoiceId;
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
