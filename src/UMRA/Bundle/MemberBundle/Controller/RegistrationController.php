@@ -170,7 +170,7 @@ class RegistrationController extends Controller
                     $payment->create($apiContext);
                 } catch (\Exception $ex) {
                     $json = $ex->getData();
-                    $logger->error(json_decode($json));
+                    $logger->error($json);
 
                     return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
                 }
@@ -296,7 +296,7 @@ class RegistrationController extends Controller
                     $payment->create($apiContext);
                 } catch (\Exception $ex) {
                     $json = $ex->getData();
-                    $logger->error(json_decode($json));
+                    $logger->error($json);
 
                     return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
                 }
