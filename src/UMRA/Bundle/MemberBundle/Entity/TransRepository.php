@@ -19,7 +19,7 @@ class TransRepository extends EntityRepository
         return $qb
             ->select('t')
             ->from('UMRAMemberBundle:Trans', 't')
-            ->orderBy('t.trandate', 'DESC')
+            ->orderBy('t.id', 'DESC')
             ->getQuery();
     }
 
@@ -34,7 +34,7 @@ class TransRepository extends EntityRepository
             ->andWhere('t.person = :personId')
             ->setParameter('luncheonFee', "LUNCHEON_FEE")
             ->setParameter('personId', $person->getId())
-            ->orderBy('t.trandate', 'DESC')
+            ->orderBy('t.id', 'DESC')
             ->setMaxResults((int) $count)
             ->getQuery()
             ->getResult();
@@ -55,7 +55,7 @@ class TransRepository extends EntityRepository
             ->setParameter('membershipNew', "MEMBERSHIP_NEW")
             ->setParameter('membershipRenew', "MEMBERSHIP_RENEW")
             ->setParameter('personId', $person->getId())
-            ->orderBy('t.trandate', 'DESC')
+            ->orderBy('t.id', 'DESC')
             ->setMaxResults((int) $count)
             ->getQuery()
             ->getResult();
