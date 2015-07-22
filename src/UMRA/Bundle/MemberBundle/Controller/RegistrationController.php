@@ -22,7 +22,7 @@ use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 
-use Ramsey\Uuid\Uuid;
+use Rhumsaa\Uuid\Uuid;
 
 class RegistrationController extends Controller
 {
@@ -233,7 +233,7 @@ class RegistrationController extends Controller
         $isLuncheonPreorder = (bool) $options["luncheons"]["isPreorder"];
         $attendeeCount = (int) $options["luncheons"]["attendeeCount"];
         $couponCount = (int) $options["couponCount"];
-        $invoiceId = $option["invoiceId"];
+        $invoiceId = $options["invoiceId"];
 
         // Create tranaction for membership fee.
         $membershipTrans = new Trans();
