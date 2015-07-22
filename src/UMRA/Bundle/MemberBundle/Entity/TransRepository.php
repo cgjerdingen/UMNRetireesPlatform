@@ -23,7 +23,7 @@ class TransRepository extends EntityRepository
             ->getQuery();
     }
 
-    public function findLatestLuncheonFees($person, $count = 5)
+    public function findLatestLuncheonFees($person, $count = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
@@ -40,7 +40,7 @@ class TransRepository extends EntityRepository
             ->getResult();
     }
 
-    public function findLatestMembershipFees($person, $count = 5)
+    public function findLatestMembershipFees($person, $count = 10)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
 
