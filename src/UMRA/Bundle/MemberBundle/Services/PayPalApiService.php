@@ -73,26 +73,4 @@ class PayPalApiService
 
         return $items;
     }
-
-    public static function generateInvoiceId($transactions)
-    {
-        $tranIds = array();
-
-        foreach($transactions as $trans)
-        {
-            $tranIds[] = $trans->getId();
-        }
-
-        $preEncodedId = implode(";", $tranIds);
-
-        return base64_encode($preEncodedId);
-    }
-
-    public static function getIdsFromTransaction($transaction)
-    {
-        $transIdsStr = base64_decode($transaction->getInvoiceNumber());
-        $transIds = explode(";", $transIdsStr);
-
-        return $transIds;
-    }
 }
