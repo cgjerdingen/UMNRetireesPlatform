@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
+use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
 use UMRA\Bundle\MemberBundle\Form\LuncheonRegistrationType;
@@ -246,6 +247,33 @@ class PersonController extends Controller
 
         $memberFees = $transRepo->findLatestMembershipFees($user);
         $luncheonRegs = $transRepo->findLatestLuncheonFees($user);
+        $mostRecentMembershipFee = $transRepo->findLatestVerifiedMemberFee($user);
+
+        if ($mostRecentMembershipFee instanceof Trans) {
+            $lastRenewalDate = $mostRecentMembershipFee->getReconciledDate();
+            $today = new \DateTime("now");
+
+            $diff = $lastRenewalDate->diff($today);
+            $diffDays = $diff->format("a");
+
+            $diffFromRenewalMonth = $lastRenewalDate->diff(new \DateTime("first day of July this year"));
+            $diffDaysJuly = $diffFromRenewalMonth->format("a");
+
+            // It's been more than a year
+            $isMembershipSoonToExpire = $diffDaysJuly >= 335 && $diffDays < 365;
+            $isRenewalOverdue = $diff->format("a") >= 365;
+            $isRenewalMonth = $today->format("n") === "7";
+
+            // Hide renewal if user is active and their renewal is not overdue or soon to expire
+            if ($user->isActivenow() && !$isRenewalOverdue && !$isMembershipSoonToExpire) {
+                $renewalEligible = false;
+            } else {
+                $renewalEligible = true;
+            }
+        } else {
+            $renewalEligible = false;
+            $lastRenewalDate = null;
+        }
 
         return array(
             'user' => $user,
@@ -254,7 +282,9 @@ class PersonController extends Controller
             'luncheonForm' => $luncheonForm->createView(),
             'renewalForm' => $renewalForm->createView(),
             'memberFees' => $memberFees,
-            'luncheonRegs' => $luncheonRegs
+            'luncheonRegs' => $luncheonRegs,
+            'renewalEligible' => $renewalEligible,
+            'lastRenewalDate' => $lastRenewalDate
         );
     }
 
