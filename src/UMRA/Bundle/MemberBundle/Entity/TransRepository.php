@@ -30,9 +30,8 @@ class TransRepository extends EntityRepository
         return $qb
             ->select('t')
             ->from('UMRAMemberBundle:Trans', 't')
-            ->where($qb->expr()->eq('t.trantype', ':luncheonFee'))
+            ->where("t.trantype = 'LUNCHEON_FEE'")
             ->andWhere('t.person = :personId')
-            ->setParameter('luncheonFee', "LUNCHEON_FEE")
             ->setParameter('personId', $person->getId())
             ->orderBy('t.id', 'DESC')
             ->setMaxResults((int) $count)
@@ -48,16 +47,35 @@ class TransRepository extends EntityRepository
             ->select('t')
             ->from('UMRAMemberBundle:Trans', 't')
             ->where($qb->expr()->orX(
-                    $qb->expr()->eq('t.trantype', ':membershipNew'),
-                    $qb->expr()->eq('t.trantype', ':membershipRenew')
+                    $qb->expr()->eq('t.trantype', "'MEMBERSHIP_NEW'"),
+                    $qb->expr()->eq('t.trantype', "'MEMBERSHIP_RENEW'")
             ))
             ->andWhere('t.person = :personId')
-            ->setParameter('membershipNew', "MEMBERSHIP_NEW")
-            ->setParameter('membershipRenew', "MEMBERSHIP_RENEW")
             ->setParameter('personId', $person->getId())
             ->orderBy('t.id', 'DESC')
             ->setMaxResults((int) $count)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findLatestVerifiedMemberFee($person)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('t')
+            ->from('UMRAMemberBundle:Trans', 't')
+            ->where($qb->expr()->orX(
+                    $qb->expr()->eq('t.trantype', "'MEMBERSHIP_NEW'"),
+                    $qb->expr()->eq('t.trantype', "'MEMBERSHIP_RENEW'")
+            ))
+            ->andWhere("t.status = 'PROCESSED'")
+            ->andWhere('t.person = :personId')
+            ->setParameter('personId', $person->getId())
+            ->orderBy('t.reconciledDate', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 }
