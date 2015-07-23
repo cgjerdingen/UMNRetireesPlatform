@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e21b9bad65652d31f80ec79545f23264",
+    "hash": "b80367f966826c8353ef1028c600d651",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1322,17 +1322,17 @@
         },
         {
             "name": "lexik/form-filter-bundle",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "target-dir": "Lexik/Bundle/FormFilterBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "dc3fd6b79bdeb855f96488c75c0bae97a67efc52"
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/dc3fd6b79bdeb855f96488c75c0bae97a67efc52",
-                "reference": "dc3fd6b79bdeb855f96488c75c0bae97a67efc52",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/73eacc444e6f3314a5a5209cda52a58355388b66",
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66",
                 "shasum": ""
             },
             "require": {
@@ -1378,20 +1378,20 @@
                 "filter",
                 "form"
             ],
-            "time": "2015-05-29 12:20:25"
+            "time": "2015-06-12 15:46:04"
         },
         {
             "name": "monolog/monolog",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc"
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b287fbbe1ca27847064beff2bad7fb6920bf08cc",
-                "reference": "b287fbbe1ca27847064beff2bad7fb6920bf08cc",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dc5150cc608f2334c72c3b6a553ec9668a4156b0",
+                "reference": "dc5150cc608f2334c72c3b6a553ec9668a4156b0",
                 "shasum": ""
             },
             "require": {
@@ -1428,7 +1428,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.14.x-dev"
+                    "dev-master": "1.15.x-dev"
                 }
             },
             "autoload": {
@@ -1454,43 +1454,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-06-19 13:29:54"
-        },
-        {
-            "name": "moontoast/math",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ramsey/moontoast-math.git",
-                "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/moontoast-math/zipball/fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
-                "reference": "fce28a9d1e73e73376cb44e5e581675d15fbe2f3",
-                "shasum": ""
-            },
-            "require": {
-                "ext-bcmath": "*",
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Moontoast\\Math": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "A mathematics library, providing functionality for large numbers",
-            "homepage": "https://github.com/moontoast/math",
-            "keywords": [
-                "bcmath",
-                "math"
-            ],
-            "time": "2013-01-19 17:42:34"
+            "time": "2015-07-12 13:54:09"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -2615,16 +2579,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.9",
+            "version": "v2.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b06539573ccf64dd3a62852685f052553d02c5ba"
+                "reference": "e246af5f3bdf64fa5a85936ee78e3574e094cf5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b06539573ccf64dd3a62852685f052553d02c5ba",
-                "reference": "b06539573ccf64dd3a62852685f052553d02c5ba",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/e246af5f3bdf64fa5a85936ee78e3574e094cf5f",
+                "reference": "e246af5f3bdf64fa5a85936ee78e3574e094cf5f",
                 "shasum": ""
             },
             "require": {
@@ -2728,7 +2692,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-29 22:55:07"
+            "time": "2015-07-13 09:34:32"
         },
         {
             "name": "twig/extensions",

@@ -29,8 +29,7 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "lexik/form-filter-bundle": "~3.0",
         "paypal/rest-api-sdk-php" : "1.*",
-        "ramsey/uuid": "~2.8",
-        "moontoast/math": "^1.1"
+        "ramsey/uuid": "~2.8"
     },
     "scripts": {
         "post-install-cmd": [
