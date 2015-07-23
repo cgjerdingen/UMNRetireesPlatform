@@ -1,3 +1,4 @@
+{% if renewal_eligible %}
 {{ form_start(form, { action: path('UMRA_renew') }) }}
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -81,3 +82,10 @@
 	</div>
 </div>
 {{ form_end(form) }}
+{% elseif last_renewal_date != null %}
+<h4>Your membership is current.</h4>
+<p>Last Renewed on {{ last_renewal_date|date('M jS, Y') }}.</p>
+<p>Membership renewal opens up in July.</p>
+{% else %}
+<h4>You need to register for a membership</h4>
+{% endif %}
