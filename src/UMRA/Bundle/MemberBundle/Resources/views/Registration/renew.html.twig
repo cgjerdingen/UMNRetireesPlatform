@@ -3,5 +3,9 @@
 {% block title %}UMRA Membership Renewal{% endblock %}
 
 {% block body %}
-	{% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' %}
+	{% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' with {
+		'form': form,
+		'renewal_eligible': renewalEligible,
+		'last_renewal_date': lastRenewalDate
+	} %}
 {% endblock %}

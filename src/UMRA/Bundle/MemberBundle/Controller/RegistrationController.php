@@ -197,7 +197,36 @@ class RegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new RenewalType());
 
-        if ($request->getMethod() === 'POST') {
+        $mostRecentMembershipFee = $em->getRepository('UMRAMemberBundle:Trans')
+            ->findLatestVerifiedMemberFee($user);
+
+        if ($mostRecentMembershipFee instanceof Trans) {
+            $lastRenewalDate = $mostRecentMembershipFee->getReconciledDate();
+            $today = new \DateTime("now");
+
+            $diff = $lastRenewalDate->diff($today);
+            $diffDays = $diff->format("a");
+
+            $diffFromRenewalMonth = $lastRenewalDate->diff(new \DateTime("first day of July this year"));
+            $diffDaysJuly = $diffFromRenewalMonth->format("a");
+
+            // It's been more than a year
+            $isMembershipSoonToExpire = $diffDaysJuly >= 335 && $diffDays < 365;
+            $isRenewalOverdue = $diff->format("a") >= 365;
+            $isRenewalMonth = $today->format("n") === "7";
+
+            // Hide renewal if user is active and their renewal is not overdue or soon to expire
+            if ($user->isActivenow() && !$isRenewalOverdue && !$isMembershipSoonToExpire) {
+                $renewalEligible = false;
+            } else {
+                $renewalEligible = true;
+            }
+        } else {
+            $renewalEligible = false;
+            $lastRenewalDate = null;
+        }
+
+        if ($renewalEligible && $request->getMethod() === 'POST') {
             $form->handleRequest($request);
             $formData = $form->getData();
 
@@ -308,7 +337,9 @@ class RegistrationController extends Controller
         }
 
         return $this->render('UMRAMemberBundle:Registration:renew.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'renewalEligible' => $renewalEligible,
+            'lastRenewalDate' => $lastRenewalDate
         ));
     }
 
