@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Date</th>
+            <th>Type</th>
             <th>Amount</th>
             <th>Payment Method</th>
             {% if show_luncheons is defined and show_luncheons %}
@@ -13,6 +14,17 @@
     {% for entity in entities %}
         <tr>
             <td>{{ entity.trandate|date('m-d-Y') }}</td>
+            <td>
+            {% if entity.trantype == 'MEMBERSHIP_NEW' %}
+                New Membership Fee
+            {% elseif entity.trantype == 'MEMBERSHIP_RENEW' %}
+                Renewal Fee
+            {% elseif entity.trantype == 'LUNCHEON_FEE' %}
+                Luncheon Fee
+            {% else %}
+                {{ entity.trantype }}
+            {% endif %}
+            </td>
             <td>${{ entity.amount + entity.servicechg }}</td>
             <td>
             {% if entity.pmtmethod == "CREDIT_CARD" %}
