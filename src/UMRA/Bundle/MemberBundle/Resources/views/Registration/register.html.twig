@@ -42,7 +42,7 @@
 							{% do form.membershipStatus.setRendered %}
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="register[membershipStatus]" value="new" checked readonly /> New Member
+									<input type="radio" name="register[membershipStatus]" value="new" checked="checked" readonly="readonly" autocomplete="off" /> New Member
 								</label>
 							</div>
 						</div>
@@ -70,17 +70,23 @@
 							{% do form.luncheonPreorder.setRendered %}
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="register[luncheonPreorder]" ng-model="types.luncheon" value="single" /> Single ($112)
+									<input type="radio" name="register[luncheonPreorder]"
+										ng-model="types.luncheon" ng-change="costs.luncheon = 112"
+										value="single" /> Single ($112)
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="register[luncheonPreorder]" ng-model="types.luncheon" value="couple" /> Couple ($224)
+									<input type="radio" name="register[luncheonPreorder]"
+										ng-model="types.luncheon" ng-change="costs.luncheon = 224"
+										value="couple" /> Couple ($224)
 								</label>
 							</div>
 							<div class="radio-inline">
 								<label>
-									<input type="radio" name="register[luncheonPreorder]" ng-model="types.luncheon" value="none" /> Do not pre-purchase
+									<input type="radio" name="register[luncheonPreorder]"
+										ng-model="types.luncheon" ng-change="costs.luncheon = 0"
+										value="none" /> Do not pre-purchase
 								</label>
 							</div>
 						</div>
@@ -124,7 +130,7 @@
 							<div class="col-xs-4 col-sm-3">
 								<div class="input-group">
 									<span class="input-group-addon">$</span>
-									<input type="text" ng-model="costs.total" class="form-control" readonly="readonly" />
+									<input type="text" class="form-control" readonly="readonly" ng-value="getTotalCost()" />
 								</div>
 							</div>
 						</div>
