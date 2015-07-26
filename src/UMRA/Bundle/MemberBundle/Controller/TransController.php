@@ -315,6 +315,9 @@ class TransController extends Controller
 
         $transactions = array();
 
+        $title = "";
+        $contentBlockKey = "";
+
         foreach ($ppTrans as $ppTran)
         {
             $umraTrans = $em->getRepository("UMRAMemberBundle:Trans")
@@ -341,6 +344,19 @@ class TransController extends Controller
                     }
                 }
 
+                // Negotiate payment confirmation page title and content block to display
+                // Membership fees have precedence over luncheons
+                if ($transType === "MEMBERSHIP_NEW") {
+                    $title = "Thanks for Registering!";
+                    $contentBlockKey = "registration.complete";
+                } else if ($transType === "MEMBERSHIP_RENEW") {
+                    $title = "Thanks for Renewing!";
+                    $contentBlockKey = "renewal.complete";
+                } else if ($transType === "LUNCHEON_FEE" && empty($contentBlockKey) && empty($title)) {
+                    $title = "Thanks for Reserving a Luncheon Spot!";
+                    $contentBlockKey = "luncheon.reservation.complete";
+                }
+
                 $trans->setProcTranId($procId)
                       ->setStatus("PROCESSED")
                       ->setReconciledDate(new \DateTime("now"));
@@ -353,13 +369,15 @@ class TransController extends Controller
 
         $em->flush();
 
-        return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+        return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
+            'title' => empty($title) ? 'Payment Completed!' : $title,
+            'content_block_key' => $contentBlockKey,
             'transactions' => $transactions
         ));
     }
 
     public function paypalCallbackCancelAction()
     {
-        return $this->render('UMRAMemberBundle:Registration:canceled.html.twig');
+        return $this->render('UMRAMemberBundle:Payment:canceled.html.twig');
     }
 }

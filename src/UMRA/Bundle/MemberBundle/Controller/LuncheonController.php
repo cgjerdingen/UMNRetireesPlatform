@@ -295,9 +295,11 @@ class LuncheonController extends Controller
                 if ($pmtMethod === "CHECK") {
                     $em->flush();
 
-                    // TODO: Redirect somewhere more appropriate?
-
-                    return $this->redirect($this->generateUrl('UMRA_Person_Profile'));
+                    return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
+                        'title' => 'Thanks for Reserving a Luncheon Spot!',
+                        'content_block_key' => 'luncheon.reservation.complete',
+                        'transactions' => $transactions
+                    ));
                 }
 
                 $config = array(

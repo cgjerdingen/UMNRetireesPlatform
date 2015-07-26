@@ -1,19 +1,26 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}Thanks for registering!{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block body %}
 <div id="page-content-container">
     <div class="page-header">
-        <h3>Thanks for registering!</h3>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            {{ umra_content('registration.complete') }}
-        </div>
+        <h3>{{ title }}</h3>
     </div>
 
+    {% if content_block_key is defined %}
+    <div class="row">
+        <div class="col-xs-12">
+            {{ umra_content(content_block_key) }}
+        </div>
+    </div>
+    {% endif %}
+
     <h4>Payment Confirmation</h4>
+
+    <p class="lead">
+        You may wish to print this page for your records. If you chose to pay by check, you will still need to send in payment to UMRA.
+    </p>
 
     <div class="panel panel-default">
         {% include 'UMRAMemberBundle:Trans:_table.html.twig' with {

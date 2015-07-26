@@ -119,7 +119,9 @@ class RegistrationController extends Controller
                 // If it's a check, let's stop here.
                 if ($pmtMethod === "CHECK")
                 {
-                    return $this->render('UMRAMemberBundle:Registration:register_thanks.html.twig', array(
+                    return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
+                        'title' => 'Thanks for registering!',
+                        'content_block_key' => 'registration.complete',
                         'transactions' => $transactions
                     ));
                 }
@@ -274,7 +276,9 @@ class RegistrationController extends Controller
                 // If it's a check, let's stop here.
                 if ($pmtMethod === "CHECK")
                 {
-                    return $this->render('UMRAMemberBundle:Registration:renew_thanks.html.twig', array(
+                    return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
+                        'title' => 'Thanks for renewing!',
+                        'content_block_key' => 'renewal.complete',
                         'transactions' => $transactions
                     ));
                 }
