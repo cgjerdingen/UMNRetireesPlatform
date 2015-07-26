@@ -21,7 +21,7 @@ class RenewalType extends AbstractType
                     'choices' => array(
                         'single' => 'Single ($112)',
                         'couple' => 'Couple ($224)',
-                        '0' => 'Do not pre-purchase'
+                        'none' => 'Do not pre-purchase'
                     ),
                     'expanded' => true
                 ))
