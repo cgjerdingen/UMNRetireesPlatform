@@ -10,6 +10,18 @@ use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\LuncheonType;
 use UMRA\Bundle\MemberBundle\Form\LuncheonRegistrationType;
+use UMRA\Bundle\MemberBundle\Services\PayPalApiService;
+
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+
+use Rhumsaa\Uuid\Uuid;
 
 /**
  * Luncheon controller.
@@ -259,6 +271,9 @@ class LuncheonController extends Controller
 
                 $luncheon = $formData['luncheon'];
                 $members = $formData['members'];
+                $invoiceId = Uuid::uuid1()->toString();
+
+                $transactions = array();
 
                 foreach ($members as $member) {
                     $trans = new Trans();
@@ -269,15 +284,77 @@ class LuncheonController extends Controller
                           ->setPmtmethod($pmtMethod)
                           ->setAmount($luncheon->getPrice())
                           ->setLuncheon($luncheon)
+                          ->setInvoiceId($invoiceId);
                     ;
+
                     $em->persist($trans);
+
+                    $transactions[] = $trans;
                 }
 
+                if ($pmtMethod === "CHECK") {
+                    $em->flush();
+
+                    // TODO: Redirect somewhere more appropriate?
+
+                    return $this->redirect($this->generateUrl('UMRA_Person_Profile'));
+                }
+
+                $config = array(
+                    'client_id'     => $this->container->getParameter('paypal_client_id'),
+                    'client_secret' => $this->container->getParameter('paypal_client_secret'),
+                    'environment'   => $this->container->getParameter('paypal_environment')
+                );
+
+                $apiContext = PayPalApiService::getApiContext($config);
+
+                $payer = new Payer();
+                $payer->setPaymentMethod("paypal");
+
+                // Build out PayPal ItemList from transactions
+                $items = PayPalApiService::getItemsFromTransactions($transactions, 0, count($members));
+                $itemList = new ItemList();
+                $itemList->setItems($items);
+
+                $totalCost = PayPalApiService::getTotalFromItems($items);
+
+                $amount = new Amount();
+                $amount->setCurrency("USD")
+                       ->setTotal($totalCost);
+
+                $ppTransaction = new Transaction();
+                $ppTransaction->setAmount($amount)
+                              ->setItemList($itemList)
+                              ->setDescription("UMRA Luncheon Registration")
+                              ->setInvoiceNumber($invoiceId);
+
+                $baseUrl = $request->getBasePath();
+                $redirectUrls = new RedirectUrls();
+                $redirectUrls
+                  ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
+                  ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
+
+                $payment = new Payment();
+                $payment->setIntent("sale")
+                        ->setPayer($payer)
+                        ->setRedirectUrls($redirectUrls)
+                        ->setTransactions(array($ppTransaction));
+
+                try {
+                    $payment->create($apiContext);
+                } catch (\Exception $ex) {
+                    $json = $ex->getData();
+                    $logger->error($json);
+
+                    return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
+                }
+
+                $approvalUrl = $payment->getApprovalLink();
+
+                // Commit UMRA luncheon transactions now that we've got a PayPal transaction ready
                 $em->flush();
 
-                // TODO: Handle payment transaction stuff
-
-                return $this->redirect($this->generateUrl('UMRA_Person_Profile'));
+                return $this->redirect($approvalUrl);
             }
         }
 
