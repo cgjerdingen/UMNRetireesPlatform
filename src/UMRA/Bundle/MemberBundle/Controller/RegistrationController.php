@@ -41,8 +41,6 @@ class RegistrationController extends Controller
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
 
-            // TODO: Validate membershipStatus & membershipType combinations
-
             if ($form->isValid()) {
                 $userManager = $this->container->get('fos_user.user_manager');
                 $tokenGenerator = $this->container->get('fos_user.util.token_generator');
