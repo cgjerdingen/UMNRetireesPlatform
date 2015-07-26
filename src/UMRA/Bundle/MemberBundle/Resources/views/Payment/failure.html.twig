@@ -1,19 +1,21 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}An error occurred during registration{% endblock %}
+{% block title %}An error occurred!{% endblock %}
 
 {% block body %}
 <div id="page-content-container">
     <div class="page-header">
-        <h3>An error occurred during registration!</h3>
+        <h3>An error occurred while initiating payment!</h3>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <p>
+            <p class="lead">
                 We encountered an error when attempting to start the payment process with PayPal. Unfortunately, this means we could not continue to the payment process.
             </p>
             <p>
-                Your account has been created. You should have received an email with a link to set your password.
+                If you were registering for a membership, your account has been created and you should receive an email in which you can set your password.
+            </p>
+            <p>
                 You may still login to pay for a membership and luncheons at a later time.
             </p>
         </div>

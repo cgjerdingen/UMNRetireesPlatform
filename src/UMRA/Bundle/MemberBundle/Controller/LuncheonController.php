@@ -348,7 +348,7 @@ class LuncheonController extends Controller
                     $json = $ex->getData();
                     $logger->error($json);
 
-                    return $this->render('UMRAMemberBundle:Registration:register_failed.html.twig');
+                    return $this->render('UMRAMemberBundle:Payment:failure.html.twig');
                 }
 
                 $approvalUrl = $payment->getApprovalLink();
