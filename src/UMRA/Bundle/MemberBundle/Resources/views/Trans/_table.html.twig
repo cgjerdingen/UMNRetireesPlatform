@@ -5,9 +5,7 @@
             <th>Type</th>
             <th>Amount</th>
             <th>Payment Method</th>
-            {% if show_luncheons is defined and show_luncheons %}
-            <th>Luncheon</th>
-            {% endif %}
+            <th>Details</th>
         </tr>
     </thead>
     <tbody>
@@ -35,9 +33,12 @@
                 Other
             {% endif %}
             </td>
-            {% if show_luncheons is defined and show_luncheons %}
-            <td>{{ entity.luncheon }}</td>
-            {% endif %}
+
+            <td>
+              {% if show_luncheons is defined and show_luncheons %}
+                {{ entity.luncheon }}
+              {% endif %}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
