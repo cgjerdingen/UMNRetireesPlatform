@@ -53,7 +53,7 @@ services:
 
     umra_member.twig_extensions:
         class: UMRA\Bundle\MemberBundle\Services\TwigExtensions
-        arguments: ["@doctrine.orm.default_entity_manager"]
+        arguments: ["@doctrine.orm.default_entity_manager", "@logger"]
         public: false
         tags:
             - { name: twig.extension }

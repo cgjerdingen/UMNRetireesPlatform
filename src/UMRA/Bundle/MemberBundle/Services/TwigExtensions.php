@@ -7,9 +7,11 @@ use UMRA\Bundle\MemberBundle\Entity\ContentBlock;
 class TwigExtensions extends \Twig_Extension
 {
     private $em;
+    private $logger;
 
-    public function __construct(ObjectManager $em) {
+    public function __construct(ObjectManager $em, $logger) {
         $this->em = $em;
+        $this->logger = $logger;
     }
 
     public function umraContent($contentName) {
@@ -18,7 +20,8 @@ class TwigExtensions extends \Twig_Extension
         $contentBlock = $contentRepo->findOneBy(array('name' => $contentName));
 
         if (!$contentBlock instanceof ContentBlock) {
-            throw new Exception("ContentBlock with name ".$contentName." not found!");
+            $this->logger->warn("ContentBlock with name ".$contentName." not found!");
+            return "";
         }
 
         return $contentBlock->getContent();
