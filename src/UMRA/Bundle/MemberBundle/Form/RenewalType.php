@@ -19,8 +19,8 @@ class RenewalType extends AbstractType
                 ))
                 ->add('luncheonPreorder', 'choice', array(
                     'choices' => array(
-                        '112' => 'Single ($112)',
-                        '224' => 'Couple ($224)',
+                        'single' => 'Single ($112)',
+                        'couple' => 'Couple ($224)',
                         '0' => 'Do not pre-purchase'
                     ),
                     'expanded' => true

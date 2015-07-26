@@ -87,12 +87,12 @@ class RegistrationController extends Controller
                 $membershipStatus = $formData['membershipStatus'] === "new"
                     ? "MEMBERSHIP_NEW"
                     : "MEMBERSHIP_RENEW";
-                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
+                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "none";
                 $couponCount = (int) $formData["parkingCoupon"];
 
-                if ($formData["luncheonPreorder"] == "112") {
+                if ($formData["luncheonPreorder"] === "single") {
                     $luncheonPeopleCount = 1;
-                } elseif ($formData["luncheonPreorder"] == "224") {
+                } elseif ($formData["luncheonPreorder"] === "couple") {
                     $luncheonPeopleCount = 2;
                 } else {
                     $luncheonPeopleCount = 0;
@@ -142,7 +142,7 @@ class RegistrationController extends Controller
                 $itemList = new ItemList();
                 $itemList->setItems($items);
 
-                $totalCost = ((float) $membershipCost) + ((float) $formData["luncheonPreorder"]);
+                $totalCost = PayPalApiService::getTotalFromItems($items);
 
                 $amount = new Amount();
                 $amount->setCurrency("USD")
@@ -242,12 +242,12 @@ class RegistrationController extends Controller
                     ? "CREDIT_CARD"
                     : "CHECK";
                 $membershipCost = $formData['membershipType'];
-                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "0";
+                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "none";
                 $couponCount = (int) $formData["parkingCoupon"];
 
-                if ($formData["luncheonPreorder"] == "112") {
+                if ($formData["luncheonPreorder"] === "single") {
                     $luncheonPeopleCount = 1;
-                } elseif ($formData["luncheonPreorder"] == "224") {
+                } elseif ($formData["luncheonPreorder"] === "couple") {
                     $luncheonPeopleCount = 2;
                 } else {
                     $luncheonPeopleCount = 0;
@@ -297,7 +297,7 @@ class RegistrationController extends Controller
                 $itemList = new ItemList();
                 $itemList->setItems($items);
 
-                $totalCost = ((float) $membershipCost) + ((float) $formData["luncheonPreorder"]);
+                $totalCost = PayPalApiService::getTotalFromItems($items);
 
                 $amount = new Amount();
                 $amount->setCurrency("USD")

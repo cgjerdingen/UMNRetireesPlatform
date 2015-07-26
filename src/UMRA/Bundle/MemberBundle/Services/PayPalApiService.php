@@ -73,4 +73,16 @@ class PayPalApiService
 
         return $items;
     }
+
+    public static function getTotalFromItems($items)
+    {
+        $totalCost = 0.0;
+
+        foreach($items as $item)
+        {
+            $totalCost += (float) $item->getPrice();
+        }
+
+        return $totalCost;
+    }
 }
