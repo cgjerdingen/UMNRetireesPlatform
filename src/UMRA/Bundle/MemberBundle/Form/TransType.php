@@ -31,7 +31,9 @@ class TransType extends AbstractType
                     'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
                 ))
             ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
-            ->add('notes', 'textarea')
+            ->add('notes', 'textarea', array(
+                    'required' => false
+                ))
         ;
     }
 
