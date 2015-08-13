@@ -18,7 +18,13 @@ class TransType extends AbstractType
             ->add('trandate', null, array('label' => 'Transaction Date'))
             ->add('trantype', 'choice', array(
                     'label' => 'Transaction Type',
-                    'choices' => array('MEMBERSHIP_NEW' => 'New Membership', 'MEMBERSHIP_RENEW' => 'Membership Renewal', 'LUNCHEON_FEE' => 'Luncheon Fee', 'OTHER' => 'Other'),
+                    'choices' => array(
+                        'MEMBERSHIP_NEW' => 'New Membership',
+                        'MEMBERSHIP_RENEW' => 'Membership Renewal',
+                        'LUNCHEON_FEE' => 'Luncheon Fee',
+                        'PARKING_PASS' => 'Parking Pass',
+                        'OTHER' => 'Other'
+                    ),
                 ))
             ->add('amount')
             ->add('pmtmethod', 'choice', array(

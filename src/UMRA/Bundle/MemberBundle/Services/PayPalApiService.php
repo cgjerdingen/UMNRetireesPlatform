@@ -55,12 +55,11 @@ class PayPalApiService
                      ->setPrice((float) $luncheon->getPrice())
                 ;
             }
-            else
+            elseif ($transType === "PARKING_PASS")
             {
                 if ($couponCount > 0)
                 {
-                    // Coupons are processed seperately, so no need for postback data
-                    $item->setName('Free Parking Coupons')
+                    $item->setName('Free Parking Passes')
                          ->setCurrency('USD')
                          ->setQuantity($couponCount)
                          ->setPrice(0)

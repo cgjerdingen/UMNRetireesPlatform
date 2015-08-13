@@ -396,7 +396,7 @@ class RegistrationController extends Controller
         if ($couponCount > 0) {
             $couponTrans = new Trans();
             $couponTrans->setPerson($member)
-                        ->setTrantype("OTHER")
+                        ->setTrantype("PARKING_PASS")
                         ->setTrandate(new \DateTime("now"))
                         ->setStatus("AWAITING_PROCESS")
                         ->setPmtmethod("OTHER")

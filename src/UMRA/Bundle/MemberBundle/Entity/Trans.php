@@ -24,7 +24,7 @@ class Trans
     /**
      * @var string
      *
-     * @Assert\Choice(choices = {"MEMBERSHIP_NEW", "MEMBERSHIP_RENEW", "LUNCHEON_FEE", "OTHER"}, message = "Must be 'new membership', 'membership renewal', 'luncheon fee', and 'other'.")
+     * @Assert\Choice(choices = {"MEMBERSHIP_NEW", "MEMBERSHIP_RENEW", "LUNCHEON_FEE", "PARKING_PASS", "OTHER"}, message = "Must be 'new membership', 'membership renewal', 'luncheon fee', 'parking pass' and 'other'.")
      * @ORM\Column(name="Trantype", type="string", length=20, nullable=false)
      */
     private $trantype;

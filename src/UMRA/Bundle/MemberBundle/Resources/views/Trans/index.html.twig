@@ -52,6 +52,8 @@
                         Renewal
                     {% elseif entity.trantype == 'LUNCHEON_FEE' %}
                         Luncheon Fee
+                    {% elseif entity.trantype == 'PARKING_PASS' %}
+                        Parking Pass
                     {% else %}
                         {{ entity.trantype }}
                     {% endif %}
@@ -77,7 +79,7 @@
                         </span>
                     {% else %}
                         <span class="label label-warning">
-                            AWAITING PROCESS
+                            AWAITING<br /> PROCESS
                         </span>
                     {% endif %}
                     </td>

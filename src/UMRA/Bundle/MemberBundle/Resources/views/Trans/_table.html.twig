@@ -19,6 +19,8 @@
                 Renewal Fee
             {% elseif entity.trantype == 'LUNCHEON_FEE' %}
                 Luncheon Fee
+            {% elseif entity.trantype == 'PARKING_PASS' %}
+                Parking Pass
             {% else %}
                 {{ entity.trantype }}
             {% endif %}
