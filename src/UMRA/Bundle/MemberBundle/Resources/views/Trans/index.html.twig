@@ -48,13 +48,13 @@
                     </td>
                     <td>
                     {% if entity.trantype == 'MEMBERSHIP_NEW' %}
-                        New Member
+                        New<br />Member
                     {% elseif entity.trantype == 'MEMBERSHIP_RENEW' %}
                         Renewal
                     {% elseif entity.trantype == 'LUNCHEON_FEE' %}
-                        Luncheon Fee
+                        Luncheon<br />Fee
                     {% elseif entity.trantype == 'PARKING_PASS' %}
-                        Parking Pass
+                        Parking<br />Pass
                     {% else %}
                         {{ entity.trantype }}
                     {% endif %}
@@ -85,7 +85,7 @@
                         </span>
                     {% else %}
                         <span class="label label-warning">
-                            AWAITING<br /> PROCESS
+                            AWAITING PROCESS
                         </span>
                     {% endif %}
                     </td>
