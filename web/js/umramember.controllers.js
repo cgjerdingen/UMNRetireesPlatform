@@ -17,7 +17,7 @@
             };
 
             $scope.types = {
-                luncheon: null
+                luncheon: "none"
             };
 
             $scope.counts = {
@@ -25,7 +25,7 @@
                 parkingCoupons: 0
             };
             $scope.costs = {
-                member: 0,
+                member: 10,
                 luncheon: 0
             };
 
