@@ -49,6 +49,7 @@
                         </span>
                         {{ form_widget(member.emailCanonical) }}
                     </div>
+                    {{ form_errors(member.emailCanonical) }}
                 </div>
                 {% endif %}
                 {% if member.activenow is defined %}
