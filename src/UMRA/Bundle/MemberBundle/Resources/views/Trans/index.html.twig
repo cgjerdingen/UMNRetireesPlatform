@@ -31,6 +31,7 @@
                     <th>Type</th>
                     <th>Amount</th>
                     <th>Payment Method</th>
+                    <th>Member</th>
                     <th>Status</th>
                     <th>Reconciled by</th>
                     <th>PayPal Transaction ID</th>
@@ -66,6 +67,11 @@
                         <span class="fa fa-bank"></span> Check
                     {% else %}
                         <span class="fa fa-money"></span> Other
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if entity.person %}
+                        {{ entity.person.fullname }}
                     {% endif %}
                     </td>
                     <td class="row-status" data-trans-id="{{ entity.id }}">
