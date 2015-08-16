@@ -18,7 +18,6 @@ use UMRA\Bundle\MemberBundle\Form\FullHouseholdType;
  */
 class HouseholdController extends Controller
 {
-
     /**
      * Lists all Household entities.
      *
@@ -50,14 +49,12 @@ class HouseholdController extends Controller
 
             // now look at the DQL =)
             $query = $filterBuilder->getQuery();
-            $dql = $filterBuilder->getDql();
         } else {
-            $query = $em->getRepository('UMRAMemberBundle:Household')->findAll();
-            $dql = "";
+            $query = $em->getRepository('UMRAMemberBundle:Household')->queryAll();
         }
 
         if ($request->getRequestFormat() === "csv") {
-            $entities = $query->getQuery()->getResult();
+            $entities = $query->getResult();
 
             $filename = "umra_members_".date("Y_m_d_His").".csv";
 
@@ -84,7 +81,6 @@ class HouseholdController extends Controller
 
         return array(
             'form' => $form->createView(),
-            'dql' => $dql,
             'entities' => $entities,
         );
     }

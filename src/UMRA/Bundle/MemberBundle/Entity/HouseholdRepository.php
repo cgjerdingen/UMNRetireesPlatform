@@ -9,6 +9,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class HouseholdRepository extends EntityRepository
 {
+    public function queryAll()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        return $qb
+            ->select('h')
+            ->from('UMRAMemberBundle:Household', 'h')
+            ->orderBy('h.lastname', 'DESC')
+            ->getQuery();
+    }
+
     public function queryBuilderFindByName($qb, $searchTerms)
     {
         $likeTerms = '%'.$searchTerms.'%';
