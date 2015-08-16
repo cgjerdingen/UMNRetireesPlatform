@@ -1,6 +1,11 @@
 <script id="tpl-residence-group" type="text/ng-template">
     <div class="list-group-item">
-        <h5>Residence __num__</h5>
+        <h5>
+          Residence __num__
+          <button class="btn-residence-del close pull-right" type="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </h5>
         <div class="form-group">
             {{ form_label(residences.vars.prototype.address1) }}
             {{ form_widget(residences.vars.prototype.address1) }}

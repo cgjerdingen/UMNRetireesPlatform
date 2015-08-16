@@ -1,15 +1,12 @@
 jQuery(document).ready(function() {
-	var $personCollectionHolder;
-	var $addPersonBtn;
-	$addPersonBtn = $('#person-add');
-	// Get the div that holds the collection of members
-	$personCollectionHolder = $('#members-list-group');
+	var $personCollectionHolder = $('#members-list-group');
+	var $addPersonBtn = $('#person-add');
 
 	$personCollectionHolder.on('click', '.btn-person-del', function (e) {
 		e.preventDefault();
 
 		$(this).parents('.list-group-item').remove();
-	})
+	});
 
 	// count the current member field groups we have (e.g. 2), use that as the new
 	// index when inserting a new item (e.g. 2)

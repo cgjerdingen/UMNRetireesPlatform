@@ -5,6 +5,12 @@ jQuery(document).ready(function() {
 	// Get the div that holds the collection of members
 	$resCollectionHolder = $('#res-list-group');
 
+	$resCollectionHolder.on('click', '.btn-residence-del', function (e) {
+		e.preventDefault();
+
+		$(this).parents('.list-group-item').remove();
+	});
+
 	// count the current member field groups we have (e.g. 2), use that as the new
 	// index when inserting a new item (e.g. 2)
 	$resCollectionHolder.data('index', $resCollectionHolder.children('.list-group-item').length);

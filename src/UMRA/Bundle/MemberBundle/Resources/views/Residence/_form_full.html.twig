@@ -7,6 +7,11 @@
         <div class="list-group-item">
             <h4>
                 <span class="label label-success">Residence {{ loop.index }}</span>
+                {% if allow_delete is defined and allow_delete %}
+                <button class="btn-residence-del close pull-right" type="button" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {% endif %}
             </h4>
 
             {{ form_errors(residence) }}
