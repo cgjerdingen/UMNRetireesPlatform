@@ -284,7 +284,8 @@ class PersonController extends Controller
             'memberFees' => $memberFees,
             'luncheonRegs' => $luncheonRegs,
             'renewalEligible' => $renewalEligible,
-            'lastRenewalDate' => $lastRenewalDate
+            'lastRenewalDate' => $lastRenewalDate,
+            'tab' => $request->query->get("tab", "overview")
         );
     }
 
