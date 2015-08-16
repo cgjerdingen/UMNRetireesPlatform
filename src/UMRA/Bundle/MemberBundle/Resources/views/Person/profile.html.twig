@@ -1,7 +1,6 @@
 {% extends '::base.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
 
-
 {% block body %}
     {% block fos_user_content %}
     <ul class="nav nav-tabs">
@@ -9,7 +8,9 @@
           <a href="?tab=overview" data-toggle="tab" data-target="#overview">Overview</a>
         </li>
         <li {% if tab == "household" %}class="active"{% endif %}>
-          <a href="?tab=household" data-toggle="tab" data-target="#household">Household Details</a>
+          <a href="{{ path('UMRA_Household_edit_full', { id: user.household.id })}}">
+            Household Details
+          </a>
         </li>
         <li {% if tab == "renewals" %}class="active"{% endif %}>
           <a href="?tab=renewals" data-toggle="tab" data-target="#renewals">Membership Renewal</a>
@@ -24,10 +25,6 @@
     <div class="tab-content">
         <div class="tab-pane fade {% if tab == "overview" %}in active{% endif %}" id="overview">
             {% include 'UMRAMemberBundle:Person:detail.html.twig' with { 'entity': user } %}
-        </div>
-        <div class="tab-pane fade {% if tab == "household" %}in active{% endif %}" id="household">
-            <br />
-            {% include 'UMRAMemberBundle:Household:detail.html.twig' with { 'entity': user.household } %}
         </div>
         <div class="tab-pane fade {% if tab == "renewals" %}in active{% endif %}" id="renewals">
             <br />
