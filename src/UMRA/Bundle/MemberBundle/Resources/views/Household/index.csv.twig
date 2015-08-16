@@ -1,6 +1,6 @@
 Household ID, Last Name, First Name, Nametag Name, PriSec, Active, Primary Email
 {% for household in entities %}
 {% for member in household.persons %}
-{{ household.id}}, "{{member.firstname}}", "{{member.lastname}}", "{{member.nametagname}}", {{member.secondary ? "" : "Retiree"}}, {{member.activenow ? "Yes" : "No"}}, {{member.emailCanonical}}
+{{ household.id}}, "{{member.firstname}}", "{{member.lastname}}", "{{member.nametagname}}", "{{member.secondary ? "" : "Retiree"}}", {{member.activenow ? "Yes" : "No"}}, "{{member.emailCanonical}}"
 {% endfor %}
 {% endfor %}
