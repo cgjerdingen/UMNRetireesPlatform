@@ -1,0 +1,4 @@
+Date, Type, Amount, Payment Method, Details, Notes
+{% for entity in entities %}
+"{{ entity.trandate|date('m-d-Y') }}","{% if entity.trantype == 'MEMBERSHIP_NEW' %}New Membership Fee{% elseif entity.trantype == 'MEMBERSHIP_RENEW' %}Renewal Fee{% elseif entity.trantype == 'LUNCHEON_FEE' %}Luncheon Fee{% elseif entity.trantype == 'PARKING_PASS' %}Parking Pass{% else %}{{ entity.trantype }}{% endif %}", "${{ entity.amount + entity.servicechg }}","{% if entity.pmtmethod == "CREDIT_CARD" %}Credit Card / PayPal{% elseif entity.pmtmethod == "CHECK" %}Check{% else %}Other{% endif %}", "{% if show_luncheons is defined and show_luncheons %}{{ entity.luncheon }}{% endif %}"
+{% endfor %}

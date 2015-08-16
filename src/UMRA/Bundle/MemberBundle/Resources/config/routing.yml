@@ -207,9 +207,11 @@ UMRA_Trans_new:
     defaults: { _controller: UMRAMemberBundle:Trans:new }
     methods: [GET]
 UMRA_Trans:
-    pattern:  /transactions
-    defaults: { _controller: UMRAMemberBundle:Trans:index }
+    pattern:  /transactions.{_format}
+    defaults: { _controller: UMRAMemberBundle:Trans:index, _format: html }
     methods: [GET]
+    requirements:
+        _format: "html|csv"
 UMRA_Trans_paypal_callback_success:
     pattern: /transaction/paypal/callback/success
     defaults: { _controller: UMRAMemberBundle:Trans:paypalCallbackSuccess }

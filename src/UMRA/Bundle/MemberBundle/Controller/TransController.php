@@ -48,6 +48,28 @@ class TransController extends Controller
             $query = $em->getRepository('UMRAMemberBundle:Trans')->queryAll();
         }
 
+        if ($request->getRequestFormat() === "csv") {
+            $entities = $query->getResult();
+
+            $filename = "umra_transactions_".date("Y_m_d_His").".csv";
+
+            $response = $this->render('UMRAMemberBundle:Trans:index.csv.twig', array('entities' => $entities));
+
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Description', 'UMRA Transactions Export');
+            $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            $response->prepare($request);
+            $response->sendHeaders();
+            $response->sendContent();
+
+            return $response;
+        }
+
         $paginator  = $this->get('knp_paginator');
 
         $entities = $paginator->paginate($query, $request->query->get('page', 1), 25);
