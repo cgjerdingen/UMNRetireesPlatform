@@ -16,7 +16,7 @@ class HouseholdRepository extends EntityRepository
         return $qb
             ->select('h')
             ->from('UMRAMemberBundle:Household', 'h')
-            ->orderBy('h.lastname', 'DESC')
+            ->orderBy('h.lastname', 'ASC')
             ->getQuery();
     }
 
