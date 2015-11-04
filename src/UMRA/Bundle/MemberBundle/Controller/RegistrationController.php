@@ -115,8 +115,7 @@ class RegistrationController extends Controller
 
     public function renewAction(Request $request)
     {
-        $logger = $this->get('logger');
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         if (!$user instanceof Person) {
             throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
