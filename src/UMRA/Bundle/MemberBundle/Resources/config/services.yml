@@ -45,6 +45,10 @@ services:
         class: UMRA\Bundle\MemberBundle\Handlers\PersonCreateHandler
         arguments: ["@doctrine.orm.default_entity_manager", "@fos_user.user_manager", "@fos_user.util.token_generator", "@logger"]
 
+    umra_member.handlers.membership_transaction_builder:
+        class: UMRA\Bundle\MemberBundle\Handlers\MembershipTransactionBuilder
+        arguments: [ @doctrine.orm.default_entity_manager ]
+
     umra_member.listeners.person_ensure_password:
         class: UMRA\Bundle\MemberBundle\EventListeners\PersonEnsurePasswordListener
         arguments: ["@logger"]

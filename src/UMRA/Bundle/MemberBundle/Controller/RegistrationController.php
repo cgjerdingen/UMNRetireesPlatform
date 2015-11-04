@@ -345,72 +345,9 @@ class RegistrationController extends Controller
         ));
     }
 
-    private function processMembershipTransactions($em, Person $member, array $options)
-    {
-        $transactions = array();
 
-        $pmtMethod = $options["pmtMethod"];
-        $membershipType = $options["membership"]["type"];
-        $membershipCost = (float) $options["membership"]["cost"];
-        $isLuncheonPreorder = (bool) $options["luncheons"]["isPreorder"];
-        $attendeeCount = (int) $options["luncheons"]["attendeeCount"];
-        $couponCount = (int) $options["couponCount"];
-        $invoiceId = $options["invoiceId"];
-
-        // Create tranaction for membership fee.
-        $membershipTrans = new Trans();
-        $membershipTrans->setPerson($member)
-                        ->setTrantype($membershipType)
-                        ->setTrandate(new \DateTime("now"))
-                        ->setStatus("AWAITING_PROCESS")
-                        ->setPmtmethod($pmtMethod)
-                        ->setAmount($membershipCost)
-                        ->setInvoiceId($invoiceId)
-        ;
-        $em->persist($membershipTrans);
-        $transactions[] = $membershipTrans;
-
-        if ($isLuncheonPreorder) {
-            $luncheons = $em->getRepository('UMRAMemberBundle:Luncheon')
-                            ->findLatestLuncheons(7, true, new \DateTime("now"));
-
-            // Create transactions for luncheons
-            foreach ($luncheons as $luncheon) {
-                $trans = new Trans();
-                $trans->setPerson($member)
-                      ->setTrantype("LUNCHEON_FEE")
-                      ->setTrandate(new \DateTime("now"))
-                      ->setStatus("AWAITING_PROCESS")
-                      ->setPmtmethod($pmtMethod)
-                      ->setAmount($luncheon->getPrice() * $attendeeCount)
-                      ->setLuncheon($luncheon)
-                      ->setNotes("$attendeeCount attendees")
-                      ->setInvoiceId($invoiceId)
-                ;
-                $em->persist($trans);
-
-                $transactions[] = $trans;
-            }
         }
 
-        if ($couponCount > 0) {
-            $couponTrans = new Trans();
-            $couponTrans->setPerson($member)
-                        ->setTrantype("PARKING_PASS")
-                        ->setTrandate(new \DateTime("now"))
-                        ->setStatus("AWAITING_PROCESS")
-                        ->setPmtmethod("OTHER")
-                        ->setAmount(0)
-                        ->setNotes("$couponCount free parking coupons")
-                        ->setInvoiceId($invoiceId)
-            ;
-            $em->persist($couponTrans);
 
-            $transactions[] = $couponTrans;
-        }
-
-        $em->flush();
-
-        return $transactions;
     }
 }
