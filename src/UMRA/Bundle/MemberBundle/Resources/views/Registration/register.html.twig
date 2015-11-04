@@ -13,7 +13,7 @@
 		{{ form_start(form, { action: path('UMRA_register') }) }}
 			{{ form_errors(form) }}
 
-			{% if form.household %}
+			{% if form.household is defined %}
 			{{ form_widget(form.household.firstname, { type: 'hidden', attr: {
 				'ng-value': 'household.members[0].firstname'}
 				})
@@ -24,7 +24,7 @@
 			}}
 			{% endif %}
 
-			{% if form.members %}
+			{% if form.members is defined %}
 			{% include 'UMRAMemberBundle:Person:_form_full.html.twig' with {
 				'members': form.members,
 				'allow_add': true,
@@ -32,7 +32,7 @@
 			} %}
 			{% endif %}
 
-			{% if form.residences %}
+			{% if form.residences is defined %}
 			{{ form_row(form.household.postalname, { attr: { 'ng-model': 'household.postalname' }}) }}
 			{% include 'UMRAMemberBundle:Residence:_form_full.html.twig' with {
 				'residences': form.residences,
@@ -148,12 +148,12 @@
 {% endblock %}
 
 {% block javascripts %}
-	{% if form.members %}
+	{% if form.members is defined %}
 		{% include 'UMRAMemberBundle:Person:_form_prototype.html.twig' with { 'persons': form.members } %}
 		<script type="text/javascript" src="{{ asset('js/umramember.jquery.personcollection.js') }}"></script>
 	{% endif %}
 
-	{% if form.residences %}
+	{% if form.residences is defined %}
 		{% include 'UMRAMemberBundle:Residence:_form_prototype.html.twig' with { 'residences': form.residences } %}
 		<script type="text/javascript" src="{{ asset('js/umramember.jquery.residencecollection.js') }}"></script>
 	{% endif %}
