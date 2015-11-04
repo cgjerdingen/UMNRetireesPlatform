@@ -126,58 +126,7 @@ class RegistrationController extends Controller
                     ));
                 }
 
-                $config = array(
-                    'client_id'     => $this->container->getParameter('paypal_client_id'),
-                    'client_secret' => $this->container->getParameter('paypal_client_secret'),
-                    'environment'   => $this->container->getParameter('paypal_environment')
-                );
-
-                $apiContext = PayPalApiService::getApiContext($config);
-
-                $payer = new Payer();
-                $payer->setPaymentMethod("paypal");
-
-                // Build out PayPal ItemList from transactions
-                $items = PayPalApiService::getItemsFromTransactions($transactions, $couponCount, $luncheonPeopleCount);
-                $itemList = new ItemList();
-                $itemList->setItems($items);
-
-                $totalCost = PayPalApiService::getTotalFromItems($items);
-
-                $amount = new Amount();
-                $amount->setCurrency("USD")
-                       ->setTotal($totalCost);
-
-                $ppTransaction = new Transaction();
-                $ppTransaction->setAmount($amount)
-                              ->setItemList($itemList)
-                              ->setDescription("UMRA Membership")
-                              ->setInvoiceNumber($invoiceId);
-
-                $baseUrl = $request->getBasePath();
-                $redirectUrls = new RedirectUrls();
-                $redirectUrls
-                  ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
-                  ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
-
-                $payment = new Payment();
-                $payment->setIntent("sale")
-                        ->setPayer($payer)
-                        ->setRedirectUrls($redirectUrls)
-                        ->setTransactions(array($ppTransaction));
-
-                try {
-                    $payment->create($apiContext);
-                } catch (\Exception $ex) {
-                    $json = $ex->getData();
-                    $logger->error($json);
-
-                    return $this->render('UMRAMemberBundle:Payment:failure.html.twig');
-                }
-
-                $approvalUrl = $payment->getApprovalLink();
-
-                return $this->redirect($approvalUrl);
+                return $this->processPaypal($transactions, $transOptions);
             }
         }
 
@@ -283,58 +232,7 @@ class RegistrationController extends Controller
                     ));
                 }
 
-                $config = array(
-                    'client_id'     => $this->container->getParameter('paypal_client_id'),
-                    'client_secret' => $this->container->getParameter('paypal_client_secret'),
-                    'environment'   => $this->container->getParameter('paypal_environment')
-                );
-
-                $apiContext = PayPalApiService::getApiContext($config);
-
-                $payer = new Payer();
-                $payer->setPaymentMethod("paypal");
-
-                // Build out PayPal ItemList from transactions
-                $items = PayPalApiService::getItemsFromTransactions($transactions, $couponCount, $luncheonPeopleCount);
-                $itemList = new ItemList();
-                $itemList->setItems($items);
-
-                $totalCost = PayPalApiService::getTotalFromItems($items);
-
-                $amount = new Amount();
-                $amount->setCurrency("USD")
-                       ->setTotal($totalCost);
-
-                $ppTransaction = new Transaction();
-                $ppTransaction->setAmount($amount)
-                              ->setItemList($itemList)
-                              ->setDescription("UMRA Membership")
-                              ->setInvoiceNumber($invoiceId);
-
-                $baseUrl = $request->getBasePath();
-                $redirectUrls = new RedirectUrls();
-                $redirectUrls
-                  ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
-                  ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
-
-                $payment = new Payment();
-                $payment->setIntent("sale")
-                        ->setPayer($payer)
-                        ->setRedirectUrls($redirectUrls)
-                        ->setTransactions(array($ppTransaction));
-
-                try {
-                    $payment->create($apiContext);
-                } catch (\Exception $ex) {
-                    $json = $ex->getData();
-                    $logger->error($json);
-
-                    return $this->render('UMRAMemberBundle:Payment:failure.html.twig');
-                }
-
-                $approvalUrl = $payment->getApprovalLink();
-
-                return $this->redirect($approvalUrl);
+                return $this->processPaypal($transactions, $transOptions);
             }
         }
 
@@ -345,9 +243,63 @@ class RegistrationController extends Controller
         ));
     }
 
+    private function processPaypal(array $transactions, array $transOptions) {
+        $logger = $this->get('logger');
 
+        $config = array(
+            'client_id'     => $this->container->getParameter('paypal_client_id'),
+            'client_secret' => $this->container->getParameter('paypal_client_secret'),
+            'environment'   => $this->container->getParameter('paypal_environment')
+        );
+
+        $apiContext = PayPalApiService::getApiContext($config);
+
+        $payer = new Payer();
+        $payer->setPaymentMethod("paypal");
+
+        // Build out PayPal ItemList from transactions
+        $items = PayPalApiService::getItemsFromTransactions(
+            $transactions,
+            $transOptions["couponCount"],
+            $transOptions["luncheons"]["attendeeCount"]
+        );
+        $itemList = new ItemList();
+        $itemList->setItems($items);
+
+        $totalCost = PayPalApiService::getTotalFromItems($items);
+
+        $amount = new Amount();
+        $amount->setCurrency("USD")
+            ->setTotal($totalCost);
+
+        $ppTransaction = new Transaction();
+        $ppTransaction->setAmount($amount)
+            ->setItemList($itemList)
+            ->setDescription("UMRA Membership")
+            ->setInvoiceNumber($transOptions["invoiceId"]);
+
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls
+            ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
+            ->setCancelUrl($this->generateUrl("UMRA_Trans_paypal_callback_cancel", array(), true));
+
+        $payment = new Payment();
+        $payment->setIntent("sale")
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions(array($ppTransaction));
+
+        try {
+            $payment->create($apiContext);
+        } catch (\Exception $ex) {
+            $json = $ex->getData();
+            $logger->error($json);
+
+            return $this->render('UMRAMemberBundle:Payment:failure.html.twig');
         }
 
+        $approvalUrl = $payment->getApprovalLink();
 
+        return $this->redirect($approvalUrl);
     }
 }
