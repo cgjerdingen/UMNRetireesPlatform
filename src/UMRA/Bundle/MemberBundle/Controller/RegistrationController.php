@@ -78,46 +78,18 @@ class RegistrationController extends Controller
                     $userMailer->sendResettingEmailMessage($user);
                 }
 
-                $pmtMethod = $form->get('payCreditCard')->isClicked()
-                    ? "CREDIT_CARD"
-                    : "CHECK";
-                $membershipCost = $formData['membershipType'];
-                $membershipStatus = $formData['membershipStatus'] === "new"
-                    ? "MEMBERSHIP_NEW"
-                    : "MEMBERSHIP_RENEW";
-                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "none";
-                $couponCount = (int) $formData["parkingCoupon"];
-
-                if ($formData["luncheonPreorder"] === "single") {
-                    $luncheonPeopleCount = 1;
-                } elseif ($formData["luncheonPreorder"] === "couple") {
-                    $luncheonPeopleCount = 2;
+                    // The "member" is to be the first person specified
+                    $member = $formData["members"][0];
                 } else {
-                    $luncheonPeopleCount = 0;
+                    $member = $this->get('security.token_storage')->getToken()->getUser();
                 }
 
-                $invoiceId = Uuid::uuid1()->toString();
+                $transOptions = $transBuilder->buildOptions($form);
 
-                $transOptions = array(
-                    "pmtMethod" => $pmtMethod,
-                    "membership" => array(
-                        "cost" => $membershipCost,
-                        "type" => $membershipStatus
-                    ),
-                    "luncheons" => array(
-                        "isPreorder" => $isLuncheonPreorder,
-                        "attendeeCount" => $luncheonPeopleCount
-                    ),
-                    "couponCount" => $couponCount,
-                    "invoiceId" => $invoiceId
-                );
-
-                $transactions = $this->processMembershipTransactions(
-                    $em, $member, $transOptions
-                );
+                $transactions = $transBuilder->build($member, $transOptions);
 
                 // If it's a check, let's stop here.
-                if ($pmtMethod === "CHECK")
+                if ($transOptions["pmtMethod"] === "CHECK")
                 {
                     return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
                         'title' => 'Thanks for registering!',
@@ -177,53 +149,16 @@ class RegistrationController extends Controller
 
         if ($renewalEligible && $request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            $formData = $form->getData();
 
             if ($form->isValid()) {
-                // Determine payment method.
-                if ($form->get('payCreditCard')->isClicked()) {
-                    $pmtMethod = 'CREDIT_CARD';
-                } else {
-                    $pmtMethod = 'CHECK';
-                }
+                $transBuilder = $this->get('umra_member.handlers.membership_transaction_builder');
 
-                $pmtMethod = $form->get('payCreditCard')->isClicked()
-                    ? "CREDIT_CARD"
-                    : "CHECK";
-                $membershipCost = $formData['membershipType'];
-                $isLuncheonPreorder = $formData["luncheonPreorder"] !== "none";
-                $couponCount = (int) $formData["parkingCoupon"];
+                $transOptions = $transBuilder->buildOptions($form, "MEMBERSHIP_RENEW");
 
-                if ($formData["luncheonPreorder"] === "single") {
-                    $luncheonPeopleCount = 1;
-                } elseif ($formData["luncheonPreorder"] === "couple") {
-                    $luncheonPeopleCount = 2;
-                } else {
-                    $luncheonPeopleCount = 0;
-                }
-
-                $invoiceId = Uuid::uuid1()->toString();
-
-                $transOptions = array(
-                    "pmtMethod" => $pmtMethod,
-                    "membership" => array(
-                        "cost" => $membershipCost,
-                        "type" => "MEMBERSHIP_RENEW"
-                    ),
-                    "luncheons" => array(
-                        "isPreorder" => $isLuncheonPreorder,
-                        "attendeeCount" => $luncheonPeopleCount
-                    ),
-                    "couponCount" => $couponCount,
-                    "invoiceId" => $invoiceId
-                );
-
-                $transactions = $this->processMembershipTransactions(
-                    $em, $user, $transOptions
-                );
+                $transactions = $transBuilder->build($user, $transOptions);
 
                 // If it's a check, let's stop here.
-                if ($pmtMethod === "CHECK")
+                if ($transOptions["pmtMethod"] === "CHECK")
                 {
                     return $this->render('UMRAMemberBundle:Payment:success.html.twig', array(
                         'title' => 'Thanks for renewing!',
