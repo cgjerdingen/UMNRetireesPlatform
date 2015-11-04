@@ -4,79 +4,85 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use UMRA\Bundle\MemberBundle\Entity\Email;
 use UMRA\Bundle\MemberBundle\Entity\Household;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\RegistrationFormType;
+use UMRA\Bundle\MemberBundle\Form\RegistrationType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
 use UMRA\Bundle\MemberBundle\Services\PayPalApiService;
 
 use PayPal\Api\Amount;
-use PayPal\Api\Details;
-use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 
-use Rhumsaa\Uuid\Uuid;
-
 class RegistrationController extends Controller
 {
     public function registerAction(Request $request)
     {
-        $logger = $this->get('logger');
         $em = $this->getDoctrine()->getManager();
-        $household = new Household();
 
-        $form = $this->createForm(new RegistrationFormType(), array(
-            'household' => $household,
-            'members' => array(new Person()),
-            'residences' => array(new Residence())
-        ));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if ($user == null) {
+            // Use the full registration form if no one is logged in.
+            $form = $this->createForm(new RegistrationFormType(), array(
+                'household' => new Household(),
+                'members' => array(new Person()),
+                'residences' => array(new Residence())
+            ));
+        } else {
+            // Otherwise, just use the small registration form
+            $form = $this->createForm(new RegistrationType());
+        }
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                $userManager = $this->container->get('fos_user.user_manager');
-                $tokenGenerator = $this->container->get('fos_user.util.token_generator');
-                $userMailer = $this->container->get('fos_user.mailer');
+                $transBuilder = $this->get('umra_member.handlers.membership_transaction_builder');
 
-                $formData = $form->getData();
+                if ($form instanceof RegistrationFormType) {
+                    // Create household, members, etc. for the full form
+                    $userManager = $this->container->get('fos_user.user_manager');
+                    $userMailer = $this->container->get('fos_user.mailer');
 
-                // Persist household.
-                $em->persist($household);
-                $em->flush();
+                    $formData = $form->getData();
+                    $household = $formData["household"];
 
-                $memberEmails = array();
+                    // Persist household.
+                    $em->persist($household);
+                    $em->flush();
 
-                $personCreateHandler = $this->container->get('umra_member.handlers.person_create');
+                    $memberEmails = array();
 
-                // Persist each user.
-                foreach ($formData['members'] as $member) {
-                    $procMember = $personCreateHandler->process($member, true, $household);
-                    $procEmailCanonical = $procMember->getEmailCanonical();
+                    $personCreateHandler = $this->container->get('umra_member.handlers.person_create');
 
-                    if (!empty($procEmailCanonical)) {
-                        $memberEmails[] = $procEmailCanonical;
+                    // Persist each user.
+                    foreach ($formData['members'] as $member) {
+                        $procMember = $personCreateHandler->process($member, true, $household);
+                        $procEmailCanonical = $procMember->getEmailCanonical();
+
+                        if (!empty($procEmailCanonical)) {
+                            $memberEmails[] = $procEmailCanonical;
+                        }
                     }
-                }
 
-                // Persist each residence
-                foreach ($formData['residences'] as $key => $res) {
-                    $res->setHousehold($household);
-                    $em->persist($res);
-                }
+                    // Persist each residence
+                    foreach ($formData['residences'] as $key => $res) {
+                        $res->setHousehold($household);
+                        $em->persist($res);
+                    }
 
-                // Send out password reset email
-                for ($i = 0; $i < count($memberEmails); $i++) {
-                    $user = $userManager->findUserByEmail($memberEmails[$i]);
-                    $userMailer->sendResettingEmailMessage($user);
-                }
+                    // Send out password reset email
+                    for ($i = 0; $i < count($memberEmails); $i++) {
+                        $user = $userManager->findUserByEmail($memberEmails[$i]);
+                        $userMailer->sendResettingEmailMessage($user);
+                    }
 
                     // The "member" is to be the first person specified
                     $member = $formData["members"][0];
