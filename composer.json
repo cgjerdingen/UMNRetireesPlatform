@@ -31,6 +31,9 @@
         "paypal/rest-api-sdk-php" : "1.*",
         "ramsey/uuid": "~2.8"
     },
+    "require-dev": {
+        "moontoast/math": "*"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
