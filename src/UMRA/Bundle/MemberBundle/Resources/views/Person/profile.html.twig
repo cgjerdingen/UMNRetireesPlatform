@@ -34,6 +34,10 @@
                     'renewal_eligible': renewalEligible,
                     'last_renewal_date': lastRenewalDate
                 } %}
+                {% include 'UMRAMemberBundle:Registration:register_panel.html.twig' with {
+                    'form': registerForm,
+                    'register_eligible': registerEligible
+                } %}
             </div>
             <div class="col-sm-7">
                 <div class="panel panel-default">

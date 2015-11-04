@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
 use UMRA\Bundle\MemberBundle\Form\PersonType;
+use UMRA\Bundle\MemberBundle\Form\RegistrationType;
 use UMRA\Bundle\MemberBundle\Form\RenewalType;
 use UMRA\Bundle\MemberBundle\Form\LuncheonRegistrationType;
 
@@ -239,6 +240,7 @@ class PersonController extends Controller
                 'action'    => $this->generateUrl('UMRA_Luncheon_register')
             )
         );
+        $registerForm = $this->createForm(new RegistrationType());
         $renewalForm = $this->createForm(new RenewalType());
 
         $em = $this->getDoctrine()->getManager();
@@ -271,6 +273,7 @@ class PersonController extends Controller
                 $renewalEligible = true;
             }
         } else {
+            $registerEligible = true;
             $renewalEligible = false;
             $lastRenewalDate = null;
         }
@@ -280,10 +283,12 @@ class PersonController extends Controller
             'profileForm' => $profileForm->createView(),
             'changePasswordForm' => $changePasswordForm->createView(),
             'luncheonForm' => $luncheonForm->createView(),
+            'registerForm' => $registerForm->createView(),
             'renewalForm' => $renewalForm->createView(),
             'memberFees' => $memberFees,
             'luncheonRegs' => $luncheonRegs,
             'renewalEligible' => $renewalEligible,
+            'registerEligible' => $registerEligible,
             'lastRenewalDate' => $lastRenewalDate,
             'tab' => $request->query->get("tab", "overview")
         );
