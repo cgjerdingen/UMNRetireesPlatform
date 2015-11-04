@@ -90,7 +90,7 @@ class RegistrationController extends Controller
                     $member = $this->get('security.token_storage')->getToken()->getUser();
                 }
 
-                $transOptions = $transBuilder->buildOptions($form);
+                $transOptions = $transBuilder->buildOptions($form, "new");
 
                 $transactions = $transBuilder->build($member, $transOptions);
 
@@ -158,7 +158,7 @@ class RegistrationController extends Controller
             if ($form->isValid()) {
                 $transBuilder = $this->get('umra_member.handlers.membership_transaction_builder');
 
-                $transOptions = $transBuilder->buildOptions($form, "MEMBERSHIP_RENEW");
+                $transOptions = $transBuilder->buildOptions($form, "renew");
 
                 $transactions = $transBuilder->build($user, $transOptions);
 

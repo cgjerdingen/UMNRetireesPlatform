@@ -23,12 +23,6 @@ class RegistrationFormType extends AbstractType
 					'allow_delete' => true,
 					'by_reference' => false
 				))
-				->add('membershipStatus', 'choice', array(
-					'choices' => array(
-						'new' => 'New Member'
-					),
-					'expanded' => true
-				))
 				->add('membershipType', 'choice', array(
 					'choices' => array(
 						'10' => 'Single ($10)',

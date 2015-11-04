@@ -11,6 +11,8 @@ namespace UMRA\Bundle\MemberBundle\Handlers;
 use Doctrine\Common\Persistence\ObjectManager;
 use Rhumsaa\Uuid\Uuid;
 use Symfony\Component\Form\FormInterface;
+use UMRA\Bundle\MemberBundle\Entity\Person;
+use UMRA\Bundle\MemberBundle\Entity\Trans;
 
 class MembershipTransactionBuilder
 {
@@ -29,16 +31,13 @@ class MembershipTransactionBuilder
      * @param string $type
      * @return array
      */
-    public function buildOptions(FormInterface $form, $type = null) {
+    public function buildOptions(FormInterface $form, $membershipStatus) {
         $formData = $form->getData();
 
         $pmtMethod = $form->get('payCreditCard')->isClicked()
             ? "CREDIT_CARD"
             : "CHECK";
         $membershipCost = $formData['membershipType'];
-        $membershipStatus = $formData['membershipStatus'] === "new"
-            ? "MEMBERSHIP_NEW"
-            : "MEMBERSHIP_RENEW";
         $isLuncheonPreorder = $formData["luncheonPreorder"] !== "none";
         $couponCount = (int) $formData["parkingCoupon"];
 
@@ -56,7 +55,7 @@ class MembershipTransactionBuilder
             "pmtMethod" => $pmtMethod,
             "membership" => array(
                 "cost" => $membershipCost,
-                "type" => $type != null ? $type : $membershipStatus
+                "type" => $membershipStatus == "new" ? "MEMBERSHIP_NEW" : "MEMBERSHIP_RENEW"
             ),
             "luncheons" => array(
                 "isPreorder" => $isLuncheonPreorder,
