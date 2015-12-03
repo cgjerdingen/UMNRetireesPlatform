@@ -4,6 +4,8 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use UMRA\Bundle\MemberBundle\Entity\Household;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Residence;
@@ -124,7 +126,7 @@ class RegistrationController extends Controller
         $form = $this->createForm(new RenewalType());
 
         $mostRecentMembershipFee = $em->getRepository('UMRAMemberBundle:Trans')
-            ->findLatestVerifiedMemberFee($user);
+                                      ->findLatestVerifiedMemberFee($user);
 
         if ($mostRecentMembershipFee instanceof Trans) {
             $lastRenewalDate = $mostRecentMembershipFee->getReconciledDate();
@@ -139,7 +141,6 @@ class RegistrationController extends Controller
             // It's been more than a year
             $isMembershipSoonToExpire = $diffDaysJuly >= 335 && $diffDays < 365;
             $isRenewalOverdue = $diff->format("a") >= 365;
-            $isRenewalMonth = $today->format("n") === "7";
 
             // Hide renewal if user is active and their renewal is not overdue or soon to expire
             if ($user->isActivenow() && !$isRenewalOverdue && !$isMembershipSoonToExpire) {
