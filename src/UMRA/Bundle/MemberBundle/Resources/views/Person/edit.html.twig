@@ -12,13 +12,21 @@
     </div>
 
     <ul class="list-inline">
-        <li>
-            <a class="btn btn-default" href="{{ path('UMRA_Household_show', { 'id': entity.household.id }) }}">
-                Back to household
-            </a>
-        </li>
-        {% if is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
-        <li>{{ form(delete_form) }}</li>
+        {% if app.user.id == entity.id %}
+            <li>
+                <a class="btn btn-default" href="{{ path('UMRA_Landing') }}">
+                    Back
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a class="btn btn-default" href="{{ path('UMRA_Household_show', { 'id': entity.household.id }) }}">
+                    Back to household
+                </a>
+            </li>
+            {% if is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
+                <li>{{ form(delete_form) }}</li>
+            {% endif %}
         {% endif %}
     </ul>
 {% endblock %}
