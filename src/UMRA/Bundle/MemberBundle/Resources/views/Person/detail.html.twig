@@ -1,105 +1,48 @@
-<h1>
-    {{ entity.firstname }} {{ entity.lastname }} 
+<h4 class="text-center">
+    {{ entity.fullname }}
     {% if entity.id == app.user.id or entity.household.id == app.user.household.id or is_granted('ROLE_CAN_EDIT_OTHER_PERSON') %}
-    <a class="btn btn-primary" href="{{ path('UMRA_Person_edit', { 'id': entity.id }) }}">
-        Edit
+    <a class="btn btn-primary text-left"
+       href="{{ path('UMRA_Person_edit', {'id': entity.id }) }}">
+        <span class="fa fa-edit"></span> Edit
     </a>
     {% endif %}
-</h1>
+</h4>
 
-<table class="table table-hover table-striped">
-    <tbody>
-        <tr>
-            <th>Full Name</th>
-            <td>{{ entity.fullname }}</td>
-        </tr>
-        <tr>
-            <th>Nickname</th>
-            <td>{{ entity.nickname }}</td>
-        </tr>
-        <tr>
-            <th>Name Tag Name</th>
-            <td>{{ entity.nametagname }}</td>
-        </tr>
-        <tr>
-            <th>Member Since</th>
-            <td>{{ entity.membersince is empty ? "" : entity.membersince|date('m/d/Y') }}</td>
-        </tr>
-        <tr>
-            <th>University Unit</th>
-            <td>{{ entity.utopunit }}</td>
-        </tr>
-        <tr>
-            <th>University Department</th>
-            <td>{{ entity.udeptequiv }}</td>
-        </tr>
-        <tr>
-            <th>Employment Type</th>
-            <td>{{ entity.uempltype }}</td>
-        </tr>
-        <tr>
-            <th>University Title</th>
-            <td>{{ entity.utitle }}</td>
-        </tr>
-        <tr>
-            <th>University Start Date</th>
-            {% if entity.ustartDayIndeterminate %}
-                {% set startdate_format = 'm/Y' %}
-                {% if entity.ustartMonthIndeterminate %}
-                    {% set startdate_format = 'Y' %}
-                {% endif %}
-            {% else %}
-                {% set startdate_format = 'm/d/Y' %}
-            {% endif %}
+<dl class="dl-horizontal">
+    <dt>Nickname</dt>
+    <dd>{{ entity.nickname }}</dd>
 
-            <td>{{ entity.ustartdate is empty ? "" : entity.ustartdate|date(startdate_format) }}</td>
-        </tr>
-        <tr>
-            <th>University Retire Date</th>
-            {% if entity.uretireDayIndeterminate %}
-                {% set retiredate_format = 'm/Y' %}
-                {% if entity.uretireMonthIndeterminate %}
-                    {% set retiredate_format = 'Y' %}
-                {% endif %}
-            {% else %}
-                {% set retiredate_format = 'm/d/Y' %}
-            {% endif %}
+    <dt>Name Tag</dt>
+    <dd>{{ entity.nametagname }}</dd>
 
-            <td>{{ entity.uretiredate is empty ? "" : entity.uretiredate|date(retiredate_format) }}</td>
-        </tr>
-        {% if entity.deceasedate %}
-        <tr>
-            <th>Date Deceased</th>
-            <td>{{ entity.deceasedate is empty ? "" : entity.deceasedate|date('m/d/Y') }}</td>
-        </tr>
+    <dt>Member Since</dt>
+    <dd>
+        {% if entity.membersince is empty %}
+            N/A
+        {% else %}
+            {{ entity.membersince|date('m/d/Y') }}
         {% endif %}
-        <tr>
-            <th>Active?</th>
-            <td>
-                {% if entity.activenow %}
-                    Yes
-                {% else %}
-                    No
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Newsletter Preference</th>
-            <td>
-                {% if entity.newsPref == 'postal' %}
-                    Postal
-                {% elseif entity.newsPref == 'email' %}
-                    Email
-                {% elseif entity.newsPref == 'both' %}
-                    Postal &amp; Email
-                {% else %}
-                    Does not receive newsletter
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Web URL</th>
-            <td>{{ entity.weburl }}</td>
-        </tr>
-    </tbody>
-</table>
+    </dd>
+
+    <dt>Membership Status</dt>
+    <dd>
+        {% if entity.activenow %}
+            <span class="label label-success">Active</span>
+        {% else %}
+            <span class="label label-danger">Inactive</span>
+        {% endif %}
+    </dd>
+
+    <dt>Newsletter Preference</dt>
+    <dd>
+        {% if entity.newsPref == 'postal' %}
+            Postal
+        {% elseif entity.newsPref == 'email' %}
+            Email
+        {% elseif entity.newsPref == 'both' %}
+            Postal &amp; Email
+        {% else %}
+            Does not receive newsletter
+        {% endif %}
+    </dd>
+</dl>
