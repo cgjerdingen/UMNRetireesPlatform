@@ -3,9 +3,25 @@
 {% block title %}UMRA Membership Renewal{% endblock %}
 
 {% block body %}
-	{% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' with {
-		'form': form,
-		'renewal_eligible': renewalEligible,
-		'last_renewal_date': lastRenewalDate
-	} %}
+<div class="row">
+	<div class="col-sm-4">
+		{% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' with {
+			'form': form,
+			'renewal_eligible': renewalEligible,
+			'last_renewal_date': lastRenewalDate
+		} %}
+	</div>
+	<div class="col-sm-7">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					Past Membership Fees
+				</h4>
+			</div>
+			{% include 'UMRAMemberBundle:Trans:_table.html.twig' with {
+			'entities': memberFees
+			} %}
+		</div>
+	</div>
+</div>
 {% endblock %}

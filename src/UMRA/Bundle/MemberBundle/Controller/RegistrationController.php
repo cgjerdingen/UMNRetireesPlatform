@@ -125,8 +125,10 @@ class RegistrationController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new RenewalType());
 
-        $mostRecentMembershipFee = $em->getRepository('UMRAMemberBundle:Trans')
-                                      ->findLatestVerifiedMemberFee($user);
+        $transRepo = $em->getRepository('UMRAMemberBundle:Trans');
+
+        $memberFees = $transRepo->findLatestMembershipFees($user);
+        $mostRecentMembershipFee = $transRepo->findLatestVerifiedMemberFee($user);
 
         if ($mostRecentMembershipFee instanceof Trans) {
             $lastRenewalDate = $mostRecentMembershipFee->getReconciledDate();
@@ -179,6 +181,7 @@ class RegistrationController extends Controller
 
         return $this->render('UMRAMemberBundle:Registration:renew.html.twig', array(
             'form' => $form->createView(),
+            'memberFees' => $memberFees,
             'renewalEligible' => $renewalEligible,
             'lastRenewalDate' => $lastRenewalDate
         ));

@@ -3,66 +3,16 @@
 
 {% block body %}
     {% block fos_user_content %}
-    <ul class="nav nav-tabs">
-        <li {% if tab == "overview" %}class="active"{% endif %}>
-          <a href="?tab=overview" data-toggle="tab" data-target="#overview">Overview</a>
-        </li>
-        <li {% if tab == "household" %}class="active"{% endif %}>
-          <a href="{{ path('UMRA_Household_edit_full', { id: user.household.id })}}">
-            Household Details
-          </a>
-        </li>
-        <li {% if tab == "renewals" %}class="active"{% endif %}>
-          <a href="?tab=renewals" data-toggle="tab" data-target="#renewals">Membership Renewal</a>
-        </li>
-        <li {% if tab == "details" %}class="active"{% endif %}>
-          <a href="?tab=details" data-toggle="tab" data-target="#details">Change Password</a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade {% if tab == "overview" %}in active{% endif %}" id="overview">
-            {% include 'UMRAMemberBundle:Person:detail.html.twig' with { 'entity': user } %}
-        </div>
-        <div class="tab-pane fade {% if tab == "renewals" %}in active{% endif %}" id="renewals">
-            <br />
-            <div class="col-sm-5">
-                {% include 'UMRAMemberBundle:Registration:renew_panel.html.twig' with {
-                    'form': renewalForm,
-                    'renewal_eligible': renewalEligible,
-                    'last_renewal_date': lastRenewalDate
-                } %}
-                {% include 'UMRAMemberBundle:Registration:register_panel.html.twig' with {
-                    'form': registerForm,
-                    'register_eligible': registerEligible
-                } %}
-            </div>
-            <div class="col-sm-7">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            Past Membership Fees
-                        </h4>
-                    </div>
-                    {% include 'UMRAMemberBundle:Trans:_table.html.twig' with {
-                        'entities': memberFees
-                    } %}
-                </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="panel panel-warning">
+                <header class="panel-heading">
+                    <h3 class="panel-title">Change Password</h3>
+                </header>
+                <form action="{{ path('fos_user_change_password') }}" {{ form_enctype(changePasswordForm) }} method="POST" class="fos_user_change_password panel-body">
+                    {{ form_widget(changePasswordForm) }}
+                    <input type="submit" value="{{ 'change_password.submit'|trans }}" class="btn btn-warning" />
+                </form>
             </div>
         </div>
-        <div class="tab-pane fade {% if tab == "details" %}in active{% endif %}" id="details">
-            <br />
-            <div class="col-sm-6 col-md-4">
-                <div class="panel panel-warning">
-                    <header class="panel-heading">
-                        <h3 class="panel-title">Change Password</h3>
-                    </header>
-                    <form action="{{ path('fos_user_change_password') }}" {{ form_enctype(changePasswordForm) }} method="POST" class="fos_user_change_password panel-body">
-                        {{ form_widget(changePasswordForm) }}
-                        <input type="submit" value="{{ 'change_password.submit'|trans }}" class="btn btn-warning" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     {% endblock %}
 {% endblock %}

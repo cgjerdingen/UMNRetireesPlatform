@@ -232,65 +232,11 @@ class PersonController extends Controller
             throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
 
-        $profileForm = $this->get('fos_user.profile.form');
         $changePasswordForm = $this->get('fos_user.change_password.form');
-        $luncheonForm = $form = $this->createForm(new LuncheonRegistrationType(), null,
-            array(
-                'household' => $user->getHousehold(),
-                'action'    => $this->generateUrl('UMRA_Luncheon_register')
-            )
-        );
-        $registerForm = $this->createForm(new RegistrationType());
-        $renewalForm = $this->createForm(new RenewalType());
-
-        $em = $this->getDoctrine()->getManager();
-
-        $transRepo = $em->getRepository('UMRAMemberBundle:Trans');
-
-        $memberFees = $transRepo->findLatestMembershipFees($user);
-        $luncheonRegs = $transRepo->findLatestLuncheonFees($user);
-        $mostRecentMembershipFee = $transRepo->findLatestVerifiedMemberFee($user);
-
-        if ($mostRecentMembershipFee instanceof Trans) {
-            $lastRenewalDate = $mostRecentMembershipFee->getReconciledDate();
-            $today = new \DateTime("now");
-
-            $diff = $lastRenewalDate->diff($today);
-            $diffDays = $diff->format("a");
-
-            $diffFromRenewalMonth = $lastRenewalDate->diff(new \DateTime("first day of July this year"));
-            $diffDaysJuly = $diffFromRenewalMonth->format("a");
-
-            // It's been more than a year
-            $isMembershipSoonToExpire = $diffDaysJuly >= 335 && $diffDays < 365;
-            $isRenewalOverdue = $diff->format("a") >= 365;
-            $isRenewalMonth = $today->format("n") === "7";
-
-            // Hide renewal if user is active and their renewal is not overdue or soon to expire
-            if ($user->isActivenow() && !$isRenewalOverdue && !$isMembershipSoonToExpire) {
-                $renewalEligible = false;
-            } else {
-                $renewalEligible = true;
-            }
-        } else {
-            $registerEligible = true;
-            $renewalEligible = false;
-            $lastRenewalDate = null;
-        }
 
         return array(
             'user' => $user,
-            'profileForm' => $profileForm->createView(),
             'changePasswordForm' => $changePasswordForm->createView(),
-            'luncheonForm' => $luncheonForm->createView(),
-            'registerForm' => $registerForm->createView(),
-            'renewalForm' => $renewalForm->createView(),
-            'memberFees' => $memberFees,
-            'luncheonRegs' => $luncheonRegs,
-            'renewalEligible' => $renewalEligible,
-            'registerEligible' => $registerEligible,
-            'lastRenewalDate' => $lastRenewalDate,
-            'tab' => $request->query->get("tab", "overview")
         );
     }
 
