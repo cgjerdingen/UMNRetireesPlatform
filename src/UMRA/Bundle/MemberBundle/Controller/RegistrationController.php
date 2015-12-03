@@ -28,16 +28,16 @@ class RegistrationController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user == null) {
+        if ($user instanceof UserInterface) {
+            // Use the small registration form
+            $form = $this->createForm(new RegistrationType());
+        } else {
             // Use the full registration form if no one is logged in.
             $form = $this->createForm(new RegistrationFormType(), array(
                 'household' => new Household(),
                 'members' => array(new Person()),
                 'residences' => array(new Residence())
             ));
-        } else {
-            // Otherwise, just use the small registration form
-            $form = $this->createForm(new RegistrationType());
         }
 
         if ($request->getMethod() === 'POST') {
