@@ -251,6 +251,12 @@ class HouseholdController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if (empty($id) && $user) {
+            $id = $user->getHousehold()->getId();
+        }
+
         $entity = $em->getRepository('UMRAMemberBundle:Household')->find($id);
 
         if (!$entity instanceof Household) {
