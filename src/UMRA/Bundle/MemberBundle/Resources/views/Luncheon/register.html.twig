@@ -1,5 +1,22 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-{% include 'UMRAMemberBundle:Luncheon:_register_form.html.twig' with { 'form': form } %}
+    <div class="row">
+        <div class="col-sm-4">
+            {% include 'UMRAMemberBundle:Luncheon:_register_form.html.twig' with { 'form': form } %}
+        </div>
+        <div class="col-sm-7">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        Past Luncheon Registrations
+                    </h4>
+                </div>
+                {% include 'UMRAMemberBundle:Trans:_table.html.twig' with {
+                    'entities': luncheonRegs,
+                    'show_luncheons': true
+                } %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -13,8 +13,6 @@ use UMRA\Bundle\MemberBundle\Form\LuncheonRegistrationType;
 use UMRA\Bundle\MemberBundle\Services\PayPalApiService;
 
 use PayPal\Api\Amount;
-use PayPal\Api\Details;
-use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
@@ -242,6 +240,7 @@ class LuncheonController extends Controller
 
     public function registerAction(Request $request)
     {
+        $logger = $this->get('logger');
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -249,6 +248,9 @@ class LuncheonController extends Controller
         if (!$user instanceof Person) {
             throw new AccessDeniedException('You do not have access to this page. Please login.');
         }
+
+        $transRepo = $em->getRepository('UMRAMemberBundle:Trans');
+        $luncheonRegs = $transRepo->findLatestLuncheonFees($user);
 
         $form = $this->createForm(new LuncheonRegistrationType(), null,
             array(
@@ -330,7 +332,6 @@ class LuncheonController extends Controller
                               ->setDescription("UMRA Luncheon Registration")
                               ->setInvoiceNumber($invoiceId);
 
-                $baseUrl = $request->getBasePath();
                 $redirectUrls = new RedirectUrls();
                 $redirectUrls
                   ->setReturnUrl($this->generateUrl("UMRA_Trans_paypal_callback_success", array(), true))
@@ -362,6 +363,7 @@ class LuncheonController extends Controller
 
         return $this->render('UMRAMemberBundle:Luncheon:register.html.twig', array(
             'form' => $form->createView(),
+            'luncheonRegs' => $luncheonRegs
         ));
     }
 }

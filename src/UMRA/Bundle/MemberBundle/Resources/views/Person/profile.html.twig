@@ -15,9 +15,6 @@
         <li {% if tab == "renewals" %}class="active"{% endif %}>
           <a href="?tab=renewals" data-toggle="tab" data-target="#renewals">Membership Renewal</a>
         </li>
-        <li {% if tab == "luncheons" %}class="active"{% endif %}>
-          <a href="?tab=luncheons" data-toggle="tab" data-target="#luncheons">Luncheon Registration</a>
-        </li>
         <li {% if tab == "details" %}class="active"{% endif %}>
           <a href="?tab=details" data-toggle="tab" data-target="#details">Change Password</a>
         </li>
@@ -48,25 +45,6 @@
                     </div>
                     {% include 'UMRAMemberBundle:Trans:_table.html.twig' with {
                         'entities': memberFees
-                    } %}
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade {% if tab == "luncheons" %}in active{% endif %}" id="luncheons">
-            <br />
-            <div class="col-sm-4">
-                {% include 'UMRAMemberBundle:Luncheon:_register_form.html.twig' with { 'form': luncheonForm } %}
-            </div>
-            <div class="col-sm-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            Past Luncheon Registrations
-                        </h4>
-                    </div>
-                    {% include 'UMRAMemberBundle:Trans:_table.html.twig' with {
-                        'entities': luncheonRegs,
-                        'show_luncheons': true
                     } %}
                 </div>
             </div>
