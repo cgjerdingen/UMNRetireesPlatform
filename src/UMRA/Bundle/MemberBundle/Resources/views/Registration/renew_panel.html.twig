@@ -86,4 +86,13 @@
 <h4>Your membership is current.</h4>
 <p>Last Renewed on {{ last_renewal_date|date('M jS, Y') }}.</p>
 <p>Membership renewal opens up in July.</p>
+{% else %}
+<h4>You cannot renew!</h4>
+<p>
+	Our records indicate that you have not had an active membership in the
+	past. Therefore, there is no membership to renew.
+</p>
+<a class="btn btn-lg btn-primary" href="{{ path('UMRA_register') }}">
+	Click Here to Register
+</a>
 {% endif %}
