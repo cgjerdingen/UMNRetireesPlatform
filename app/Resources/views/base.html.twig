@@ -45,74 +45,31 @@
         <div class="umnhf toggle display-after-menu-collapse" id="umnhf-alt-um">&#9776; <span class="visually-hidden">Main</span> Menu</div>
         <header id="umnhf-alt" class="umnhf">
             <nav id="umnhf-alt-n" role="navigation">
-                {% if app.user %}
+
                 <ul>
                     <li>
                         <a href="http://umra-dev.umn.edu">
+                            <span class="fa fa-home"></span>
                             UMRA Home
                         </a>
                     </li>
+                    {% if app.user %}
                     <li>
-                        <a href="{{ path('UMRA_Person_Profile') }}">
-                            My Membership
+                        <a href="{{ path('UMRA_Landing') }}">
+                            <span class="fa fa-dashboard"></span>
+                            Dashboard
                         </a>
                     </li>
-
-                    {% if is_granted('ROLE_CAN_EDIT_OTHER_HOUSEHOLD') %}
-                    <li>
-                        <a href="{{ path('UMRA_Household') }}">
-                            Members
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_CAN_EDIT_LUNCHEON') %}
-                    <li>
-                        <a href="{{ path('UMRA_Luncheon') }}">
-                            Luncheons
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_CAN_EDIT_OTHER_TRANSACTION') %}
-                    <li>
-                        <a href="{{ path('UMRA_Trans') }}">
-                            Transactions
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a href="{{ path('UMRA_ContentBlock') }}">
-                            Content Blocks
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a href="{{ path('sonata_admin_redirect') }}">
-                            Administration
-                        </a>
-                    </li>
-                    {% endif %}
-
                     <li>
                         <a href="{{ path('fos_user_security_logout') }}">
+                            <span class="fa fa-sign-out"></span>
                             Logout
                         </a>
                     </li>
-                </ul>
-                {% else %}
-                <ul>
-                    <li>
-                        <a href="http://umra-dev.umn.edu">
-                            UMRA Home
-                        </a>
-                    </li>
+                    {% else %}
                     <li>
                         <a href="{{ path('fos_user_security_login') }}">
+                            <span class="fa fa-sign-in"></span>
                             Login
                         </a>
                     </li>
@@ -121,8 +78,8 @@
                             Register
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
-                {% endif %}
             </nav>
             <div class="container">
                 <div id="umnhf-alt-sn">

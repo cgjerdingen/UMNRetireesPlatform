@@ -3,7 +3,7 @@ umra_member_content_blocks:
     prefix:   /content_blocks
 UMRA_Landing:
     pattern:  /
-    defaults: { _controller: UMRAMemberBundle:Default:index }
+    defaults: { _controller: UMRAMemberBundle:Dashboard:index }
     methods: [GET]
 UMRA_Email_show:
     pattern:  /email/{id}

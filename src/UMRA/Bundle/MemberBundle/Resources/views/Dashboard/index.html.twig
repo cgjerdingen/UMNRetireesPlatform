@@ -1,65 +1,151 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<header class="navbar navbar-masthead navbar-inverse navbar-static-top">
-    <div class="navbar-inner navbar-inner-masthead">
-        <div id="navbar-container" class="container-fluid">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="{{ path('dashboard') }}"><i class="branding-logo"></i> {{ app_brand_name() }}</a>
-            <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                  Logged in as <a href="{{ path('user') }}" class="navbar-link">{{ app.user.name }}</a>
-                </p>
-                <ul class="nav">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li><a href="{{ path('Houshold') }}"><i class="icon-home"></i> Households</a></li>
-                      <li><a href="{{ path('Person') }}"><i class="icon-calendar"></i> People</a></li>
-                    </ul>
-                  </li>
-
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Supervisor Actions <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li><a href=""><i class="icon-th-large"></i> Areas &amp; Positions</a></li>
-
-                    </ul>
-                  </li>
-
-                </ul>
-            </div><!--/.nav-collapse -->
+<div class="row">
+    <div class="col-sm-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="fa fa-user"></span>
+                    For Members
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="row row-with-spacing">
+                    <div class="col-sm-4">
+                        <a href="{{ path("UMRA_My_Household") }}"
+                            class="btn btn-default btn-lg btn-block">
+                            <span class="fa fa-edit"></span><br />
+                            Update<br/>
+                            Your Records
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ path('fos_user_change_password') }}"
+                           class="btn btn-default btn-lg btn-block">
+                            <span class="fa fa-lock"></span><br />
+                            Change<br/>
+                            Your Password
+                        </a>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="{{ path('UMRA_Luncheon_register') }}"
+                           class="btn btn-default btn-lg btn-block">
+                            <span class="fa fa-check"></span><br/>
+                            Register for<br/>
+                            a Luncheon
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a href="{{ path('UMRA_renew') }}"
+                           class="btn btn-default btn-lg btn-block">
+                            <span class="fa fa-refresh"></span><br />
+                            Renew<br/>
+                            Your Membership
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</header>
+    {% if not app.user %}
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="fa fa-check-square"></span>
+                        Become a Member
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <a href="{{ path('UMRA_register') }}"
+                       class="btn btn-block btn-lg btn-primary">
+                        Join Today!
+                    </a>
 
-<div id="container" class="container-fluid">
-  <div id="page-content-container" class="row-fluid page-content-container">
-    <div class="span3 row-fluid">
-      <aside id="sidebar">
-        <nav class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <li class="nav-header">Manage</li>
-            <li><a href="{{ path('Houshold') }}"><i class="icon-home"></i> Households</a></li>
-            <li><a href="{{ path('Person') }}"><i class="icon-calendar"></i> People</a></li>
-            <li class="nav-header">{{ app_brand_name() }}</li>
-            <li><a href="{{ path('logout') }}"><i class="icon-off"></i> Logout</a></li>
-          </ul>
-        </nav><!--/.well -->
-        {% block sidebar %}{% endblock %}
-      </aside><!--/span3-->
-    </div>
-    <section id="modulecontent" class="span9">
-    {% block modulecontent %}
-        <div class="row-fluid">
+                    <hr />
+
+                    <strong>Note to Members Who Registered before [Date of Launch]:</strong>
+                    <p>
+                        If you were a member prior to [Date of Launch] and you had an email on file with
+                        UMRA, you have an account already! Simply
+                        <a href="{{ path('fos_user_resetting_request') }}">
+                            click here
+                        </a>
+                        to have a password reset sent to you. You will have received an email from UMRA
+                        with a link to click to set a password to login.
+                    </p>
+                </div>
+            </div>
         </div>
-    {% endblock %}
-    </section><!--/span9-->
-  </div><!--/row-->
-  <hr>
-</div><!--/.fluid-container-->
+    {% else %}
+        <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Welcome Back!</h3>
+                </div>
+                <div class="panel-body">
+                    {% include 'UMRAMemberBundle:Person:detail.html.twig'
+                        with {
+                            'entity': app.user
+                        }
+                    %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% if is_granted("ROLE_ADMIN") %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="fa fa-gear"></span>
+                UMRA Administration
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                {% if is_granted('ROLE_CAN_EDIT_OTHER_HOUSEHOLD') %}
+                    <div class="col-sm-3">
+                        <a href="{{ path('UMRA_Household') }}"
+                            class="btn btn-lg btn-block btn-default">
+                            <span class="fa fa-users"></span><br/>
+                            Manage<br/>Members
+                        </a>
+                    </div>
+                {% endif %}
+                {% if is_granted('ROLE_CAN_EDIT_LUNCHEON') %}
+                    <div class="col-sm-3">
+                        <a href="{{ path('UMRA_Luncheon') }}"
+                           class="btn btn-lg btn-block btn-default">
+                            <span class="fa fa-cutlery"></span><br />
+                            Manage<br/>Luncheons
+                        </a>
+                    </div>
+                {% endif %}
+                {% if is_granted('ROLE_CAN_EDIT_OTHER_TRANSACTION') %}
+                    <div class="col-sm-3">
+                        <a href="{{ path('UMRA_Trans') }}"
+                           class="btn btn-lg btn-block btn-default">
+                            <span class="fa fa-money"></span><br />
+                            Manage<br/>Transactions
+                        </a>
+                    </div>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="col-sm-3">
+                        <a href="{{ path('UMRA_ContentBlock') }}"
+                           class="btn btn-lg btn-block btn-default">
+                            <span class="fa fa-paragraph"></span><br />
+                            Manage<br/>
+                            Content Blocks
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

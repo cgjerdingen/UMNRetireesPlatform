@@ -28,6 +28,10 @@ a {
 	border-radius: 2px;
 }
 
+.row-with-spacing {
+	margin-bottom: 15px;
+}
+
 .form-control, .panel-heading, .panel-footer {
 	border-color: #aaa;
 }
