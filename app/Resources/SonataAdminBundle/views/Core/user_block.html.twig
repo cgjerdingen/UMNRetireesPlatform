@@ -21,16 +21,10 @@
         #}
 
         <li class="user-footer">
-            <div class="pull-left">
-                <a href="{{ path('UMRA_Person_Profile') }}" class="btn btn-default btn-flat" target="_blank">
-                    <span class="fa fa-user"></span>
-                    My Membership
-                </a>
-            </div>
-
             <div class="pull-right">
-
-                <a href="{{ _logout_uri }}" class="btn btn-default btn-flat"><i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}</a>
+                <a href="{{ _logout_uri }}" class="btn btn-default btn-flat">
+                    <i class="fa fa-sign-out fa-fw"></i> {{ _logout_text }}
+                </a>
             </div>
         </li>
     {% endif %}

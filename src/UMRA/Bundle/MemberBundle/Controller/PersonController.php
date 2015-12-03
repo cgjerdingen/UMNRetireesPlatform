@@ -219,28 +219,6 @@ class PersonController extends Controller
     }
 
     /**
-     * Controller action for displaying a user dashboard
-     * from which they can view and edit information pertaining
-     * to them.
-     *
-     * @Template("UMRAMemberBundle:Person:profile.html.twig")
-     */
-    public function profileAction(Request $request)
-    {
-        $user = $this->get('security.context')->getToken()->getUser();
-        if (!$user instanceof Person) {
-            throw new AccessDeniedException('You do not have access to this page. Please login.');
-        }
-
-        $changePasswordForm = $this->get('fos_user.change_password.form');
-
-        return array(
-            'user' => $user,
-            'changePasswordForm' => $changePasswordForm->createView(),
-        );
-    }
-
-    /**
     * Creates a form to edit a Person entity.
     *
     * @param Person $entity The entity
