@@ -116,6 +116,10 @@ class MembershipTransactionBuilder
                 ;
                 $this->em->persist($trans);
 
+                $luncheon->addAttendee($member);
+
+                $this->em->persist($luncheon);
+
                 $transactions[] = $trans;
             }
         }
