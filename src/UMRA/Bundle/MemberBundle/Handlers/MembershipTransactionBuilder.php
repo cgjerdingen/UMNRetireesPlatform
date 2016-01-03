@@ -128,7 +128,7 @@ class MembershipTransactionBuilder
                 ->setStatus("AWAITING_PROCESS")
                 ->setPmtmethod("OTHER")
                 ->setAmount(0)
-                ->setNotes("$couponCount free parking coupons")
+                ->setNotes("$couponCount free parking passes")
                 ->setInvoiceId($invoiceId)
             ;
             $this->em->persist($couponTrans);
