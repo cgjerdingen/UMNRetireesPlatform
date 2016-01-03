@@ -86,16 +86,14 @@ class LuncheonRegistrationType extends AbstractType
             $context->addViolation('You must select some members.');
         }
 
-        $checkTransactionForLuncheon = function($key, $element) use ($luncheon) {
-            $elementLuncheon = $element->getLuncheon();
-
-            return $elementLuncheon === null
+        $checkLuncheonAttendence = function($key, $element) use ($luncheon) {
+            return $element === null
                     ? false
-                    : $elementLuncheon->getId() === $luncheon->getId();
+                    : $element->getId() === $luncheon->getId();
         };
 
         foreach($members as $member) {
-            if ($member->getTransactions()->exists($checkTransactionForLuncheon)) {
+            if ($member->getLuncheons()->exists($checkLuncheonAttendence)) {
                 $context->addViolation($member . ' has already registered for the selected luncheon.');
             }
         }
