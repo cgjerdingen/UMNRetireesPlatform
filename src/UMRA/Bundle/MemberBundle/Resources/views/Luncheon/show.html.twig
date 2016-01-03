@@ -4,15 +4,19 @@
     <h1>{{ entity.luncheonDate|date('F Y') }} Luncheon</h1>
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>Name Tag Name</th>
+                <th>Transaction</th>
+            </tr>
+        </thead>
         <tbody>
+            {% for attendee in entity.attendees %}
             <tr>
-                <th>Price</th>
-                <td>{{ entity.price }}</td>
+                <td>{{ attendee.nametagname }}</td>
+                <td></td>
             </tr>
-            <tr>
-                <th>Registration Open</th>
-                <td>{{ entity.registrationOpen ? "Yes" : "No" }}</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 
@@ -22,11 +26,5 @@
                 Back to Luncheons
             </a>
         </li>
-        <li>
-            <a href="{{ path('UMRA_Luncheon_edit', { 'id': entity.id }) }}" class="btn btn-primary">
-                <span class="fa fa-pencil"></span> Edit
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
     </ul>
 {% endblock %}
