@@ -52,6 +52,7 @@ class Luncheon
 
     /**
      * @ORM\ManyToMany(targetEntity="Person", inversedBy="luncheons")
+     * @ORM\OrderBy({"nametagname" = "ASC"})
      * @ORM\JoinTable(name="LuncheonReservation",
      *      joinColumns={@ORM\JoinColumn(name="LuncheonID", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="PersonID", referencedColumnName="id")}
