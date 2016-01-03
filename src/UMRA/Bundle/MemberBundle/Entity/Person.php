@@ -311,11 +311,19 @@ class Person extends BaseUser
      */
     protected $credentialsExpireAt;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Luncheon", mappedBy="attendees")
+     */
+    protected $luncheons;
+
     public function __construct() {
         parent::__construct();
         $this->roles = array('ROLE_USER');
         $this->emails = new ArrayCollection();
         $this->phones = new ArrayCollection();
+        $this->luncheons = new ArrayCollection();
     }
 
     public function __toString() {
@@ -1078,5 +1086,38 @@ class Person extends BaseUser
 
     public function getCredentialsExpireAt() {
         return $this->credentialsExpireAt;
+    }
+
+    /**
+     * Add luncheon
+     *
+     * @param Luncheon $luncheon
+     * @return Person
+     */
+    public function addAttendee(Luncheon $luncheon)
+    {
+        $this->luncheons[] = $luncheon;
+
+        return $this;
+    }
+
+    /**
+     * Remove luncheon
+     *
+     * @param Luncheon $luncheon
+     */
+    public function removeAttendee(Luncheon $luncheon)
+    {
+        $this->luncheons->removeElement($luncheon);
+    }
+
+    /**
+     * Get luncheons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLuncheons()
+    {
+        return $this->luncheons;
     }
 }

@@ -50,9 +50,19 @@ class Luncheon
      */
     private $transactions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Person", inversedBy="luncheons")
+     * @ORM\JoinTable(name="LuncheonReservation",
+     *      joinColumns={@ORM\JoinColumn(name="LuncheonID", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="PersonID", referencedColumnName="id")}
+     * )
+     */
+    private $attendees;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->attendees = new ArrayCollection();
     }
 
     public function __toString()
@@ -173,6 +183,39 @@ class Luncheon
     public function getTransactions()
     {
         return $this->transactions;
+    }
+
+    /**
+     * Add attendee
+     *
+     * @param Person $person
+     * @return Luncheon
+     */
+    public function addAttendee(Person $person)
+    {
+        $this->attendees[] = $person;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendee
+     *
+     * @param Person $person
+     */
+    public function removeAttendee(Person $person)
+    {
+        $this->attendees->removeElement($person);
+    }
+
+    /**
+     * Get transactions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttendees()
+    {
+        return $this->attendees;
     }
 }
 
