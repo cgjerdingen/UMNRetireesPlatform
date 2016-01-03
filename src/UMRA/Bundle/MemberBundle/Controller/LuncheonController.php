@@ -292,6 +292,10 @@ class LuncheonController extends Controller
                     $em->persist($trans);
 
                     $transactions[] = $trans;
+
+                    $luncheon->addAttendee($member);
+
+                    $em->persist($luncheon);
                 }
 
                 if ($pmtMethod === "CHECK") {
