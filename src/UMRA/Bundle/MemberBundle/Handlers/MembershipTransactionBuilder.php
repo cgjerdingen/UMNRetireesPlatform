@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fierk007
- * Date: 11/4/2015
- * Time: 1:54 PM
- */
 
 namespace UMRA\Bundle\MemberBundle\Handlers;
 
@@ -28,7 +22,7 @@ class MembershipTransactionBuilder
 
     /**
      * @param FormInterface $form
-     * @param string $type
+     * @param $membershipStatus
      * @return array
      */
     public function buildOptions(FormInterface $form, $membershipStatus) {
@@ -67,9 +61,11 @@ class MembershipTransactionBuilder
 
         return $transOptions;
     }
+
     /**
      * @param Person $member
      * @param array $options
+     * @return array
      */
     public function build(Person $member, array $options) {
         // TODO: Validate $options
