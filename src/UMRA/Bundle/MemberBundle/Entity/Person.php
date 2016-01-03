@@ -189,7 +189,7 @@ class Person extends BaseUser
     protected $id;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Household
+     * @var Household
      *
      * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Household", inversedBy="persons")
      * @ORM\JoinColumns({
@@ -199,7 +199,7 @@ class Person extends BaseUser
     private $household;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Trans
+     * @var Trans
      *
      * @ORM\OneToMany(targetEntity="Trans", mappedBy="person", cascade={"persist", "remove"}, orphanRemoval=true)
      */
@@ -921,10 +921,10 @@ class Person extends BaseUser
     /**
      * Set household
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Household $householdid
+     * @param Household $household
      * @return Person
      */
-    public function setHousehold(\UMRA\Bundle\MemberBundle\Entity\Household $household = null)
+    public function setHousehold(Household $household = null)
     {
         $this->household = $household;
 
@@ -934,7 +934,7 @@ class Person extends BaseUser
     /**
      * Get household
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Household
+     * @return Household
      */
     public function getHousehold()
     {
@@ -944,12 +944,12 @@ class Person extends BaseUser
     /**
      * Add transaction
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Transaction $transaction
+     * @param Trans $transaction
      * @return Residence
      */
-    public function addTransaction(\UMRA\Bundle\MemberBundle\Entity\Trans $transaction)
+    public function addTransaction(Trans $transaction)
     {
-        $this->transactions[] = $transactions;
+        $this->transactions[] = $transaction;
 
         return $this;
     }
@@ -957,9 +957,9 @@ class Person extends BaseUser
     /**
      * Remove transaction
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Transaction $transactions
+     * @param Trans $transaction
      */
-    public function removeTransaction(\UMRA\Bundle\MemberBundle\Entity\Trans $transaction)
+    public function removeTransaction(Trans $transaction)
     {
         $this->transactions->removeElement($transaction);
     }
@@ -977,12 +977,12 @@ class Person extends BaseUser
     /**
      * Add email
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Email $email
+     * @param Email $email
      * @return Residence
      */
-    public function addEmail(\UMRA\Bundle\MemberBundle\Entity\Email $email)
+    public function addEmail(Email $email)
     {
-        $this->emails[] = $emails;
+        $this->emails[] = $email;
 
         return $this;
     }
@@ -990,9 +990,9 @@ class Person extends BaseUser
     /**
      * Remove email
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Email $emails
+     * @param Email $email
      */
-    public function removeEmail(\UMRA\Bundle\MemberBundle\Entity\Email $email)
+    public function removeEmail(Email $email)
     {
         $this->emails->removeElement($email);
     }
@@ -1010,10 +1010,10 @@ class Person extends BaseUser
     /**
      * Add phone
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $email
+     * @param Phone $phone
      * @return Person
      */
-    public function addPhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    public function addPhone(Phone $phone)
     {
         $this->phones[] = $phone;
 
@@ -1023,9 +1023,9 @@ class Person extends BaseUser
     /**
      * Remove phone
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Phone $phone
+     * @param Phone $phone
      */
-    public function removePhone(\UMRA\Bundle\MemberBundle\Entity\Phone $phone)
+    public function removePhone(Phone $phone)
     {
         $this->phones->removeElement($phone);
     }
