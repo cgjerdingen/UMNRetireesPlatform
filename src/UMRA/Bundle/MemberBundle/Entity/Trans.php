@@ -52,7 +52,7 @@ class Trans
     private $servicechg;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     * @var Person
      *
      * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person")
      * @ORM\JoinColumns({
@@ -98,7 +98,7 @@ class Trans
     private $invoiceId;
 
     /**
-     * @var \UMRA\Bundle\MemberBundle\Entity\Person
+     * @var Person
      *
      * @ORM\ManyToOne(targetEntity="UMRA\Bundle\MemberBundle\Entity\Person", inversedBy="transactions")
      * @ORM\JoinColumns({
@@ -138,6 +138,7 @@ class Trans
 
     /**
      * @Assert\Callback
+     * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context)
     {
@@ -274,10 +275,10 @@ class Trans
     /**
      * Set doneby
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $doneby
+     * @param Person $doneby
      * @return Trans
      */
-    public function setDoneby(\UMRA\Bundle\MemberBundle\Entity\Person $doneby = null)
+    public function setDoneby(Person $doneby = null)
     {
         $this->doneby = $doneby;
 
@@ -287,7 +288,7 @@ class Trans
     /**
      * Get doneby
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person
+     * @return Person
      */
     public function getDoneby()
     {
@@ -320,10 +321,10 @@ class Trans
     /**
      * Set person
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Person $person
+     * @param Person $person
      * @return Trans
      */
-    public function setPerson(\UMRA\Bundle\MemberBundle\Entity\Person $person = null)
+    public function setPerson(Person $person = null)
     {
         $this->person = $person;
 
@@ -333,7 +334,7 @@ class Trans
     /**
      * Get person
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Person
+     * @return Person
      */
     public function getPerson()
     {
@@ -343,10 +344,10 @@ class Trans
     /**
      * Set luncheon
      *
-     * @param \UMRA\Bundle\MemberBundle\Entity\Luncheon $luncheon
+     * @param Luncheon $luncheon
      * @return Trans
      */
-    public function setLuncheon(\UMRA\Bundle\MemberBundle\Entity\Luncheon $luncheon = null)
+    public function setLuncheon(Luncheon $luncheon = null)
     {
         $this->luncheon = $luncheon;
 
@@ -356,7 +357,7 @@ class Trans
     /**
      * Get luncheon
      *
-     * @return \UMRA\Bundle\MemberBundle\Entity\Luncheon
+     * @return Luncheon
      */
     public function getLuncheon()
     {
