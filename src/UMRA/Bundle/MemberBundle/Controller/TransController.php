@@ -25,9 +25,7 @@ class TransController extends Controller
 {
     /**
      * Lists all Trans entities.
-     *
-     * @Template()
-     */
+     **/
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -63,10 +61,6 @@ class TransController extends Controller
             $response->headers->set('Pragma', 'no-cache');
             $response->headers->set('Expires', '0');
 
-            $response->prepare($request);
-            $response->sendHeaders();
-            $response->sendContent();
-
             return $response;
         }
 
@@ -74,10 +68,10 @@ class TransController extends Controller
 
         $entities = $paginator->paginate($query, $request->query->get('page', 1), 25);
 
-        return array(
+        return $this->render('UMRAMemberBundle:Trans:index.html.twig', array(
             'entities' => $entities,
             'form' => $form->createView(),
-        );
+        ));
     }
     /**
      * Creates a new Trans entity.
