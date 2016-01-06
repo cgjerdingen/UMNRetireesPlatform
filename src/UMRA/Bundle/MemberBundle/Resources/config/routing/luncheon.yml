@@ -3,8 +3,10 @@ UMRA_Luncheon:
     defaults: { _controller: "UMRAMemberBundle:Luncheon:index" }
 
 UMRA_Luncheon_show:
-    path:     /{id}/show
-    defaults: { _controller: "UMRAMemberBundle:Luncheon:show" }
+    path:     /{id}.{_format}
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:show", _format: html }
+    requirements:
+         _format: "html|csv"
 
 UMRA_Luncheon_new:
     path:     /new
@@ -28,6 +30,7 @@ UMRA_Luncheon_delete:
     path:     /{id}/delete
     defaults: { _controller: "UMRAMemberBundle:Luncheon:delete" }
     methods:  [POST, DELETE]
+
 UMRA_Luncheon_register:
     path:     /register
     defaults: { _controller: "UMRAMemberBundle:Luncheon:register" }

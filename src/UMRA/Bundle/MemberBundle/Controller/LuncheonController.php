@@ -107,7 +107,7 @@ class LuncheonController extends Controller
      * Finds and displays a Luncheon entity.
      *
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -139,6 +139,23 @@ class LuncheonController extends Controller
 
                 return $attendee;
             });
+
+        if ($request->getRequestFormat() === "csv") {
+            $luncheonDate = $entity->getLuncheonDate()->format("Y-m-d");
+            $filename = "umra_luncheon_roster_".$luncheonDate.".csv";
+
+            $response = $this->render('UMRAMemberBundle:Luncheon:show.csv.twig', array('attendees' => $attendees));
+
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv');
+            $response->headers->set('Content-Description', 'UMRA '.$luncheonDate.' Luncheon Roster');
+            $response->headers->set('Content-Disposition', 'attachment; filename='.$filename);
+            $response->headers->set('Content-Transfer-Encoding', 'binary');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', '0');
+
+            return $response;
+        }
 
         return $this->render('UMRAMemberBundle:Luncheon:show.html.twig', array(
             'entity'      => $entity,

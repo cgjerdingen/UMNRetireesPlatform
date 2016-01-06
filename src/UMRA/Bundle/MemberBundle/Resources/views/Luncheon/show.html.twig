@@ -36,11 +36,16 @@
         </tbody>
     </table>
 
-    <ul class="list-inline">
-        <li>
+    <div class="btn-toolbar">
+        <div class="btn-group pull-right">
+            <a class="btn btn-default" href="{{ path('UMRA_Luncheon_show', { id: entity.id,  _format: 'csv' }) }}">
+                <span class="fa fa-save"></span> Export as CSV
+            </a>
+        </div>
+        <div class="btn-group">
             <a href="{{ path('UMRA_Luncheon') }}" class="btn btn-default">
                 Back to Luncheons
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 {% endblock %}
