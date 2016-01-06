@@ -26,13 +26,24 @@
                 </div>
             </div>
             {{ form_row(member.fullname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].fullname' }}) }}
-            {{ form_row(member.nametagname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].nametagname' }}) }}
+
             <div class="row">
+                <div class="col-sm-6">
+                    {{ form_row(member.nametagname, { attr: { 'ng-model': 'household.members[' ~ loop.index0 ~ '].nametagname' }}) }}
+                </div>
                 <div class="col-sm-6">
                     {{ form_row(member.nickname, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].nickname' }}) }}
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col-sm-6">
                     {{ form_row(member.membersince, { attr: {'ng-model': 'household.members[' ~ loop.index0 ~ '].membersince' }}) }}
+                </div>
+                <div class="col-sm-6">
+                    {% if member.deceasedate is defined %}
+                        {{ form_row(member.deceasedate) }}
+                    {% endif %}
                 </div>
             </div>
             {{ form_row(member.weburl) }}
@@ -55,11 +66,6 @@
                 {% if member.activenow is defined %}
                 <div class="col-sm-3">
                     {{ form_row(member.activenow) }}
-                </div>
-                {% endif %}
-                {% if member.deceasedate is defined %}
-                <div class="col-sm-5">
-                    {{ form_row(member.deceasedate) }}
                 </div>
                 {% endif %}
             </div>

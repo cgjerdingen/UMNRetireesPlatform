@@ -25,22 +25,34 @@
             {{ form_label(persons.vars.prototype.fullname) }}
             {{ form_widget(persons.vars.prototype.fullname, { attr: {'ng-model': 'household.members[__index__].fullname' }}) }}
         </div>
-        <div class="form-group">
-            {{ form_label(persons.vars.prototype.nametagname) }}
-            {{ form_widget(persons.vars.prototype.nametagname, { attr: {'ng-model': 'household.members[__index__].nametagname' }}) }}
-        </div>
         <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    {{ form_label(persons.vars.prototype.nametagname) }}
+                    {{ form_widget(persons.vars.prototype.nametagname, { attr: {'ng-model': 'household.members[__index__].nametagname' }}) }}
+                </div>
+            </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     {{ form_label(persons.vars.prototype.nickname) }}
                     {{ form_widget(persons.vars.prototype.nickname, { attr: {'ng-model': 'household.members[__index__].nickname' }}) }}
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     {{ form_label(persons.vars.prototype.membersince) }}
                     {{ form_widget(persons.vars.prototype.membersince) }}
                 </div>
+            </div>
+            <div class="col-sm-6">
+                {% if persons.vars.prototype.deceasedate is defined %}
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.deceasedate) }}
+                        {{ form_widget(persons.vars.prototype.deceasedate) }}
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="form-group">
