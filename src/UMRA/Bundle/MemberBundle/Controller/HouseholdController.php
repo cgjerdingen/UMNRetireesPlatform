@@ -68,10 +68,6 @@ class HouseholdController extends Controller
             $response->headers->set('Pragma', 'no-cache');
             $response->headers->set('Expires', '0');
 
-            $response->prepare($request);
-            $response->sendHeaders();
-            $response->sendContent();
-
             return $response;
         }
 
