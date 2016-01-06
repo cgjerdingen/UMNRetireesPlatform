@@ -85,51 +85,57 @@
                     {{ form_widget(persons.vars.prototype.secondary) }}
                 </div>
             </div>
-            <div class="col-sm-8">
-                <p class="text-muted">
-                    The following fields are for University Retirees only.
-                </p>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.ustartdate) }}
-                    {{ form_widget(persons.vars.prototype.ustartdate) }}
+        <div class="well well-sm">
+            <p class="text-info">
+                <strong>University Retirees only</strong>
+            </p>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.ustartdate) }}
+                        <strong class="text-danger" title="This field is required">
+                            (required)
+                        </strong>
+                        {{ form_widget(persons.vars.prototype.ustartdate) }}
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.uretiredate) }}
+                        <strong class="text-danger" title="This field is required">
+                            (required)
+                        </strong>
+                        {{ form_widget(persons.vars.prototype.uretiredate) }}
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.uretiredate) }}
-                    {{ form_widget(persons.vars.prototype.uretiredate) }}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.utopunit) }}
+                        {{ form_widget(persons.vars.prototype.utopunit) }}
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.udeptequiv) }}
+                        {{ form_widget(persons.vars.prototype.udeptequiv) }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.utopunit) }}
-                    {{ form_widget(persons.vars.prototype.utopunit) }}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.utitle) }}
+                        {{ form_widget(persons.vars.prototype.utitle) }}
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.udeptequiv) }}
-                    {{ form_widget(persons.vars.prototype.udeptequiv) }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.utitle) }}
-                    {{ form_widget(persons.vars.prototype.utitle) }}
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    {{ form_label(persons.vars.prototype.uempltype) }}
-                    {{ form_widget(persons.vars.prototype.uempltype) }}
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(persons.vars.prototype.uempltype) }}
+                        {{ form_widget(persons.vars.prototype.uempltype) }}
+                    </div>
                 </div>
             </div>
         </div>

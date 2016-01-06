@@ -69,36 +69,46 @@
                 </div>
                 {% endif %}
             </div>
-            <p class="text-muted">
-                The following fields are for University Retirees only.
-            </p>
             <div class="row">
                 <div class="col-sm-4">
                     {{ form_row(member.secondary) }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ form_row(member.ustartdate) }}
+            <div class="well well-sm">
+                <p class="text-info">
+                    <strong>University Retirees only</strong>
+                </p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_label(member.ustartdate) }}
+                        <strong class="text-danger" title="This field is required">
+                            (required)
+                        </strong>
+                        {{ form_widget(member.ustartdate) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_label(member.uretiredate) }}
+                        <strong class="text-danger" title="This field is required">
+                            (required)
+                        </strong>
+                        {{ form_widget(member.uretiredate) }}
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    {{ form_row(member.uretiredate) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_row(member.utopunit) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_row(member.udeptequiv) }}
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ form_row(member.utopunit) }}
-                </div>
-                <div class="col-sm-6">
-                    {{ form_row(member.udeptequiv) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    {{ form_row(member.utitle) }}
-                </div>
-                <div class="col-sm-6">
-                    {{ form_row(member.uempltype) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_row(member.utitle) }}
+                    </div>
+                    <div class="col-sm-6">
+                        {{ form_row(member.uempltype) }}
+                    </div>
                 </div>
             </div>
         </div>
