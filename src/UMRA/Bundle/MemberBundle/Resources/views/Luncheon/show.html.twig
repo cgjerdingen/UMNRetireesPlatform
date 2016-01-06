@@ -2,39 +2,42 @@
 
 {% block body -%}
     <h1>{{ entity.luncheonDate|date('F Y') }} Luncheon</h1>
+    <h4>{{ attendees|length }} Registered Online</h4>
 
-    <table class="table">
-        <thead>
+    <div class="panel panel-default">
+        <table class="table">
+            <thead>
             <tr>
                 <th>Full Name</th>
                 <th>Name Tag</th>
                 <th>Date Registered</th>
                 <th>Payment Received</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for attendee in attendees %}
-            <tr>
-                <td>{{ attendee.fullname }}</td>
-                <td>{{ attendee.nametag }}</td>
-                <td>
-                    {{ attendee.date }}
-                </td>
-                <td>
-                    {% if attendee.paid %}
-                    <span class="label label-success">
+                <tr>
+                    <td>{{ attendee.fullname }}</td>
+                    <td>{{ attendee.nametag }}</td>
+                    <td>
+                        {{ attendee.date }}
+                    </td>
+                    <td>
+                        {% if attendee.paid %}
+                            <span class="label label-success">
                         Yes
                     </span>
-                    {% else %}
-                    <span class="label label-danger">
+                        {% else %}
+                            <span class="label label-danger">
                         No
                     </span>
-                    {% endif %}
-                </td>
-            </tr>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <div class="btn-toolbar">
         <div class="btn-group pull-right">
