@@ -1,32 +1,30 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h1>Trans</h1>
-
-    <table class="record_properties">
+    <table class="table table-hover">
         <tbody>
             <tr>
-                <th>Trandate</th>
+                <th>Transaction Date</th>
                 <td>{{ entity.trandate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Trantype</th>
+                <th>Transaction Type</th>
                 <td>{{ entity.trantype }}</td>
             </tr>
             <tr>
-                <th>Amount</th>
+                <th>Amount ($)</th>
                 <td>{{ entity.amount }}</td>
             </tr>
             <tr>
-                <th>Pmtmethod</th>
+                <th>Payment Method</th>
                 <td>{{ entity.pmtmethod }}</td>
             </tr>
             <tr>
-                <th>Servicechg</th>
+                <th>Service Charge</th>
                 <td>{{ entity.servicechg }}</td>
             </tr>
             <tr>
-                <th>Doneby</th>
+                <th>Reconciled by</th>
                 <td>{{ entity.doneby }}</td>
             </tr>
             <tr>
@@ -34,23 +32,25 @@
                 <td>{{ entity.notes }}</td>
             </tr>
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <th>
+                    PayPal Transaction ID
+                </th>
+                <td>{{ entity.proctranid }}</td>
             </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('UMRA_Trans') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('UMRA_Trans_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            <a href="{{ path('UMRA_Trans') }}" class="btn btn-default">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('UMRA_Trans_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
