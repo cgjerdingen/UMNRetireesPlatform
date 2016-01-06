@@ -119,17 +119,22 @@ class LuncheonController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        $attendees = $entity->getAttendees()->map(function ($e) use ($id, &$em) {
+        $attendees = $entity->getAttendees()->map(function (Person $e) use ($id, &$em) {
                 $attendee = new \stdClass();
-                $attendee->name = $e->getNametagname();
+                $attendee->fullname = $e->getFullname();
+                $attendee->nametag  = $e->getNametagname();
 
                 $trans = $em->getRepository('UMRAMemberBundle:Trans')->findBy([
-                    "person" => (int) $e->getId(),
+                    "person"   => (int) $e->getId(),
                     "luncheon" => (int) $id
                 ]);
 
                 if (count($trans) > 0) {
-                    $attendee->transaction = $trans[0];
+                    $attendee->date = $trans[0]->getTrandate()->format("m/d/Y");
+                    $attendee->paid = $trans[0]->getStatus() == "PROCESSED";
+                } else {
+                    $attendee->date = null;
+                    $attendee->paid = false;
                 }
 
                 return $attendee;

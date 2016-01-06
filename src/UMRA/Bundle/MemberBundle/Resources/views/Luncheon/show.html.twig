@@ -6,7 +6,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name Tag Name</th>
+                <th>Full Name</th>
+                <th>Name Tag</th>
                 <th>Date Registered</th>
                 <th>Payment Received</th>
             </tr>
@@ -14,25 +15,20 @@
         <tbody>
             {% for attendee in attendees %}
             <tr>
-                <td>{{ attendee.name }}</td>
+                <td>{{ attendee.fullname }}</td>
+                <td>{{ attendee.nametag }}</td>
                 <td>
-                    {{ attendee.transaction.trandate|date('m/d/Y') }}
+                    {{ attendee.date }}
                 </td>
                 <td>
-                    {% if attendee.transaction %}
-                    <a href="{{ path('UMRA_Trans_show', { id: attendee.transaction.id}) }}">
-                        {% if attendee.transaction.status == "PROCESSED" %}
-                        <span class="label label-success">
-                            Yes
-                        </span>
-                        {% else %}
-                        <span class="label label-danger">
-                            No
-                        </span>
-                        {% endif %}
-                    </a>
+                    {% if attendee.paid %}
+                    <span class="label label-success">
+                        Yes
+                    </span>
                     {% else %}
-                        Unknown
+                    <span class="label label-danger">
+                        No
+                    </span>
                     {% endif %}
                 </td>
             </tr>
