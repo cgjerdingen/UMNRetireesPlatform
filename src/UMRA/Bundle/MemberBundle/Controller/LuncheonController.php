@@ -119,9 +119,26 @@ class LuncheonController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
+        $attendees = $entity->getAttendees()->map(function ($e) use ($id, &$em) {
+                $attendee = new \stdClass();
+                $attendee->name = $e->getNametagname();
+
+                $trans = $em->getRepository('UMRAMemberBundle:Trans')->findBy([
+                    "person" => (int) $e->getId(),
+                    "luncheon" => (int) $id
+                ]);
+
+                if (count($trans) > 0) {
+                    $attendee->transaction = $trans[0];
+                }
+
+                return $attendee;
+            });
+
         return $this->render('UMRAMemberBundle:Luncheon:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'attendees'   => $attendees
         ));
     }
 
