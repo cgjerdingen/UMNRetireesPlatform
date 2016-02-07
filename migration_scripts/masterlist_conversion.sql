@@ -31,6 +31,7 @@ Firstname,
 Fullname,
 Nickname,
 Nametagname,
+Secondary,
 Activenow,
 Udeptequiv,
 Uempltype,
@@ -45,6 +46,7 @@ SELECT
 CONCAT(ma.first, ' ', ma.Last),
 `first`,
 CONCAT(ma.first, ' ', ma.Last),
+0,
 1,
 dept,
 (CASE
@@ -81,7 +83,7 @@ Firstname,
 Fullname,
 Nickname,
 Nametagname,
-Spouse,
+Secondary,
 Activenow,
 Membersince,
 HouseholdID
@@ -106,7 +108,7 @@ Firstname,
 Fullname,
 Nickname,
 Nametagname,
-Spouse,
+Secondary,
 Activenow,
 HouseholdID
 )
@@ -178,7 +180,7 @@ SUBSTRING_INDEX(`telephone`, ' ', 1),
 re.id
      FROM masterlist AS ma, household AS ho, residence AS re
 WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname)
-AND   (re.HouseholdID = ho.id) AND re.Prisec = 'Pri' AND ma.telephone is not null AND ma.telephone != "";
+AND   (re.HouseholdID = ho.id) AND re.Prisec = 1 AND ma.telephone is not null AND ma.telephone != "";
 
 /* 8. Link second Phone number as U of M office number to member in Person */
 INSERT INTO phone (
