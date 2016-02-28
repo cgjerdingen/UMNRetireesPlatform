@@ -19,7 +19,7 @@
 
 {% block form_widget_compound %}
 {% spaceless %}
-    <div{% if not form.parent is empty %} class="well"{% endif %} {{ block('widget_container_attributes') }}>
+    <div{% if not form.parent is empty %} class="well well-sm"{% endif %} {{ block('widget_container_attributes') }}>
         {% if form.parent is empty %}
             {{ form_errors(form) }}
         {% endif %}
