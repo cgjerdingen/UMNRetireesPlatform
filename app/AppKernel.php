@@ -18,11 +18,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new UMRA\Bundle\MemberBundle\UMRAMemberBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\CoreBundle\SonataCoreBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
         );

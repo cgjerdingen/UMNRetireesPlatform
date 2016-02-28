@@ -87,39 +87,6 @@ fos_user:
         email:
             template: UMRAMemberBundle:Person:resetting.email.html.twig
 
-
-sonata_admin:
-    title: UMRA Admin
-    options:
-        title_mode: single_text
-
-    assets:
-        stylesheets:
-            # Defaults:
-            - bundles/sonataadmin/vendor/bootstrap/dist/css/bootstrap.min.css
-            - bundles/sonataadmin/vendor/AdminLTE/css/font-awesome.min.css
-            - bundles/sonataadmin/vendor/AdminLTE/css/ionicons.min.css
-            - bundles/sonataadmin/vendor/AdminLTE/css/AdminLTE.css
-            - bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css
-            - bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css
-            - bundles/sonataadmin/vendor/select2/select2.css
-            - bundles/sonataadmin/vendor/select2/select2-bootstrap.css
-            - bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
-            - bundles/sonataadmin/css/styles.css
-            - bundles/sonataadmin/css/layout.css
-
-            # Custom:
-            - css/application.css
-
-sonata_block:
-    default_contexts: [admin]
-    blocks:
-        # Enable the SonataAdminBundle block
-        sonata.admin.block.admin_list:
-            contexts: [admin]
-        sonata.admin.block.search_result:
-            contexts: [admin]
-
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
@@ -128,5 +95,5 @@ knp_paginator:
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
-        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig 
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
