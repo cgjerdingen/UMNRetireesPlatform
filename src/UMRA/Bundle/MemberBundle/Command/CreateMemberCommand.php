@@ -114,6 +114,10 @@ EOT
         $user->setHousehold($household);
         $userManager->updateUser($user, true);
 
+        // Correctly set password
+        $manipulator = $this->getContainer()->get('umra_member.user_manipulator');
+        $manipulator->changePassword($email, $password);
+
         $output->writeln(sprintf('Created member <comment>%s</comment>', $fullname));
     }
 
