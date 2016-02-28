@@ -6,7 +6,6 @@ TRUNCATE TABLE person;
 TRUNCATE TABLE personrole;
 TRUNCATE TABLE persontrans;
 TRUNCATE TABLE phone;
-TRUNCATE TABLE photo;
 TRUNCATE TABLE residence;
 TRUNCATE TABLE role;
 TRUNCATE TABLE trans;
@@ -40,7 +39,8 @@ Uempltype,
 Membersince,
 news_pref,
 email_canonical,
-HouseholdID
+HouseholdID,
+roles
 )
 SELECT
 `Last`,
@@ -70,7 +70,8 @@ END) as emptype,
 STR_TO_DATE(Datejoined, '%c/%e/%Y'),
 REPLACE(Newsletter, "usmail", "postal"),
 (CASE WHEN `email` = "" THEN NULL ELSE `email` END) as `email`,
-ho.id
+ho.id,
+""
      FROM masterlist AS ma, household AS ho
 WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname) and ma.email != 'dnaumann@umn.edu';
 
@@ -86,7 +87,8 @@ Nametagname,
 Secondary,
 Activenow,
 Membersince,
-HouseholdID
+HouseholdID,
+roles
 )
 SELECT
 `spLast`,
@@ -97,7 +99,8 @@ CONCAT(ma.spmember, ' ', ma.spLast),
 1,
 1,
 STR_TO_DATE(Datejoined, '%c/%e/%Y'),
-ho.id
+ho.id,
+""
      FROM masterlist AS ma, household AS ho
 WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname) and ma.spLast is not null and ma.spLast != "";
 
@@ -110,7 +113,8 @@ Nickname,
 Nametagname,
 Secondary,
 Activenow,
-HouseholdID
+HouseholdID,
+roles
 )
 SELECT
 `Last`,
@@ -120,7 +124,8 @@ RTRIM(REPLACE(ma.spnonmb, ma.Last, '')),
 CONCAT(RTRIM(REPLACE(ma.spnonmb, ma.Last, '')), ' ', ma.spLast),
 1,
 0,
-ho.id
+ho.id,
+""
      FROM masterlist AS ma, household AS ho
 WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname) and ma.spnonmb is not null and ma.spnonmb != "";
 
@@ -252,7 +257,6 @@ pe.id
      FROM masterlist AS ma, person AS pe
     WHERE (ma.Last = pe.Lastname) and (ma.first = pe.Firstname)
     AND ma.Secondemail IS NOT NULL and ma.Secondemail != "";
-
 
 /* 13. Provide empty roles for newly created people */
 UPDATE person SET roles = 'a:1:{i:0;s:9:"ROLE_USER";}' WHERE roles = "";
