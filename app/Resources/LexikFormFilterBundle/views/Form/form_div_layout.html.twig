@@ -1,0 +1,46 @@
+{% block filter_text_widget %}
+    {% if compound %}
+        <div class="filter-pattern-selector">
+            {{ form_widget(form.condition_pattern, {'attr': {'class': 'pattern-selector'} }) }}
+            {{ form_widget(form.text, {'attr': attr}) }}
+        </div>
+    {% else %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+{% endblock filter_text_widget %}
+
+{% block filter_number_widget %}
+    {% if compound %}
+        <div class="filter-operator-selector">
+            {{ form_widget(form.condition_operator, {'attr': {'class': 'operator-selector'} }) }}
+            {{ form_widget(form.text, {'attr': attr}) }}
+        </div>
+    {% else %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+{% endblock filter_number_widget %}
+
+{% block filter_number_range_widget %}
+    <div class="filter-number-range">
+        {{ form_widget(form.left_number, {'attr': attr}) }}
+        {{ form_widget(form.right_number, {'attr': attr}) }}
+    </div>
+{% endblock filter_number_range_widget %}
+
+{% block filter_date_range_widget %}
+    <div class="row filter-date-range">
+        <div class="col-md-6">
+            <label class="control-label">From (Year - Month - Day)</label>
+            {{ form_widget(form.left_date, {'attr': attr}) }}
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">To (Year - Month - Day)</label>
+            {{ form_widget(form.right_date, {'attr': attr}) }}
+        </div>
+    </div>
+{% endblock filter_date_range_widget %}
+
+{% block filter_collection_adapter_widget %}
+    {# only display the first element #}
+    {{ form_widget(form[0]) }}
+{% endblock filter_collection_adapter_widget %}
