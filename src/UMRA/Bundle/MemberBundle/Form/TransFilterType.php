@@ -25,7 +25,7 @@ class TransFilterType extends AbstractType
                 ),
             ))
             ->add('status', 'filter_choice', array(
-                'label' => 'Transaction Type',
+                'label' => 'Transaction Status',
                 'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
             ))
         ;
