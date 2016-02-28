@@ -49,7 +49,7 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="Nametagname", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Nametagname", type="string", length=35, nullable=true)
      */
     private $nametagname;
 
@@ -77,28 +77,28 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="UTopUnit", type="string", length=35, nullable=true)
+     * @ORM\Column(name="UTopUnit", type="string", length=50, nullable=true)
      */
     private $utopunit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UDeptEquiv", type="string", length=35, nullable=true)
+     * @ORM\Column(name="UDeptEquiv", type="string", length=255, nullable=true)
      */
     private $udeptequiv;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UEmplType", type="string", length=20, nullable=true)
+     * @ORM\Column(name="UEmplType", type="string", length=255, nullable=true)
      */
     private $uempltype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UTitle", type="string", length=35, nullable=true)
+     * @ORM\Column(name="UTitle", type="string", length=50, nullable=true)
      */
     private $utitle;
 
