@@ -86,7 +86,7 @@ class Trans
     /**
      * @var string
      *
-     * @ORM\Column(name="ProcTranID", type="string", length=255, nullable=true)
+     * @ORM\Column(name="ProcTranID", type="string", length=255, nullable=true, options={"comment":"ID used by the payment processor to represent the transaction"})
      */
     private $procTranId;
 
