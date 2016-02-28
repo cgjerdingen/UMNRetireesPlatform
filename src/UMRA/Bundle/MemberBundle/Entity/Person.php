@@ -237,14 +237,14 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string")
+     * @ORM\Column(name="salt", type="string", nullable=true)
      */
     protected $salt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string")
+     * @ORM\Column(name="password", type="string", nullable=true)
      */
     protected $password;
 
@@ -292,7 +292,6 @@ class Person extends BaseUser
 
     /**
      * @var array
-     * TODO: Change to ArrayCollection
      * @ORM\Column(name="roles", type="array")
      */
     protected $roles;
@@ -302,7 +301,7 @@ class Person extends BaseUser
      *
      * @ORM\Column(name="credentials_expired", type="boolean")
      */
-    protected $credentialsExpired;
+    protected $credentialsExpired = false;
 
     /**
      * @var \DateTime
