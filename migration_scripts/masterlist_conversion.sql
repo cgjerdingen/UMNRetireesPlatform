@@ -1,4 +1,4 @@
-/* 0. Reset everything */
+/* 0. Reset everything, set correct charset and collation */
 SET FOREIGN_KEY_CHECKS=0;
 TRUNCATE TABLE email;
 TRUNCATE TABLE household;
@@ -11,6 +11,8 @@ TRUNCATE TABLE residence;
 TRUNCATE TABLE role;
 TRUNCATE TABLE trans;
 SET FOREIGN_KEY_CHECKS=1;
+
+ALTER TABLE masterlist CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 /* 1. Set up Household record for main member */
 INSERT INTO household (
