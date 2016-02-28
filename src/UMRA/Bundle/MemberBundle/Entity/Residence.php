@@ -22,42 +22,42 @@ class Residence
     /**
      * @var string
      *
-     * @ORM\Column(name="Address1", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Address1", type="string", length=50, nullable=true)
      */
     private $address1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Address2", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Address2", type="string", length=50, nullable=true)
      */
     private $address2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Address3", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Address3", type="string", length=50, nullable=true)
      */
     private $address3;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="City", type="string", length=35, nullable=true)
+     * @ORM\Column(name="City", type="string", length=50, nullable=true)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="State", type="string", length=35, nullable=true)
+     * @ORM\Column(name="State", type="string", length=50, nullable=true)
      */
     private $state;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Zip", type="string", length=10, nullable=true)
+     * @ORM\Column(name="Zip", type="string", length=12, nullable=true)
      */
     private $zip;
 
@@ -71,7 +71,7 @@ class Residence
     /**
      * @var string
      *
-     * @ORM\Column(name="Country", type="string", length=20, nullable=true)
+     * @ORM\Column(name="Country", type="string", length=100, nullable=true)
      */
     private $country;
 
