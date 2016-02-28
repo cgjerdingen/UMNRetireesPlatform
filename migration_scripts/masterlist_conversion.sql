@@ -64,10 +64,8 @@ dept,
         'afscme_cler'
     WHEN emptype REGEXP '[Tt]eamster' THEN
         'teamster'
-    WHEN TRIM(emptype) = "" THEN
-        NULL
 ELSE
-    emptype
+    NULL
 END) as emptype,
 STR_TO_DATE(Datejoined, '%c/%e/%Y'),
 REPLACE(Newsletter, "usmail", "postal"),
