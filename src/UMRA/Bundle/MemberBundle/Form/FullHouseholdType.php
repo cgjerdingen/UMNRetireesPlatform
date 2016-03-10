@@ -15,6 +15,13 @@ class FullHouseholdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('postalname', 'text', array(
+                'label' => 'Postal Name',
+                'attr' => array(
+                    'class' => 'form-control input-lg',
+                    'placeholder' => 'e.g. Prof. and Mrs. John Doe'
+                ),
+            ))
             ->add('persons', 'collection', array(
                 'type' => new HouseholdPersonType(),
                 'allow_add' => true,
