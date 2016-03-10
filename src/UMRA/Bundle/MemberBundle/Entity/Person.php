@@ -21,161 +21,161 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="Lastname", type="string", length=35, nullable=false)
+     * @ORM\Column(name="Lastname", type="string", length=35, nullable=false, options={"comment":"Person's last name"})
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Firstname", type="string", length=35, nullable=false)
+     * @ORM\Column(name="Firstname", type="string", length=35, nullable=false, options={"comment":"Person's first name"})
      */
     private $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Nickname", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Nickname", type="string", length=35, nullable=true, options={"comment":"Person's nickname"})
      */
     private $nickname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Fullname", type="string", length=70, nullable=false)
+     * @ORM\Column(name="Fullname", type="string", length=70, nullable=false, options={"comment":"Person's full name"})
      */
     private $fullname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Nametagname", type="string", length=35, nullable=true)
+     * @ORM\Column(name="Nametagname", type="string", length=35, nullable=true, options={"comment":"Person's nametag name"})
      */
     private $nametagname;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Membersince", type="date", nullable=true)
+     * @ORM\Column(name="Membersince", type="date", nullable=true, options={"comment":"Date member joined"})
      */
     private $membersince;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="memSinceDayIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="memSinceDayIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the day value of Membersince is significant (display only)"})
      */
     private $memSinceDayIndeterminate = false;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="memSinceMonthIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="memSinceMonthIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the month value of Membersince is significant (display only)"})
      */
     private $memSinceMonthIndeterminate = false;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UTopUnit", type="string", length=50, nullable=true)
+     * @ORM\Column(name="UTopUnit", type="string", length=50, nullable=true, options={"comment":"University Top-Level Unit"})
      */
     private $utopunit;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UDeptEquiv", type="string", length=255, nullable=true)
+     * @ORM\Column(name="UDeptEquiv", type="string", length=255, nullable=true, options={"comment":"University department or equivalent"})
      */
     private $udeptequiv;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UEmplType", type="string", length=255, nullable=true)
+     * @ORM\Column(name="UEmplType", type="string", length=255, nullable=true, options={"comment":"University employment type: Possible values: ['faculty','acad_prof','acad_adm','civ_srv','afscme_cler','afscme_tech','teamster']"})
      */
     private $uempltype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="UTitle", type="string", length=50, nullable=true)
+     * @ORM\Column(name="UTitle", type="string", length=50, nullable=true, options={"comment":"Most recent title at the university"})
      */
     private $utitle;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="UStartdate", type="date", nullable=true)
+     * @ORM\Column(name="UStartdate", type="date", nullable=true, options={"comment":"University start date"})
      */
     private $ustartdate;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="UStartDayIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="UStartDayIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the day value of UStartDate is significant (display only)"})
      */
     private $ustartDayIndeterminate = false;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="UStartMonthIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="UStartMonthIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the month value of UStartDate is significant (display only)"})
      */
     private $ustartMonthIndeterminate = false;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="URetiredate", type="date", nullable=true)
+     * @ORM\Column(name="URetiredate", type="date", nullable=true, options={"comment":"University retire date"})
      */
     private $uretiredate;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="URetireDayIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="URetireDayIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the day value of URetiredate is significant (display only)"})
      */
     private $uretireDayIndeterminate = false;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="URetireMonthIndeter", type="boolean", nullable=true)
+     * @ORM\Column(name="URetireMonthIndeter", type="boolean", nullable=true, options={"comment":"Indicates whether the month value of URetiredate is significant (display only)"})
      */
     private $uretireMonthIndeterminate = false;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Deceasedate", type="date", nullable=true)
+     * @ORM\Column(name="Deceasedate", type="date", nullable=true, options={"comment":"Deceased date"})
      */
     private $deceasedate;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Secondary", type="boolean", nullable=false)
+     * @ORM\Column(name="Secondary", type="boolean", nullable=false, options={"comment":"Whether the person is a primary (retiree) member or not"})
      */
     private $secondary = false;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Activenow", type="boolean", nullable=true)
+     * @ORM\Column(name="Activenow", type="boolean", nullable=true, options={"comment":"Whether the person's membership is active"})
      */
     private $activenow;
 
     /**
      * @var string
      * @Assert\Choice(choices={"", "postal", "email", "both"}, message="Must be postal, email, or both.")
-     * @ORM\Column(name="news_pref", type="string", length=20, nullable=true)
+     * @ORM\Column(name="news_pref", type="string", length=20, nullable=true, options={"comment":"Newsletter preference"})
      */
     private $newsPref;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Weburl", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Weburl", type="string", length=255, nullable=true, options={"comment":"URL of retiree"})
      */
     private $weburl;
 
@@ -229,7 +229,7 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="email_canonical", type="string", length=255, nullable=True, unique=True)
+     * @ORM\Column(name="email_canonical", type="string", length=255, nullable=True, unique=True, options={"comment":"Primary email, used for login and unique identification"})
      * @Assert\Email()
      */
     protected $emailCanonical;
@@ -237,76 +237,76 @@ class Person extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", nullable=true)
+     * @ORM\Column(name="salt", type="string", nullable=true, options={"comment":"Cryptographic salt, used by FOSUserBundle authentication"})
      */
     protected $salt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", nullable=true)
+     * @ORM\Column(name="password", type="string", nullable=true, options={"comment":"Encrypted password, used by FOSUserBundle authenticator"})
      */
     protected $password;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     * @ORM\Column(name="last_login", type="datetime", nullable=true, options={"comment":"Date user logged in last, used by FOSUserBundle"})
      */
     protected $lastLogin;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="locked", type="boolean")
+     * @ORM\Column(name="locked", type="boolean", options={"comment":"Whether the user's account is locked, used by FOSUserBundle"})
      */
     protected $locked;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="expired", type="boolean")
+     * @ORM\Column(name="expired", type="boolean", options={"comment":"Whether the user's account has expired, used by FOSUserBundle"})
      */
     protected $expired;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expires_at", type="datetime", nullable=true)
+     * @ORM\Column(name="expires_at", type="datetime", nullable=true, options={"comment":"Date user's account expires, used by FOSUserBundle"})
      */
     protected $expiresAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="confirmation_token", type="string", nullable=true)
+     * @ORM\Column(name="confirmation_token", type="string", nullable=true, options={"comment":"Confirmation token, used by password reset feature of FOSUserBundle"})
      */
     protected $confirmationToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
+     * @ORM\Column(name="password_requested_at", type="datetime", nullable=true, options={"comment":"Timestamp user requested a password reset"})
      */
     protected $passwordRequestedAt;
 
     /**
      * @var array
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="array", options={"comment":"Roles assigned to user, used by Symfony authentication"})
      */
     protected $roles;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="credentials_expired", type="boolean")
+     * @ORM\Column(name="credentials_expired", type="boolean", options={"comment":"Whether the user's credentials have expired, used by FOSUserBundle"})
      */
     protected $credentialsExpired = false;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
+     * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true, options={"comment":"Date the user's credentials expire, used by FOSUserBundle"})
      */
     protected $credentialsExpireAt;
 
@@ -331,6 +331,7 @@ class Person extends BaseUser
 
     /**
      * @Assert\Callback
+     * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context)
     {
