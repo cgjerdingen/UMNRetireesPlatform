@@ -2,15 +2,15 @@ UMRA_Luncheon:
     path:     /
     defaults: { _controller: "UMRAMemberBundle:Luncheon:index" }
 
+UMRA_Luncheon_new:
+    path:     /new
+    defaults: { _controller: "UMRAMemberBundle:Luncheon:new" }
+
 UMRA_Luncheon_show:
     path:     /{id}.{_format}
     defaults: { _controller: "UMRAMemberBundle:Luncheon:show", _format: html }
     requirements:
          _format: "html|csv"
-
-UMRA_Luncheon_new:
-    path:     /new
-    defaults: { _controller: "UMRAMemberBundle:Luncheon:new" }
 
 UMRA_Luncheon_create:
     path:     /create
