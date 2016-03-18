@@ -1,5 +1,5 @@
 {% autoescape false %}
-Full Name, Name Tag, Date Registered, Paid?
+"Full Name", "Name Tag", "Date Registered", "Paid?"
 {% for attendee in attendees %}
 "{{ attendee.fullname }}","{{ attendee.nametag }}","{{ attendee.date }}","{{ attendee.paid ? "Yes" : "No" }}"
 {% endfor %}
