@@ -64,8 +64,10 @@ dept,
         'afscme_cler'
     WHEN emptype REGEXP '[Tt]eamster' THEN
         'teamster'
+    WHEN TRIM(emptype) = "" THEN
+        NULL
 ELSE
-    NULL
+    emptype
 END) as emptype,
 STR_TO_DATE(Datejoined, '%c/%e/%Y'),
 REPLACE(Newsletter, "usmail", "postal"),
@@ -73,7 +75,7 @@ REPLACE(Newsletter, "usmail", "postal"),
 ho.id,
 ""
      FROM masterlist AS ma, household AS ho
-WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname) and ma.email != 'dnaumann@umn.edu';
+WHERE (ma.Last = ho.Lastname) and (ma.first = ho.Firstname);
 
 
 
