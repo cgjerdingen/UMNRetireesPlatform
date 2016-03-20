@@ -32,7 +32,7 @@ class Trans
     /**
      * @var string
      *
-     * @ORM\Column(name="Amount", type="decimal", precision=10, scale=0, nullable=false)
+     * @ORM\Column(name="Amount", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $amount;
 
@@ -47,7 +47,7 @@ class Trans
     /**
      * @var string
      *
-     * @ORM\Column(name="Servicechg", type="decimal", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="Servicechg", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $servicechg;
 
