@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderExecuterInterface;
+
 class TransFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -28,6 +32,20 @@ class TransFilterType extends AbstractType
                 'label' => 'Transaction Status',
                 'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
             ))
+            ->add('person', 'filter_collection_adapter', array(
+                'required'   => false,
+                'type' => new TransMemberFilterType(),
+                'add_shared' => function (FilterBuilderExecuterInterface $qbe)  {
+                    $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
+                        // add the join clause to the doctrine query builder
+                        // the where clause for the label and color fields will be added automatically with the right alias later by the Lexik\Filter\QueryBuilderUpdater
+                        $filterBuilder->leftJoin($alias . '.person', $joinAlias);
+                    };
+
+                    // then use the query builder executor to define the join, the join's alias and things to do on the doctrine query builder.
+                    $qbe->addOnce($qbe->getAlias().'.person', 'person', $closure);
+                },
+            ));
         ;
     }
 
