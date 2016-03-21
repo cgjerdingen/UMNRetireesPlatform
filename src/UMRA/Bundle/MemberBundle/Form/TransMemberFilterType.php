@@ -27,7 +27,7 @@ class TransMemberFilterType extends AbstractType
 
     public function getName()
     {
-        return 'member_filter';
+        return 'trans_member_filter';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

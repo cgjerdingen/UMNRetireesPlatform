@@ -43,7 +43,7 @@ class MemberFilterType extends AbstractType
             },
         ));
         $builder->add('transactions', 'filter_collection_adapter', array(
-            'type'       => new TransFilterType(),
+            'type'       => new MemberTransFilterType(),
             'add_shared' => function (FilterBuilderExecuterInterface $qbe)  {
                 $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
                     $filterBuilder->leftJoin($alias . '.transactions', $joinAlias);
