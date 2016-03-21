@@ -43,7 +43,7 @@ class TransFilterType extends AbstractType
                     };
 
                     // then use the query builder executor to define the join, the join's alias and things to do on the doctrine query builder.
-                    $qbe->addOnce($qbe->getAlias().'.person', 'person', $closure);
+                    $qbe->addOnce($qbe->getAlias().'.person', 'p', $closure);
                 },
             ));
         ;
