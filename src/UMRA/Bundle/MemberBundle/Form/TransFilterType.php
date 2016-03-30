@@ -32,9 +32,8 @@ class TransFilterType extends AbstractType
                 'label' => 'Transaction Status',
                 'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
             ))
-            ->add('person', 'filter_collection_adapter', array(
-                'required'   => false,
-                'type' => new TransMemberFilterType(),
+            ->add('person', new TransMemberFilterType(), array(
+                'required' => false,
                 'add_shared' => function (FilterBuilderExecuterInterface $qbe)  {
                     $closure = function (QueryBuilder $filterBuilder, $alias, $joinAlias, Expr $expr) {
                         // add the join clause to the doctrine query builder

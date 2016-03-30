@@ -31,6 +31,11 @@ class TransMemberFilterType extends AbstractType
         ));
     }
 
+    public function getParent()
+    {
+        return 'filter_sharedable';
+    }
+
     public function getName()
     {
         return 'trans_member_filter';
