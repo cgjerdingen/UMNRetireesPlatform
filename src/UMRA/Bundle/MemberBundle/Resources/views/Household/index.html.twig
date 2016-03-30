@@ -39,6 +39,9 @@
                         <a class="btn btn-default btn-sm" href="{{ path('UMRA_Household_edit_full', { 'id': entity.id }) }}">
                             <span class="fa fa-pencil"></span> Edit
                         </a>
+                        <a class="btn btn-info btn-sm" href="{{ path('UMRA_Trans', { 'trans_filter[person][id]': entity.id }) }}">
+                            <span class="fa fa-list"></span> Transactions
+                        </a>
                     </div>
                 </td>
             </tr>

@@ -29,6 +29,15 @@ class TransMemberFilterType extends AbstractType
                 'class' => 'form-control input-sm'
             )
         ));
+        $builder->add('id', 'filter_number', array(
+            'label_attr' => array(
+                'class' => 'hidden'
+            ),
+            'read_only' => true,
+            'attr' => array(
+               'class' => 'hidden'
+            )
+        ));
     }
 
     public function getParent()
