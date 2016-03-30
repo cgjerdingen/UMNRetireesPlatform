@@ -17,11 +17,17 @@ class TransMemberFilterType extends AbstractType
     {
         $builder->add('firstname', 'filter_text', array(
             'label' => 'First Name',
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
         $builder->add('lastname', 'filter_text', array(
             'label' => 'Last Name',
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
     }
 

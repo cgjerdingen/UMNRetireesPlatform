@@ -13,7 +13,10 @@ class EmailFilterType extends AbstractType
     {
         $builder->add('email', 'filter_text', array(
             'label' => 'Email Address',
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
     }
 

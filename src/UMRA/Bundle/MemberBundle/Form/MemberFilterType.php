@@ -17,11 +17,17 @@ class MemberFilterType extends AbstractType
     {
         $builder->add('firstname', 'filter_text', array(
           'label' => 'First Name',
-          'condition_pattern' => FilterOperands::STRING_BOTH
+          'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
         $builder->add('lastname', 'filter_text', array(
           'label' => 'Last Name',
-          'condition_pattern' => FilterOperands::STRING_BOTH
+          'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
         $builder->add('activenow', 'filter_boolean', array('label' => 'Active UMRA Member?'));
         $builder->add('newsPref', 'filter_choice', array(

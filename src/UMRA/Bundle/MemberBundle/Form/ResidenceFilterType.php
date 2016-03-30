@@ -13,19 +13,31 @@ class ResidenceFilterType extends AbstractType
     {
         $builder->add('address1', 'filter_text', array(
             'label' => 'Address 1',
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
 
         $builder->add('city', 'filter_text', array(
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
 
         $builder->add('state', 'filter_text', array(
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
 
         $builder->add('zip', 'filter_text', array(
-            'condition_pattern' => FilterOperands::STRING_BOTH
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'attr' => array(
+                'class' => 'form-control input-sm'
+            )
         ));
     }
 
