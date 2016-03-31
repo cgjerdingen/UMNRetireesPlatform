@@ -97,6 +97,10 @@ class PersonType extends AbstractType
                     'required' => true,
                     'placeholder' => false
                 ))
+            ->add('emailCanonical', 'email', array(
+                'label' => 'Email',
+                'required' => false
+            ))
             ->add('activenow', 'checkbox', array(
                     'label' => 'Active Membership',
                     'required' => false
