@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
+use UMRA\Bundle\MemberBundle\Form\Handler\HouseholdFormHandler;
 use UMRA\Bundle\MemberBundle\Form\HouseholdType;
 use UMRA\Bundle\MemberBundle\Form\HouseholdFilterType;
 use UMRA\Bundle\MemberBundle\Form\FullHouseholdType;
@@ -284,36 +285,8 @@ class HouseholdController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                // Remove any members not PUT back.
-                foreach ($originalMembers as $person) {
-                    if (false === $entity->getPersons()->contains($person)) {
-                        $entity->getPersons()->removeElement($person);
-                        $em->persist($entity);
-                        $em->remove($person);
-                    }
-                }
-
-                // Remove any residences not PUT back.
-                foreach ($originalResidences as $res) {
-                    if (false === $entity->getResidences()->contains($res)) {
-                        $entity->getResidences()->removeElement($res);
-                        $em->persist($entity);
-                        $em->remove($res);
-                    }
-                }
-
-                // Set household relation on people.
-                foreach($entity->getPersons() as $person) {
-                    $person->setHousehold($entity);
-                }
-
-                // Set household relation on residences.
-                foreach($entity->getResidences() as $res) {
-                    $res->setHousehold($entity);
-                }
-
-                $em->persist($entity);
-                $em->flush();
+                $handler = new HouseholdFormHandler($em, $form);
+                $handler->processSave($entity, $originalMembers, $originalResidences);
 
                 return $this->redirect($this->generateUrl('UMRA_Household_edit_full', array('id' => $id)));
             }
