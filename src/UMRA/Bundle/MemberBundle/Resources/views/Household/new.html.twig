@@ -1,18 +1,39 @@
-{% extends 'UMRAMemberBundle::nav.html.twig' %}
+{% extends '::base.html.twig' %}
 
-{% block modulecontent -%}
-    <div class="page-header">
-        <h1>Create a New Household</h1>
-    </div>
-    <div class="col-xs-4">
-        {{ form(form) }}
+{% block body %}
+    <div id="page-content-container">
+        <div class="row">
+            <div class="col-xs-12">
+                {{ form_start(form) }}
+                {{ form_widget(form._token) }}
 
-        <ul class="list-inline">
-            <li>
-                <a class="btn btn-default" href="{{ path('UMRA_Household') }}">
-                    Back to the list
-                </a>
-            </li>
-        </ul>
+                <h4>
+                    Add New Member(s)
+                </h4>
+
+                {{ form_row(form.postalname) }}
+
+                {% include 'UMRAMemberBundle:Person:_form_full.html.twig' with {
+                    'members': form.persons,
+                    'allow_add': true,
+                    'allow_delete': true
+                } %}
+                {% include 'UMRAMemberBundle:Residence:_form_full.html.twig' with {
+                    'residences': form.residences,
+                    'allow_add': true,
+                    'allow_delete': true
+                } %}
+
+                {{ form_widget(form.submit) }}
+                {{ form_end(form, {'render_rest': false}) }}
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'UMRAMemberBundle:Person:_form_prototype.html.twig' with { 'persons': form.persons } %}
+    {% include 'UMRAMemberBundle:Residence:_form_prototype.html.twig' with { 'residences': form.residences } %}
+    <script type="text/javascript" src="{{ asset('js/umramember.jquery.personcollection.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/umramember.jquery.residencecollection.js') }}"></script>
 {% endblock %}

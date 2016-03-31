@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use UMRA\Bundle\MemberBundle\Entity\Household;
+use UMRA\Bundle\MemberBundle\Entity\Person;
+use UMRA\Bundle\MemberBundle\Entity\Residence;
 use UMRA\Bundle\MemberBundle\Form\Handler\HouseholdFormHandler;
 use UMRA\Bundle\MemberBundle\Form\HouseholdType;
 use UMRA\Bundle\MemberBundle\Form\HouseholdFilterType;
@@ -81,10 +83,13 @@ class HouseholdController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Household entity.
      *
      * @Template("UMRAMemberBundle:Household:new.html.twig")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -94,10 +99,11 @@ class HouseholdController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
 
-            return $this->redirect($this->generateUrl('UMRA_Household_show', array('id' => $entity->getId())));
+            $handler = new HouseholdFormHandler($em, $form);
+            $handler->processSave($entity);
+
+            return $this->redirect($this->generateUrl('UMRA_Household_edit_full', array('id' => $entity->getId())));
         }
 
         return array(
@@ -115,7 +121,7 @@ class HouseholdController extends Controller
     */
     private function createCreateForm(Household $entity)
     {
-        $form = $this->createForm(new HouseholdType(), $entity, array(
+        $form = $this->createForm(new FullHouseholdType(), $entity, array(
             'action' => $this->generateUrl('UMRA_Household_create'),
             'method' => 'POST',
         ));
@@ -133,6 +139,8 @@ class HouseholdController extends Controller
     public function newAction()
     {
         $entity = new Household();
+        $entity->addPerson(new Person());
+        $entity->addResidence(new Residence());
         $form   = $this->createCreateForm($entity);
 
         return array(
