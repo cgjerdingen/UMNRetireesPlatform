@@ -13,7 +13,7 @@
 {% block form_widget_simple %}
 {% spaceless %}
     {% set type = type|default('text') %}
-    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    <input type="{{ type }}" class="{% if attr.class is defined %}{{ attr.class }}{% else %}form-control input-sm{% endif %}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {% endspaceless %}
 {% endblock form_widget_simple %}
 
@@ -408,7 +408,7 @@
         {%- if attrname in ['placeholder', 'title'] -%}
             {{- attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
         {%- elseif attrname == 'class' -%}
-            class="form-control input-sm {{ attrvalue }}"
+            class="{{ attrvalue }}"
         {%- elseif attrvalue is sameas(true) -%}
             {{- attrname }}="{{ attrname }}"
         {%- elseif attrvalue is not sameas(false) -%}
