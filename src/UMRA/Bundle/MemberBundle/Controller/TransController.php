@@ -32,19 +32,16 @@ class TransController extends Controller
 
         $form = $this->get('form.factory')->create(new TransFilterType());
 
+        $filterBuilder = $em->getRepository('UMRAMemberBundle:Trans')
+            ->createQueryBuilder('t')
+            ->orderBy('t.trandate', 'DESC');
+
         if ($request->query->has($form->getName())) {
             $form->submit($request->query->get($form->getName()));
-
-            $filterBuilder = $em->getRepository('UMRAMemberBundle:Trans')
-                                ->createQueryBuilder('t')
-                                ->orderBy('t.id', 'DESC');
-
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
-
-            $query = $filterBuilder->getQuery();
-        } else {
-            $query = $em->getRepository('UMRAMemberBundle:Trans')->queryAll();
         }
+
+        $query = $filterBuilder->getQuery();
 
         if ($request->getRequestFormat() === "csv") {
             $entities = $query->getResult();
