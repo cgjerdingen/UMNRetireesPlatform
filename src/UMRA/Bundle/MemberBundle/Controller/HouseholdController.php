@@ -39,22 +39,21 @@ class HouseholdController extends Controller
 
         $form = $this->get('form.factory')->create(new HouseholdFilterType());
 
+        // initialize a query builder
+        $filterBuilder = $em->getRepository('UMRAMemberBundle:Household')
+            ->createQueryBuilder('h')
+            ->orderBy('h.lastname')
+            ->addOrderBy('h.firstname');
+
         if ($request->query->has($form->getName())) {
             // manually bind values from the request
             $form->submit($request->query->get($form->getName()));
 
-            // initialize a query builder
-            $filterBuilder = $em->getRepository('UMRAMemberBundle:Household')
-                                ->createQueryBuilder('h');
-
             // build the query from the given form object
             $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
-
-            // now look at the DQL =)
-            $query = $filterBuilder->getQuery();
-        } else {
-            $query = $em->getRepository('UMRAMemberBundle:Household')->queryAll();
         }
+
+        $query = $filterBuilder->getQuery();
 
         if ($request->getRequestFormat() === "csv") {
             $entities = $query->getResult();
