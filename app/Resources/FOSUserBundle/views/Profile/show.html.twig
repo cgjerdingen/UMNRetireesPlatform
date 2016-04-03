@@ -1,1 +1,11 @@
-{% extends 'UMRAMemberBundle:Person:profile.html.twig ' %}
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="row">
+        <div class="col-sm-6 col-sm-push-3">
+            <div class="well well-sm center-block">
+                {% include 'UMRAMemberBundle:Person:detail.html.twig' with { 'entity': user } %}
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}
