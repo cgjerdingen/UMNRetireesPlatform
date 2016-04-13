@@ -62,6 +62,7 @@
                 <div class="panel-body">
                     <a href="{{ path('UMRA_register') }}"
                        class="btn btn-block btn-lg btn-primary">
+                        <span class="fa fa-hand-o-right"></span>
                         Join Today!
                     </a>
 
@@ -70,13 +71,16 @@
                     <strong>Note to Members Who Registered before [Date of Launch]:</strong>
                     <p>
                         If you were a member prior to [Date of Launch] and you had an email on file with
-                        UMRA, you have an account already! Simply
-                        <a href="{{ path('fos_user_resetting_request') }}">
-                            click here
-                        </a>
-                        to have a password reset sent to you. You will have received an email from UMRA
-                        with a link to click to set a password to login.
+                        UMRA, you have an account already! Click the button below to have a password
+                        reset sent to you. You will have received an email from UMRA with a link
+                        to set a password to login.
                     </p>
+
+                    <a href="{{ path('fos_user_resetting_request') }}"
+                       class="btn btn-block btn-default">
+                        <span class="fa fa-repeat"></span>
+                        Reset Your Password
+                    </a>
                 </div>
             </div>
         </div>
