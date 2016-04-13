@@ -1,7 +1,13 @@
 {% extends 'UMRAMemberBundle::nav.html.twig' %}
 
 {% block modulecontent -%}
-    <h3>Search Members</h3>
+    <h3>
+        Search Members
+
+        <a class="btn btn-primary" href="{{ path('UMRA_Household_new') }}">
+            <span class="glyphicon glyphicon-plus"></span> Add
+        </a>
+    </h3>
 
     <form method="get" action="{{ path('UMRA_Household') }}">
         {{ form_rest(form) }}
@@ -53,11 +59,6 @@
         <div class="btn-group pull-right">
             <a class="btn btn-default" href="{{ path('UMRA_Household', { _format: 'csv' }) }}?{{ app.request.queryString }}">
                 <span class="fa fa-save"></span> Export as CSV
-            </a>
-        </div>
-        <div class="btn-group">
-            <a class="btn btn-primary" href="{{ path('UMRA_Household_new') }}">
-                <span class="glyphicon glyphicon-plus"></span> Add
             </a>
         </div>
     </div>
