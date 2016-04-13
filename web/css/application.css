@@ -19,8 +19,12 @@ a {
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#full-page-wrapper .container {
 	padding-top: 20px;
 	padding-bottom: 20px;
+	border: 1px solid #fc3;
 	background-color: #fefefe;
 }
 
