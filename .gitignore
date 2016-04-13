@@ -19,5 +19,8 @@ src/ACME/*
 #Backup Editor Files
 *~
 
+# JetBrains IDE schtuff
+.idea
+
 # PHPIntel Sublime Plugin
 .phpintel
