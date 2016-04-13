@@ -82,8 +82,16 @@
                 </ul>
             </nav>
             <div class="container">
+                {% if app.user %}
+                    <span class="h4">
+                        <span class="label label-default pull-right">
+                            Logged in as {{ app.user.firstname }} {{ app.user.lastname }}
+                        </span>
+                    </span>
+                {% endif %}
                 <div id="umnhf-alt-sn">
                     <h2>University of Minnesota Retirees Association</h2>
+
                 </div>
             </div>
         </header>

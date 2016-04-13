@@ -3,11 +3,6 @@
 {% block body %}
   <div id="page-content-container" class="row">
     <section class="col-xs-12">
-      {% if app.user %}
-      <p class="pull-right">
-          Logged in as {{ app.user.firstname }} {{ app.user.lastname }}
-      </p>
-      {% endif %}
     {% block modulecontent %}
         <div class="row">
         </div>
