@@ -174,34 +174,6 @@ UMRA_Residence_delete:
     pattern: /residence/{id}
     defaults: { _controller: UMRAMemberBundle:Residence:delete }
     methods: [DELETE]
-UMRA_Role:
-    pattern:  /roles
-    defaults: { _controller: UMRAMemberBundle:Role:index }
-    methods: [GET]
-UMRA_Role_new:
-    pattern:  /role/new
-    defaults: { _controller: UMRAMemberBundle:Role:new }
-    methods: [GET]
-UMRA_Role_show:
-    pattern:  /role/{id}
-    defaults: { _controller: UMRAMemberBundle:Role:show }
-    methods: [GET]
-UMRA_Role_edit:
-    pattern:  /role/{id}/edit
-    defaults: { _controller: UMRAMemberBundle:Role:edit }
-    methods: [GET]
-UMRA_Role_update:
-    pattern:  /role/{id}
-    defaults: { _controller: UMRAMemberBundle:Role:update }
-    methods: [PUT]
-UMRA_Role_create:
-    pattern: /role
-    defaults: { _controller: UMRAMemberBundle:Role:create }
-    methods: [POST]
-UMRA_Role_delete:
-    pattern: /role/{id}
-    defaults: { _controller: UMRAMemberBundle:Role:delete }
-    methods: [DELETE]
 UMRA_Trans_new:
     pattern:  /transaction/new
     defaults: { _controller: UMRAMemberBundle:Trans:new }
