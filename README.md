@@ -10,6 +10,9 @@
   * Mac OS X: Install from [Homebrew](http://brew.sh) (`brew install mysql`) (recommended) or through [a package](https://dev.mysql.com/downloads/mysql/) (easier)
 * [Composer](http://getcomposer.org), for installing dependencies
 
+### Fetching the Code
+1. Run `git clone https://github.com/cgjerdingen/UMNRetireesPlatform.git && cd UMNRetireesPlatform`
+
 ### Installing
 1. Run `php app/check.php` and resolve any errors before doing ANYTHING else.
 2. Run `php [path to composer.phar] install` to fetch dependencies. Composer will also prompt you for configuration values, such as MySQL database name, password, etc.
