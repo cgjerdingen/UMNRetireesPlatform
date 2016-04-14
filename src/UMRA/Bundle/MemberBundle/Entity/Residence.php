@@ -111,7 +111,7 @@ class Residence
     /**
      * @var \UMRA\Bundle\MemberBundle\Entity\Phone
      *
-     * @ORM\OneToMany(targetEntity="UMRA\Bundle\MemberBundle\Entity\Phone", mappedBy="residence")
+     * @ORM\OneToMany(targetEntity="UMRA\Bundle\MemberBundle\Entity\Phone", mappedBy="residence", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $phones;
 
