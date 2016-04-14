@@ -1,5 +1,5 @@
 {% autoescape false %}
-"Date", "Type", "Amount", "Payment Method", "Person ID", "Member Name", "Related Luncheon", "Reconciled by", "Reconciled Date", P"ayment Processor ID", "Invoice ID", "Notes"
+"Date", "Type", "Amount", "Payment Method", "Person ID", "Member Name", "Luncheon", "Reconciled by", "Reconciled Date", "Payment Processor ID", "Invoice ID", "Notes"
 {% for entity in entities %}
 "{{ entity.trandate|date('m-d-Y') }}","{% if entity.trantype == 'MEMBERSHIP_NEW' %}New Membership Fee{% elseif entity.trantype == 'MEMBERSHIP_RENEW' %}Renewal Fee{% elseif entity.trantype == 'LUNCHEON_FEE' %}Luncheon Fee{% elseif entity.trantype == 'PARKING_PASS' %}Parking Pass{% else %}{{ entity.trantype }}{% endif %}","${{ entity.amount + entity.servicechg }}","{% if entity.pmtmethod == "CREDIT_CARD" %}Credit Card / PayPal{% elseif entity.pmtmethod == "CHECK" %}Check{% else %}Other{% endif %}","{{ entity.person ? entity.person.id : "" }}","{{ entity.person ? entity.person.fullname : "" }}","{{ entity.luncheon }}","{% if entity.doneby %}{{ entity.doneby.fullname }}{% endif %}","{{ entity.reconciledDate|date('m-d-Y') }}","{{ entity.procTranId }}","{{ entity.invoiceId }}","{{ entity.notes }}"
 {% endfor %}
