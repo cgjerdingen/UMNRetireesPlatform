@@ -30,12 +30,10 @@
                     <th>Date</th>
                     <th>Type</th>
                     <th>Amount</th>
-                    <th>Payment Method</th>
                     <th>Member</th>
                     <th>Status</th>
-                    <th>Reconciled by</th>
-                    <th>PayPal Transaction ID</th>
-                    <th>Actions</th>
+                    <th style="width: 25%;">Details/Notes</th>
+                    <th><span class="sr-only">Actions</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -59,15 +57,15 @@
                         {{ entity.trantype }}
                     {% endif %}
                     </td>
-                    <td>${{ entity.amount + entity.servicechg }}</td>
                     <td>
-                    {% if entity.pmtmethod == 'CREDIT_CARD' %}
-                        <span class="fa fa-credit-card"></span> Credit Card
-                    {% elseif entity.pmtmethod == 'CHECK' %}
-                        <span class="fa fa-bank"></span> Check
-                    {% else %}
-                        <span class="fa fa-money"></span> Other
-                    {% endif %}
+                        ${{ entity.amount + entity.servicechg }}<br/>
+                        {% if entity.pmtmethod == 'CREDIT_CARD' %}
+                            <span class="fa fa-credit-card"></span> Credit Card
+                        {% elseif entity.pmtmethod == 'CHECK' %}
+                            <span class="fa fa-bank"></span> Check
+                        {% else %}
+                            <span class="fa fa-money"></span> Other
+                        {% endif %}
                     </td>
                     <td>
                     {% if entity.person %}
@@ -83,6 +81,9 @@
                         <span class="label label-success">
                             PROCESSED
                         </span>
+                        {% if entity.doneby %}
+                            <br/>by {{ entity.doneby.fullname }}
+                        {% endif %}
                     {% else %}
                         <span class="label label-warning">
                             AWAITING PROCESS
@@ -90,11 +91,16 @@
                     {% endif %}
                     </td>
                     <td>
-                    {% if entity.doneby %}
-                        {{ entity.doneby.fullname }}
-                    {% endif %}
+                        {% if entity.procTranId %}
+                            <strong>PayPal Transaction ID:</strong>
+                            {{ entity.procTranId }}<br/>
+                        {% endif %}
+                        {% if entity.luncheon %}
+                            <strong>Luncheon:</strong>
+                            {{ entity.luncheon }}<br/>
+                        {% endif %}
+                        {{ entity.notes }}
                     </td>
-                    <td>{{ entity.procTranId }}</td>
                     <td>
                         <ul class="list-inline">
                             {% if not entity.doneBy %}
