@@ -2,6 +2,8 @@
 
 namespace UMRA\Bundle\MemberBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -32,14 +34,29 @@ class TransType extends AbstractType
                     'choices' => array('CREDIT_CARD' => 'Credit Card', 'CHECK' => 'Check', 'OTHER' => 'Other'),
                 ))
             ->add('servicechg', null, array('label' => 'Service Charge'))
+            ->add('person', 'entity', array(
+                'class' => 'UMRAMemberBundle:Person',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.fullname', 'ASC');
+                }
+            ))
             ->add('status', 'choice', array(
                     'label' => 'Transaction Type',
                     'choices' => array('AWAITING_PROCESS' => 'Awaiting Process', 'PROCESSING' => 'Processing', 'PROCESSED' => 'Processed'),
                 ))
             ->add('reconciledDate', null, array('label' => 'Reconciled Date'))
             ->add('notes', 'textarea', array(
-                    'required' => false
-                ))
+                'required' => false
+            ))
+            ->add('luncheon', 'entity', array(
+                'class' => 'UMRAMemberBundle:Luncheon',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('l')
+                        ->orderBy('l.luncheonDate', 'DESC');
+                },
+                'required' => false
+            ))
         ;
     }
 
