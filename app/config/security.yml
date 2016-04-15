@@ -26,6 +26,7 @@ security:
         - { path: ^/transaction/paypal/callback/cancel, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/households, role: ROLE_CAN_VIEW_OTHER_HOUSEHOLD }
         - { path: ^/residences, role: ROLE_CAN_VIEW_OTHER_HOUSEHOLD }
+        - { path: ^/luncheon/register, role: ROLE_USER }
         - { path: ^/luncheon, role: ROLE_CAN_EDIT_LUNCHEON }
         - { path: ^/persons, role: ROLE_CAN_VIEW_OTHER_PERSON }
         - { path: ^/phones, role: ROLE_CAN_VIEW_OTHER_PERSON }
@@ -43,7 +44,6 @@ security:
         - { path: ^/residence/, role: ROLE_USER }
         - { path: ^/email/, role: ROLE_USER }
         - { path: ^/renew, role: ROLE_USER }
-        - { path: ^/luncheon/register, role: ROLE_USER }
 
     role_hierarchy:
         ROLE_CAN_EDIT_OWN_PERSON: ROLE_CAN_VIEW_OWN_PERSON

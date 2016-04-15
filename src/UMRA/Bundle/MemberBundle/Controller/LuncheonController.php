@@ -5,6 +5,7 @@ namespace UMRA\Bundle\MemberBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UMRA\Bundle\MemberBundle\Entity\Luncheon;
 use UMRA\Bundle\MemberBundle\Entity\Person;
 use UMRA\Bundle\MemberBundle\Entity\Trans;
